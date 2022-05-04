@@ -9,3 +9,13 @@ public enum EnumSound
     MainTheme,
     SoundVolumeChange
 }
+
+public enum EnumPlayerAnimationState
+{
+    Idling,
+    Walking,
+    Jumping,
+    Punching,
+    Kicking,
+    Crouching
+}
