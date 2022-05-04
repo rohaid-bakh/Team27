@@ -52,7 +52,9 @@ public class CharacterMonoBehaviour : MonoBehaviour
 
     public void Attack(Attack attack)
     {
-        // todo: make sure not currently attacking
+        // todo: make sure not currently attacking ++ change animation based on inputted attack
+        characterAnimator.ChangeAnimationState(EnumCharacterAnimationState.Attack1);
+
         // todo: use attack
         Debug.Log("Attacking.");
     }
@@ -77,7 +79,7 @@ public class CharacterMonoBehaviour : MonoBehaviour
 
     void SetAnimation()
     {
-        EnumPlayerAnimationState state;
+        EnumCharacterAnimationState state;
 
         // check if any of the animations are currently playing that can't be interuppted (for example, attack animations) 
         if (characterAnimator != null && !characterAnimator.waitingForAnimationToComplete)
@@ -90,11 +92,11 @@ public class CharacterMonoBehaviour : MonoBehaviour
 
             // change animation state based on whether the player is jumping, walking, etc.
             if (isJumping)
-                state = EnumPlayerAnimationState.Jumping;
+                state = EnumCharacterAnimationState.Jumping;
             else if (isWalking)
-                state = EnumPlayerAnimationState.Walking;
+                state = EnumCharacterAnimationState.Walking;
             else // otherwise idle
-                state = EnumPlayerAnimationState.Idling;
+                state = EnumCharacterAnimationState.Idling;
 
             characterAnimator.ChangeAnimationState(state);
         }

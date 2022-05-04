@@ -10,12 +10,11 @@ public enum EnumSound
     SoundVolumeChange
 }
 
-public enum EnumPlayerAnimationState
+public enum EnumCharacterAnimationState
 {
     Idling,
     Walking,
     Jumping,
-    Punching,
-    Kicking,
-    Crouching
+    Attack1,
+    Attack2
 }
