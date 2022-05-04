@@ -2,32 +2,31 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+/// <summary>
+/// Basic character monobehaviour. Can be used for both player + enemy types.
+/// </summary>
+public class CharacterMonoBehaviour : MonoBehaviour
 {
     // movement
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] int jumpPower = 5;
-    Vector2 moveInput;
+    [HideInInspector] public Vector2 moveInput;
 
     // ground check
     [SerializeField] Transform groundPoint;
     [SerializeField] LayerMask whatIsGround;
 
-    // colliders / rigid body
-    Rigidbody rigidBody;
+    // rigid body
+    [HideInInspector] public Rigidbody rigidBody;
 
     // animations
-    PlayerAnimator playerAnimator;
+    public CharacterAnimator characterAnimator { get; private set; }
 
     #region Awake, Start, Update
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
-        playerAnimator = GetComponentInChildren<PlayerAnimator>();
-    }
-
-    void Start()
-    {
+        characterAnimator = GetComponentInChildren<CharacterAnimator>();
     }
 
     void FixedUpdate()
@@ -37,49 +36,33 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    #region Input functions
-    void OnMove(InputValue value)
+    #region Actions
+    public void Move()
     {
-        moveInput = value.Get<Vector2>();
-    }
-
-    void OnJump(InputValue value)
-    {
-        if (value.isPressed && IsGrounded())
-        {
-            rigidBody.velocity += new Vector3(0f, jumpPower, 0f);
-        }
-    }
-
-    void OnPunch(InputValue value)
-    {
-        if (!playerAnimator.waitingForAnimationToComplete)
-        {
-            playerAnimator.ChangeAnimationState(EnumPlayerAnimationState.Punching);
-        }
-    }
-
-    void OnKick(InputValue value)
-    {
-        if (!playerAnimator.waitingForAnimationToComplete)
-        {
-            playerAnimator.ChangeAnimationState(EnumPlayerAnimationState.Kicking);
-        }
-    }
-    #endregion
-
-    #region Movement functions
-    bool IsGrounded()
-    {
-        return Physics.Raycast(groundPoint.position, Vector3.down, .3f, whatIsGround);
-    }
-
-    void Move()
-    {
-        Vector3 playerVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
-        rigidBody.velocity = playerVelocity;
+        Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
+        rigidBody.velocity = characterVelocity;
 
         FlipSprite();
+    }
+
+    public void Jump()
+    {
+        rigidBody.velocity += new Vector3(0f, jumpPower, 0f);
+    }
+
+    public void Attack(Attack attack)
+    {
+        // todo: make sure not currently attacking
+        // todo: use attack
+        Debug.Log("Attacking.");
+    }
+
+    #endregion 
+
+    #region Helper functions
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(groundPoint.position, Vector3.down, .3f, whatIsGround);
     }
 
     void FlipSprite()
@@ -97,7 +80,7 @@ public class PlayerController : MonoBehaviour
         EnumPlayerAnimationState state;
 
         // check if any of the animations are currently playing that can't be interuppted (for example, attack animations) 
-        if (!playerAnimator.waitingForAnimationToComplete)
+        if (characterAnimator != null && !characterAnimator.waitingForAnimationToComplete)
         {
             Vector2 playerVelocity = rigidBody.velocity;
 
@@ -113,7 +96,7 @@ public class PlayerController : MonoBehaviour
             else // otherwise idle
                 state = EnumPlayerAnimationState.Idling;
 
-            playerAnimator.ChangeAnimationState(state);
+            characterAnimator.ChangeAnimationState(state);
         }
     }
     #endregion
