@@ -19,17 +19,16 @@ public class PlayerCharacterController : CharacterMonoBehaviour
         }
     }
 
-    // todo: maybe change OnOunch & OnKick to more generic "Attack1" and "Attack2"?
     void OnPunch(InputValue value)
     {
-        // todo: replace with real attack. Maybe we have a seralizable field with a list of possible attacks?
-        Attack(new Attack());
+        // first attack
+        Attack(EnumCharacterAnimationState.Attack1);
     }
 
     void OnKick(InputValue value)
     {
-        // todo: replace with real attack.  Maybe we have a seralizable field with a list of possible attacks?
-        Attack(new Attack());
+        // second attack
+        Attack(EnumCharacterAnimationState.Attack2);
     }
     #endregion
 }

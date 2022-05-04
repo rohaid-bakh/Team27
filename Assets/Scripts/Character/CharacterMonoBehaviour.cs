@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +19,9 @@ public class CharacterMonoBehaviour : MonoBehaviour
     [SerializeField] Transform groundPoint;
     [SerializeField] LayerMask whatIsGround;
 
+    // attacks
+    [HideInInspector] List<AttackNew> attacks;
+
     // rigid body
     [HideInInspector] public Rigidbody rigidBody;
 
@@ -27,6 +33,7 @@ public class CharacterMonoBehaviour : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
+        attacks = GetComponentsInChildren<AttackNew>().ToList();
     }
 
     void FixedUpdate()
@@ -50,13 +57,22 @@ public class CharacterMonoBehaviour : MonoBehaviour
         rigidBody.velocity += new Vector3(0f, jumpPower, 0f);
     }
 
-    public void Attack(Attack attack)
+    // performs the attack from the list of attacks 
+    public void Attack(EnumCharacterAnimationState attackAnimationState)
     {
-        // todo: make sure not currently attacking ++ change animation based on inputted attack
-        characterAnimator.ChangeAnimationState(EnumCharacterAnimationState.Attack1);
+        AttackNew attack = attacks?.FirstOrDefault(x => x.animationState == attackAnimationState);
+        if (attack != null)
+        {
+            // animation
+            characterAnimator.ChangeAnimationState(attackAnimationState);
 
-        // todo: use attack
-        Debug.Log("Attacking.");
+            // attack
+            attack.Hit();
+        }
+        else
+        {
+            Debug.Log($"Attack doesn't exist for {attackAnimationState.ToString()}");
+        }
     }
 
     #endregion 

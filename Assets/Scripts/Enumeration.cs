@@ -10,6 +10,7 @@ public enum EnumSound
     SoundVolumeChange
 }
 
+// note: these names must match the states in the animator for the player / enemy
 public enum EnumCharacterAnimationState
 {
     Idling,
