@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class DodgingCharacterState : BaseCharacterState
 {
+    public override EnumCharacterAnimationStateName? GetCharacterAnimationStateName() => EnumCharacterAnimationStateName.Blocking;
     public override EnumCharacterState GetState() => EnumCharacterState.Dodging;
+    public override void OnEnter(ICharacterContext context)
+    {
+        DoDodge(context);
+    }
+
     public override void Idle(ICharacterContext context)
     {
         context.SetState(new IdlingCharacterState());
@@ -15,5 +22,10 @@ public class DodgingCharacterState : BaseCharacterState
     public override void TakeDamage(ICharacterContext context)
     {
         context.SetState(new TakingDamageCharacterState());
+    }
+
+    private void DoDodge(ICharacterContext context)
+    {
+        
     }
 }
