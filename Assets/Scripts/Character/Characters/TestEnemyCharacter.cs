@@ -8,6 +8,7 @@ public class TestEnemyCharacter : CharacterMonoBehaviour
         StartCoroutine(EnemyAIBehaviour());
     }
 
+    
     private IEnumerator EnemyAIBehaviour()
     {
         // move to the right for 2 seconds

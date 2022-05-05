@@ -7,4 +7,5 @@ public class Stats : ScriptableObject
 {
     public int health; 
     public int damage;
+    public Material flash;
 }
