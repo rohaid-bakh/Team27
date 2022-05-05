@@ -11,19 +11,22 @@ public class TestEnemyCharacter : CharacterMonoBehaviour
     private IEnumerator EnemyAIBehaviour()
     {
         // move to the right for 2 seconds
-        moveInput = Vector2.right;
+        Move(Vector2.right);
         yield return new WaitForSeconds(2f);
 
         // move to the left for 2 seconds
-        moveInput = Vector2.left;
+        Move(Vector2.left);
         yield return new WaitForSeconds(2f);
 
-        moveInput = Vector2.zero;
+        Move(Vector2.zero);
 
         // jump
         Jump();
 
         yield return new WaitForSeconds(1f);
+
+        // block
+        Block();
 
     }
 }

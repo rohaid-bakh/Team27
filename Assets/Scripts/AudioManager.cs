@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
         Sound musicTrack = musicTracks.FirstOrDefault();
         if (musicTrack != null && !musicTrack.source.isPlaying)
         {
-            PlayMusicTrack(EnumSound.MainTheme);
+            PlayMusicTrack(EnumSoundName.MainTheme);
         }
     }
 
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
     /// Used to play a sound effect from the list of sound effects in the audio manager.
     /// </summary>
     /// <param name="soundName"></param>
-    public void PlaySoundEffect(EnumSound soundName)
+    public void PlaySoundEffect(EnumSoundName soundName)
     {
         Sound soundEffect = soundEffects.FirstOrDefault(s => s.name == soundName);
         if (soundEffect != null)
@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour
     /// Used to play a music track from the list of tracks in the audio manager.
     /// </summary>
     /// <param name="soundName"></param>
-    public void PlayMusicTrack(EnumSound soundName)
+    public void PlayMusicTrack(EnumSoundName soundName)
     {
         Sound musicTrack = musicTracks.FirstOrDefault(s => s.name == soundName);
         if (musicTrack != null)
@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviour
         UpdateVolume(soundEffectVolume, soundEffects);
 
         // play sound effect to test 
-        PlaySoundEffect(EnumSound.SoundVolumeChange);
+        PlaySoundEffect(EnumSoundName.SoundVolumeChange);
     }
     #endregion
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterAnimator : MonoBehaviour
 {
     Animator animator;
-    public EnumCharacterAnimationState currentAnimationState { get; private set; }
+    public EnumCharacterAnimationStateName currentAnimationState { get; private set; }
     public bool waitingForAnimationToComplete { get; private set; }
 
     List<AnimationClip> animations;
@@ -30,12 +30,12 @@ public class CharacterAnimator : MonoBehaviour
     /// Used to set the animation state and play the animations.
     /// </summary>
     /// <param name="newState"></param>
-    public void ChangeAnimationState(EnumCharacterAnimationState newState)
+    public void ChangeAnimationState(EnumCharacterAnimationStateName newState)
     {
         //stop the same animation from interuptting itself
         if (currentAnimationState == newState || waitingForAnimationToComplete) return;
 
-        //if we need to wait for animation to complete 
+        //check if we need to wait for animation to complete (no loopable animations should complete)
         if (!IsAnimationClipLoopable(newState))
         {
             waitingForAnimationToComplete = true;
@@ -62,7 +62,7 @@ public class CharacterAnimator : MonoBehaviour
     /// </summary>
     /// <param name="animationState"></param>
     /// <returns></returns>
-    float? GetAnimationClipTime(EnumCharacterAnimationState animationState)
+    float? GetAnimationClipTime(EnumCharacterAnimationStateName animationState)
     {
         AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name == animationState.ToString());
 
@@ -80,7 +80,7 @@ public class CharacterAnimator : MonoBehaviour
     /// </summary>
     /// <param name="animationState"></param>
     /// <returns></returns>
-    bool IsAnimationClipLoopable(EnumCharacterAnimationState animationState)
+    bool IsAnimationClipLoopable(EnumCharacterAnimationStateName animationState)
     {
         AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name == animationState.ToString());
 
