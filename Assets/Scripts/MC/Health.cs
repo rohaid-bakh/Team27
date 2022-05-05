@@ -8,20 +8,43 @@ public class Health : MonoBehaviour
     public Stats stat;
     [SerializeField]
     private Slider healthbar;
-    void Awake(){
+    private SpriteRenderer renderer;
+    private Material defaultMat;
+    void Awake()
+    {
         hpbar = stat.health;
-        healthbar.normalizedValue = 1;
+        healthbar.normalizedValue = 1f;
+        renderer = GetComponentInChildren<SpriteRenderer>(); // might need to reconsider this if there's more sprite children
+        defaultMat = renderer.material;
     }
-    public void TakeDamage(int damage){ // other classes call this
+    public void TakeDamage(int damage)
+    { // other classes call this
+
         hpbar -= damage;
-        healthbar.normalizedValue = 1f-((float)(stat.health-hpbar)/(float)stat.health);
-        if(hpbar <= 0){
+        updateUIbar();
+        StartCoroutine(HitFlash());
+
+        CameraShake.Trauma = .3f; // Set the amount of camera shake 
+
+        if (hpbar <= 0)
+        {
             Death();
         }
     }
 
-    private void Death(){
+    private void updateUIbar(){
+        healthbar.normalizedValue = 1f - ((float)(stat.health - hpbar) / (float)stat.health);
+    }
+    private void Death()
+    {
         // place holder until we have a death script/idea.
         Debug.Log("This character has died.");
+    }
+    private IEnumerator HitFlash()
+    {
+        renderer.material = stat.flash; //switches material to white
+        yield return new WaitForSeconds(.2f); // can make the length of the flash a variable
+        renderer.material = defaultMat;
+
     }
 }
