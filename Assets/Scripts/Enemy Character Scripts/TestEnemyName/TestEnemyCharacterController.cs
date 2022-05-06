@@ -48,6 +48,12 @@ public class TestEnemyCharacterController : CharacterMonoBehaviour
             Jump();
 
             yield return new WaitForSeconds(1f);
+
+            // move faster than base speed (twice as fast) for half a second
+            float speedModifier = 2; // double speed
+            Move(Vector2.right, speedModifier);
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

@@ -54,9 +54,10 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// Used to move the character in the provided direction (left, right, or no direction)
     /// </summary>
     /// <param name="newMoveInput">Ex. Vector2.right, Vector2.left, Vector2.zero</param>
-    public void Move(Vector2 newMoveInput) 
+    /// <param name="speedModifier">If you want to increase speed (ex. 1.25) or decrease speed (ex. 0.75). 1 by default</param>
+    public void Move(Vector2 newMoveInput, float speedModifier = 1) 
     {
-        moveInput = newMoveInput;
+        moveInput = newMoveInput * speedModifier;
         if (newMoveInput == Vector2.zero)
             currentState.Idle(this);
         else
@@ -66,7 +67,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// <summary>
     /// Used to make an attack.
     /// </summary>
-    /// <param name="attack"></param>
+    /// <param name="attack">The attack you want to perform.</param>
     public void Attack(IAttack attack)
     {
         currentState.Attack(this, attack);
@@ -90,6 +91,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// <summary>
     /// When the character takes damage
     /// </summary>
+    /// <param name="damageAmount">Amount of damage to be applied</param>
     public void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
 
     #endregion
