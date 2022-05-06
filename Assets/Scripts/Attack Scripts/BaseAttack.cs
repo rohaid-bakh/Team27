@@ -5,8 +5,8 @@ public class BaseAttack : MonoBehaviour, IAttack
 {
 
     [SerializeField] private Transform attackPoint; 
-    [SerializeField] int damageAmount;
-    [SerializeField] float attackRadius;
+    [SerializeField] int damageAmount = 1;
+    [SerializeField] float attackRadius = 0.25f;
     public LayerMask enemy;
 
     public virtual EnumCharacterAnimationStateName? GetAnimationStateName() => null;
@@ -32,10 +32,12 @@ public class BaseAttack : MonoBehaviour, IAttack
             CharacterMonoBehaviour character = col.gameObject.GetComponent<CharacterMonoBehaviour>();
             if (character != null)
             {
+                //Debug.Log($"Character state: {character.GetState()}");
                 character.TakeDamage(damageAmount); 
             }
             else
             {
+                Debug.Log("Character monobehaviour not found");
                 // ie. if no charactermonobehavior, search for health component & apply the damage directly
                 col.gameObject.GetComponent<Health>()?.TakeDamage(damageAmount);
             }

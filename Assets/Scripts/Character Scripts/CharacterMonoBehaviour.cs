@@ -97,6 +97,11 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     #endregion
 
     #region Character Checks (IsBlocking, IsAttacking, etc.)
+    public EnumCharacterState GetState()
+    {
+        return currentState.GetState();
+    }
+
     public bool IsDead()
     {
         if (currentState.GetState() == EnumCharacterState.Dead)

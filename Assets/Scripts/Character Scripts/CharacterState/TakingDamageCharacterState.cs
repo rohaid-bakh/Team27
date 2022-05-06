@@ -26,15 +26,13 @@ public class TakingDamageCharacterState : BaseCharacterState
         // wait for animation to finish
         if (!context.IsWaitingForAnimationToFinish())
         {
+            //Debug.Log($"Character Grounded: {context.IsGrounded()} IsMoving: {context.IsMovingLeftOrRight()}");
             if (context.IsGrounded() & context.IsMovingLeftOrRight())
             {
-                Debug.Log("Seting state walking");
                 context.SetState(new WalkingCharacterState());
             }
             else if (context.IsGrounded() & !context.IsMovingLeftOrRight())
             {
-                Debug.Log("Seting state idling");
-                Debug.Log($"IsGrounded: {context.IsGrounded()} IsMoving: {context.IsMovingLeftOrRight()}");
                 context.SetState(new IdlingCharacterState());
             }
         }
