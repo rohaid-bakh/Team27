@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 405331930}
-  - component: {fileID: 405331931}
+  - component: {fileID: 1137707214}
   m_Layer: 7
   m_Name: Attack1
   m_TagString: Untagged
@@ -25,14 +25,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405331929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.586, y: -0.54, z: 0}
+  m_LocalPosition: {x: 0.494, y: -0.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1873826683949692241}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &405331931
+--- !u!114 &1137707214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 405331929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57a8179b5a62f2428b68b21ffb67fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4610a50a0c657cc46b362602307eb226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 405331930}
-  damageAmount: 5
-  animationState: 3
+  attackPoint: {fileID: 405331930}
+  damageAmount: 2
+  attackRadius: 0.25
   enemy:
     serializedVersion: 2
     m_Bits: 8
@@ -59,7 +59,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133990026}
-  - component: {fileID: 2133990027}
+  - component: {fileID: 2112737141}
   m_Layer: 7
   m_Name: Attack2
   m_TagString: Untagged
@@ -82,7 +82,7 @@ Transform:
   m_Father: {fileID: 1873826683949692241}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2133990027
+--- !u!114 &2112737141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,12 +91,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2133990025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57a8179b5a62f2428b68b21ffb67fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 740fd477f2da9bf4b822f194c35a8288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 2133990026}
-  damageAmount: 3
-  animationState: 4
+  attackPoint: {fileID: 2133990026}
+  damageAmount: 2
+  attackRadius: 0.25
   enemy:
     serializedVersion: 2
     m_Bits: 8
@@ -180,7 +180,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873826683949692255}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -245,14 +245,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a668a7b44ea9e4ba09c2bc89194044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
-  jumpPower: 5
-  moveInput: {x: 0, y: 0}
+  moveSpeed: 3
+  jumpPower: 6
   groundPoint: {fileID: 1873826683334567515}
+  distanceToGround: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  rigidBody: {fileID: 0}
+  attack1: {fileID: 1137707214}
+  attack2: {fileID: 2112737141}
 --- !u!114 &1964360969489657525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: 11400000, guid: 9d77b2e6f9e61684599f06b97a233fb9, type: 2}
+  healthbar: {fileID: 0}
 --- !u!114 &4001138840001509829
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 public class Sound
 {
     // to identify the sound
-    public EnumSound name;
+    public EnumSoundName name;
 
     // audio clip to play
     public AudioClip clip;
