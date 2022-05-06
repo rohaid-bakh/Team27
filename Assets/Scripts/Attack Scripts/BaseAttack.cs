@@ -28,11 +28,16 @@ public class BaseAttack : MonoBehaviour, IAttack
 
         foreach (Collider col in hit)
         {
-            // note: this only works if all of the enemies inherit from CharacterMonobehavior. Otherwise need to use GetComponent<Health>().TakeDamage();
+            // note: this only works if all of the "opponent" inherits from CharacterMonobehavior. Otherwise need to use GetComponent<Health>().TakeDamage();
             CharacterMonoBehaviour character = col.gameObject.GetComponent<CharacterMonoBehaviour>();
             if (character != null)
             {
-                character.TakeDamage(damageAmount);
+                character.TakeDamage(damageAmount); 
+            }
+            else
+            {
+                // ie. if no charactermonobehavior, search for health component & apply the damage directly
+                col.gameObject.GetComponent<Health>()?.TakeDamage(damageAmount);
             }
         }
     }
