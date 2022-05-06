@@ -41,12 +41,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 405331929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57a8179b5a62f2428b68b21ffb67fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c6925f340119694d866ebfe686548c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack: {fileID: 405331930}
-  damageAmount: 5
+  damageAmount: 2
+  attackRadius: 1
   animationState: 3
+  attackSoundEffect: 3
   enemy:
     serializedVersion: 2
     m_Bits: 8
@@ -59,7 +61,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2133990026}
-  - component: {fileID: 2133990027}
+  - component: {fileID: 6994254556859527256}
   m_Layer: 7
   m_Name: Attack2
   m_TagString: Untagged
@@ -82,7 +84,7 @@ Transform:
   m_Father: {fileID: 1873826683949692241}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2133990027
+--- !u!114 &6994254556859527256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,12 +93,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2133990025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57a8179b5a62f2428b68b21ffb67fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c6925f340119694d866ebfe686548c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attack: {fileID: 2133990026}
-  damageAmount: 3
+  damageAmount: 2
+  attackRadius: 3
   animationState: 4
+  attackSoundEffect: 4
   enemy:
     serializedVersion: 2
     m_Bits: 8
@@ -253,6 +257,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rigidBody: {fileID: 0}
+  attack1: {fileID: 0}
+  attack2: {fileID: 0}
 --- !u!114 &1964360969489657525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat: {fileID: 11400000, guid: 9d77b2e6f9e61684599f06b97a233fb9, type: 2}
+  healthbar: {fileID: 0}
 --- !u!114 &4001138840001509829
 MonoBehaviour:
   m_ObjectHideFlags: 0

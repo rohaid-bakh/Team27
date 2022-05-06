@@ -4,16 +4,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : CharacterMonoBehaviour
 {
-    
+    [SerializeField] AttackNew attack1;
+    [SerializeField] AttackNew attack2;
+
     #region Input functions
     void OnMove(InputValue value)
     {
-        moveInput = value.Get<Vector2>();
+        Move(value.Get<Vector2>());
     }
 
     void OnJump(InputValue value)
     {
-        if (value.isPressed && IsGrounded())
+        if (value.isPressed)
         {
             Jump();
         }
@@ -22,13 +24,13 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     void OnPunch(InputValue value)
     {
         // first attack
-        Attack(EnumCharacterAnimationState.Attack1);
+        Attack(attack1);
     }
 
     void OnKick(InputValue value)
     {
         // second attack
-        Attack(EnumCharacterAnimationState.Attack2);
+        Attack(attack2);
     }
     #endregion
 }

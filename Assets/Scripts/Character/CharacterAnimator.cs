@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterAnimator : MonoBehaviour
 {
     Animator animator;
-    public EnumCharacterAnimationState currentAnimationState { get; private set; }
+    public EnumCharacterAnimationStateName currentAnimationState { get; private set; }
     public bool waitingForAnimationToComplete { get; private set; }
 
     List<AnimationClip> animations;
@@ -16,12 +16,12 @@ public class CharacterAnimator : MonoBehaviour
     {
         waitingForAnimationToComplete = false;
         animator = GetComponent<Animator>();
-        
+
     }
 
     void Start()
     {
-        SetAnimClipTimesFromAnimator();
+        animations = animator.runtimeAnimatorController.animationClips.ToList();
     }
     #endregion
 
@@ -30,12 +30,12 @@ public class CharacterAnimator : MonoBehaviour
     /// Used to set the animation state and play the animations.
     /// </summary>
     /// <param name="newState"></param>
-    public void ChangeAnimationState(EnumCharacterAnimationState newState)
+    public void ChangeAnimationState(EnumCharacterAnimationStateName newState)
     {
         //stop the same animation from interuptting itself
         if (currentAnimationState == newState || waitingForAnimationToComplete) return;
 
-        //if we need to wait for animation to complete 
+        //check if we need to wait for animation to complete (no loopable animations should complete)
         if (!IsAnimationClipLoopable(newState))
         {
             waitingForAnimationToComplete = true;
@@ -62,14 +62,20 @@ public class CharacterAnimator : MonoBehaviour
     /// </summary>
     /// <param name="animationState"></param>
     /// <returns></returns>
-    float? GetAnimationClipTime(EnumCharacterAnimationState animationState)
+    float? GetAnimationClipTime(EnumCharacterAnimationStateName animationState)
     {
-        AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name == animationState.ToString());
+        // animation clip name, should contain a substring of the animation state name (ex. Animation State: Idling; Animation Clip: Player_Idling)
+        AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name.ToUpper().Contains(animationState.ToString().ToUpper()));
 
         // check if anmation exists in list
         if (clip != null)
         {
             return clip.length;
+        }
+        else
+        {
+            Debug.Log($"{animationState.ToString()} Animation clip not found in animator");
+            foreach (AnimationClip animClip in animations) { Debug.Log(animClip.name + " " + animClip.name.ToUpper().Contains(animationState.ToString().ToUpper())); }
         }
 
         return null;
@@ -80,25 +86,22 @@ public class CharacterAnimator : MonoBehaviour
     /// </summary>
     /// <param name="animationState"></param>
     /// <returns></returns>
-    bool IsAnimationClipLoopable(EnumCharacterAnimationState animationState)
+    bool IsAnimationClipLoopable(EnumCharacterAnimationStateName animationState)
     {
-        AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name == animationState.ToString());
+        // animation clip name, should contain a substring of the animation state name (ex. Animation State: Idling; Animation Clip: Player_Idling)
+        AnimationClip clip = animations.FirstOrDefault(animClip => animClip.name.ToUpper().Contains(animationState.ToString().ToUpper()));
 
         // check if anmation exists in list
         if (clip != null)
         {
             return clip.isLooping;
         }
+        else
+        {
+            Debug.Log($"{animationState.ToString()} Animation clip not found in animator");
+        }
 
         return true;
-    }
-
-    /// <summary>
-    /// Creates a dictionary of animation clips & their length for reference
-    /// </summary>
-    void SetAnimClipTimesFromAnimator()
-    {
-        animations = animator.runtimeAnimatorController.animationClips.ToList();
     }
 
     /// <summary>
