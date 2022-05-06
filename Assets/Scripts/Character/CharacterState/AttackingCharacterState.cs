@@ -8,19 +8,19 @@ using UnityEngine;
 
 public class AttackingCharacterState : BaseCharacterState
 {
-    AttackNew Attack;
-    public AttackingCharacterState(AttackNew attack)
+    IAttack Attack;
+    public AttackingCharacterState(IAttack attack)
     {
         Attack = attack;
     }
     public override EnumCharacterState GetState() => EnumCharacterState.Attacking;
-    public override EnumCharacterAnimationStateName? GetCharacterAnimationStateName() => Attack.animationState;
-    public override EnumSoundName? GetSoundEffectName() => Attack.attackSoundEffect;
+    public override EnumCharacterAnimationStateName? GetCharacterAnimationStateName() => Attack.GetAnimationStateName();
+    public override EnumSoundName? GetSoundEffectName() => Attack.GetSoundEffectName();
 
     public override void OnEnter(ICharacterContext context)
     {
         base.OnEnter(context);
-        Attack.Hit();
+        Attack.Attack();
     }
 
     public override void OnUpdate(ICharacterContext context)
@@ -28,9 +28,7 @@ public class AttackingCharacterState : BaseCharacterState
         // wait for animation to finish
         if (!context.IsWaitingForAnimationToFinish())
         {
-            if (context.IsJumping())
-                context.SetState(new JumpingCharacterState());
-            else if (context.IsGrounded() & context.IsMoving())
+            if (context.IsGrounded() & context.IsMoving())
                 context.SetState(new WalkingCharacterState());
             else if (context.IsGrounded() & !context.IsMoving())
                 context.SetState(new IdlingCharacterState());

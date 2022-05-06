@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public interface ICharacterState
 {
@@ -15,7 +16,7 @@ public interface ICharacterState
     void Idle(ICharacterContext context);
     void Walk(ICharacterContext context);
     void Jump(ICharacterContext context);
-    void Attack(ICharacterContext context, AttackNew attack);
+    void Attack(ICharacterContext context, IAttack attack);
     void Block(ICharacterContext context);
     void Dodge(ICharacterContext context);
     void TakeDamage(ICharacterContext context, int damageAmount);

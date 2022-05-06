@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class IdlingCharacterState : BaseCharacterState
 {
@@ -19,7 +20,7 @@ public class IdlingCharacterState : BaseCharacterState
         context.SetState(new JumpingCharacterState());
     }
 
-    public override void Attack(ICharacterContext context, AttackNew attack)
+    public override void Attack(ICharacterContext context, IAttack attack)
     {
         context.SetState(new AttackingCharacterState(attack));
     }

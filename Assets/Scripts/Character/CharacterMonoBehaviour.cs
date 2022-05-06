@@ -30,6 +30,8 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     ICharacterState currentState = new IdlingCharacterState();
 
+    private bool canMove = true;
+
     #region Awake, Start, Update
     void Awake()
     {
@@ -50,11 +52,11 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// <summary>
     /// Used to move the character in the provided direction (left, right, or no direction)
     /// </summary>
-    /// <param name="direction">Ex. Vector2.right, Vector2.left, Vector2.zero</param>
-    public void Move(Vector2 direction) 
+    /// <param name="newMoveInput">Ex. Vector2.right, Vector2.left, Vector2.zero</param>
+    public void Move(Vector2 newMoveInput) 
     {
-        moveInput = direction;
-        if (direction == Vector2.zero)
+        moveInput = newMoveInput;
+        if (newMoveInput == Vector2.zero)
             currentState.Idle(this);
         else
             currentState.Walk(this);
@@ -64,7 +66,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// Used to make an attack.
     /// </summary>
     /// <param name="attack"></param>
-    public void Attack(AttackNew attack)
+    public void Attack(IAttack attack)
     {
         currentState.Attack(this, attack);
     }
@@ -122,6 +124,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     }
     #endregion
 
+    // these are helper functions that are just used for this class. If you inherit the class you can ignore these
     #region Helper functions
     public bool IsWaitingForAnimationToFinish()
     {
@@ -131,6 +134,11 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public float GetJumpForce()
     {
         return jumpPower;
+    }
+
+    public void SetCanMoveBool(bool canMove)
+    {
+        this.canMove = canMove;
     }
 
     public void AddForceToVelocity(Vector3 force)
@@ -172,10 +180,13 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     void Move()
     {
-        Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
-        rigidBody.velocity = characterVelocity;
+        if (canMove)
+        {
+            Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
+            rigidBody.velocity = characterVelocity;
 
-        FlipSprite();
+            FlipSprite();
+        }
     }
 
     void FlipSprite()

@@ -26,7 +26,7 @@ public class BaseCharacterState : ICharacterState
     {
     }
 
-    public virtual void Attack(ICharacterContext context, AttackNew attack)
+    public virtual void Attack(ICharacterContext context, IAttack attack)
     {
     }
 

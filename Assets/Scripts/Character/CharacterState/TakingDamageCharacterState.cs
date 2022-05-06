@@ -22,16 +22,6 @@ public class TakingDamageCharacterState : BaseCharacterState
         DoTakeDamage(context);
     }
 
-    public override void Idle(ICharacterContext context)
-    {
-        context.SetState(new IdlingCharacterState());
-    }
-
-    public override void Walk(ICharacterContext context)
-    {
-        context.SetState(new WalkingCharacterState());
-    }
-
     private void DoTakeDamage(ICharacterContext context)
     {
         bool isCharacterDead = context.ApplyDamageToHealth(DamageAmount);

@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerCharacterController : CharacterMonoBehaviour
 {
-    [SerializeField] AttackNew attack1;
-    [SerializeField] AttackNew attack2;
+    [SerializeField] PlayerAttack1 attack1;
+    [SerializeField] PlayerAttack2 attack2;
 
     #region Input functions
     void OnMove(InputValue value)
@@ -21,13 +21,21 @@ public class PlayerCharacterController : CharacterMonoBehaviour
         }
     }
 
-    void OnPunch(InputValue value)
+    void OnBlock(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Block();
+        }
+    }
+
+    void OnAttack1(InputValue value)
     {
         // first attack
         Attack(attack1);
     }
 
-    void OnKick(InputValue value)
+    void OnAttack2(InputValue value)
     {
         // second attack
         Attack(attack2);

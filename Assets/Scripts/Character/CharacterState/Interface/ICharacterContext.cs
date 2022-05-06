@@ -10,6 +10,7 @@ public interface ICharacterContext
     void SetState(ICharacterState newState);
     void PlayAnimation(EnumCharacterAnimationStateName? animationStateName);
     void PlaySoundEffect(EnumSoundName? soundEffectName);
+    void SetCanMoveBool(bool canMove);
     bool ApplyDamageToHealth(int damageAmont);
     float GetJumpForce();
     void AddForceToVelocity(Vector3 force);
