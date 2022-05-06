@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1354128428}
+  - component: {fileID: 8454759634094254}
   m_Layer: 0
   m_Name: Attack1
   m_TagString: Untagged
@@ -62,6 +63,24 @@ Transform:
   m_Father: {fileID: 1897330003232957487}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8454759634094254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354128427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c2e6ba4ed3a674d8287e85685baab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 1354128428}
+  damageAmount: 2
+  attackRadius: 0.25
+  enemy:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1897330003170672135
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,9 +123,9 @@ GameObject:
   - component: {fileID: 1897330003232957487}
   - component: {fileID: 1897330003232957456}
   - component: {fileID: 1897330003232957459}
-  - component: {fileID: 1897330003232957486}
   - component: {fileID: 5452823771353553517}
   - component: {fileID: 2801307365039849416}
+  - component: {fileID: 482625964544098183}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -163,26 +182,6 @@ CapsuleCollider:
   m_Height: 1.355546
   m_Direction: 1
   m_Center: {x: 0, y: -0.17777301, z: 0}
---- !u!114 &1897330003232957486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897330003232957460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b5a9aeb6fa9b14fb0dffe914520b7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1
-  jumpPower: 5
-  moveInput: {x: 0, y: 0}
-  groundPoint: {fileID: 1897330003170672134}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  rigidBody: {fileID: 0}
 --- !u!114 &5452823771353553517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +209,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 1897330003232957459}
+--- !u!114 &482625964544098183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897330003232957460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b5a9aeb6fa9b14fb0dffe914520b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1.25
+  jumpPower: 4
+  groundPoint: {fileID: 1897330003170672134}
+  distanceToGround: 0.1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  attack1: {fileID: 8454759634094254}
 --- !u!1 &1897330003576629654
 GameObject:
   m_ObjectHideFlags: 0

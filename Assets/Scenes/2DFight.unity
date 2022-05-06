@@ -268,7 +268,7 @@ PrefabInstance:
     - target: {fileID: 6033188394283969365, guid: 96b7680bbf378dc4e9411a3fdf4e363e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6033188394283969365, guid: 96b7680bbf378dc4e9411a3fdf4e363e,
         type: 3}
@@ -407,12 +407,12 @@ PrefabInstance:
     - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: soundEffects.Array.data[1].pitch
-      value: 1.37
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: soundEffects.Array.data[1].volume
-      value: 1
+      value: 0.323
       objectReference: {fileID: 0}
     - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
@@ -422,7 +422,7 @@ PrefabInstance:
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
@@ -876,7 +876,7 @@ Transform:
   m_GameObject: {fileID: 1947649391}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.0084, y: 1, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1494870430}
@@ -956,7 +956,7 @@ PrefabInstance:
     - target: {fileID: 1873826683949692241, guid: 91c195affd1c74c4787e4be488d416c3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1873826683949692241, guid: 91c195affd1c74c4787e4be488d416c3,
         type: 3}
@@ -1035,7 +1035,7 @@ PrefabInstance:
     - target: {fileID: 1897330003232957487, guid: 286fc6f7cccab4e4595d985d422304ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1897330003232957487, guid: 286fc6f7cccab4e4595d985d422304ef,
         type: 3}
@@ -1092,7 +1092,5 @@ PrefabInstance:
       propertyPath: healthbar
       value: 
       objectReference: {fileID: 411809518}
-    m_RemovedComponents:
-    - {fileID: 1354128429, guid: 286fc6f7cccab4e4595d985d422304ef, type: 3}
-    - {fileID: 7496567, guid: 286fc6f7cccab4e4595d985d422304ef, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286fc6f7cccab4e4595d985d422304ef, type: 3}
