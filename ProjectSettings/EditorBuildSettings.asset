@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/nightScene.unity
     guid: 05588bd51fadb8244946f9d850af4da2
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/2DFight.unity
+    guid: eba29cf8377ba5f41ac69a9445045027
   m_configObjects: {}
