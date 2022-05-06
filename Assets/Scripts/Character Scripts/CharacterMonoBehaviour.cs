@@ -29,6 +29,9 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     // health
     Health characterHealth; // character needs a health component attached
 
+    // text mesh (for testing purposes, placed on top of character to view states)
+    TextMesh testingTextMesh = null;
+
     ICharacterState currentState = new IdlingCharacterState();
 
     private bool canMove = true;
@@ -39,12 +42,14 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         rigidBody = GetComponent<Rigidbody>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterHealth = GetComponent<Health>();
+        testingTextMesh = GetComponentInChildren<TextMesh>();
     }
 
     void FixedUpdate()
     {
         Move();
         currentState.OnUpdate(this);
+        UpdateTeshMeshWithCharacterState(); // for testing. Can be removed when finished game
     }
     #endregion
 
@@ -135,7 +140,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     public bool IsJumping()
     {
-        return Mathf.Abs(rigidBody.velocity.y) > 0.2;
+        return Mathf.Abs(rigidBody.velocity.y) > Mathf.Epsilon;
     }
     #endregion
 
@@ -147,6 +152,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(groundPoint.position, distanceToGround);
+    }
+
+    // used to display character state (for testing purposes)
+    void UpdateTeshMeshWithCharacterState()
+    {
+        if(testingTextMesh != null)
+        {
+            testingTextMesh.text = currentState.GetState().ToString();
+        }
     }
 
     public bool IsWaitingForAnimationToFinish()
@@ -167,6 +181,8 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void AddForceToVelocity(Vector3 force)
     {
         rigidBody.velocity += force;
+        // rigidBody.AddForce(force, ForceMode.Impulse);
+        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
     }
     
     public bool ApplyDamageToHealth(int damageAmont)
@@ -198,14 +214,14 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void PlaySoundEffect(EnumSoundName? soundEffectName)
     {
         if (soundEffectName != null)
-            AudioManager.instance.PlaySoundEffect((EnumSoundName)soundEffectName);
+            AudioManager.instance?.PlaySoundEffect((EnumSoundName)soundEffectName);
     }
 
     void Move()
     {
         if (canMove)
         {
-            Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
+            Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             rigidBody.velocity = characterVelocity;
 
             FlipSprite();
