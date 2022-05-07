@@ -168,6 +168,8 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     // temporarily switch layers to avoid collision with opponent
     public IEnumerator IgnoreCollisionTemporarily(Collider opponentCollider, float duration = 1f)
     {
+        Debug.Log("Turning collisions off");
+
         Physics.IgnoreCollision(characterCollider, opponentCollider, ignore:true);
 
         yield return new WaitForSeconds(duration);

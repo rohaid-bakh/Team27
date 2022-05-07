@@ -424,10 +424,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.1399999
+  m_Radius: 0.69998515
   m_Height: 2.7209933
   m_Direction: 1
-  m_Center: {x: 0.18610358, y: -0.23195517, z: 0}
+  m_Center: {x: 0.6261183, y: -0.23195517, z: 0}
 --- !u!1001 &301157343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -435,6 +435,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].volume
+      value: 0.688
+      objectReference: {fileID: 0}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[0].volume
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[1].volume
+      value: 0.714
+      objectReference: {fileID: 0}
     - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: m_Name
@@ -443,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
@@ -1621,8 +1636,8 @@ MonoBehaviour:
   leftEndPoint: {fileID: 1360966190}
   rightEndPoint: {fileID: 1486391549}
   healthPercentageToEnterRage: 0.3
-  speedModifierOnRage: 1.7
-  idleTimeModifierOnRage: 0.75
+  speedModifierOnRage: 1.5
+  idleTimeModifierOnRage: 0.8
   rageColor: {r: 1, g: 0.10588236, b: 0, a: 1}
   magogSpriteRenderer: {fileID: 561416925}
 --- !u!1 &6033188393797994686

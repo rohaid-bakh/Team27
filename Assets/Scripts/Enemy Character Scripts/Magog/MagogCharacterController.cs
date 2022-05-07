@@ -63,7 +63,9 @@ public class MagogCharacterController : CharacterMonoBehaviour
     private IEnumerator EnemyAIBehaviourLoop1()
     {
         yield return FacePlayer();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        MoveTowardsPlayer();
+        yield return new WaitForSeconds(1f);
 
         // loop until enemy is dead
         while(IsDead() == false)
@@ -131,19 +133,19 @@ public class MagogCharacterController : CharacterMonoBehaviour
     
     IEnumerator EnterRageMode()
     {
-        // stop corouting
-        StopCoroutine(enemyLoopCoroutine);
-
-        // stop moving
-        Move(Vector2.left);
-
-        // face player
-        yield return FacePlayer();
-
-        if (!inRageMode)
+        if (!inRageMode && !enteringRageMode)
         {
             enteringRageMode = true;
             inRageMode = true;
+
+            // stop corouting
+            StopCoroutine(enemyLoopCoroutine);
+
+            // stop moving
+            Move(Vector2.left);
+
+            // face player
+            yield return FacePlayer();
 
             PlayAnimation(EnumCharacterAnimationStateName.EnterRage);
 
@@ -158,9 +160,9 @@ public class MagogCharacterController : CharacterMonoBehaviour
             magogSpriteRenderer.color = rageColor;
 
             enteringRageMode = false;
-        }
 
-        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
+            enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
+        }
     }
     #endregion
 

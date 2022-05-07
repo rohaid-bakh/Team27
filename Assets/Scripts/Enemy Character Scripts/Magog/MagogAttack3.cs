@@ -39,8 +39,6 @@ public class MagogAttack3 : MonoBehaviour, IAttack
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("Charging");
-
         // check if charging & if player hasn't been hit yet (only 1 hit per charge attack)
         if (isCharging & !playerHit)
         {
