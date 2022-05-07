@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// all attacks need to inherit from IAttack (BaseAttack inherits from IAttack)
+// This attack is the standard basic attack (will swipe at player)
 public class MagogAttack1 : BaseAttack
 {
     public override EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack1;

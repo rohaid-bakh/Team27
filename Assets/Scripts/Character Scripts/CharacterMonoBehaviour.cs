@@ -21,7 +21,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     [SerializeField] LayerMask whatIsGround; // set the ground layer mask
     
     // rigid body
-    Rigidbody rigidBody; // character needs a rigid body attached
+    public Rigidbody rigidBody { get; private set; } // character needs a rigid body attached
 
     // animations
     CharacterAnimator characterAnimator; // character needs a characterAnimator attached
@@ -60,7 +60,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// </summary>
     /// <param name="newMoveInput">Ex. Vector2.right, Vector2.left, Vector2.zero</param>
     /// <param name="speedModifier">If you want to increase speed (ex. 1.25) or decrease speed (ex. 0.75). 1 by default</param>
-    public void Move(Vector2 newMoveInput, float speedModifier = 1) 
+    public virtual void Move(Vector2 newMoveInput, float speedModifier = 1) 
     {
         moveInput = newMoveInput * speedModifier;
         if (newMoveInput == Vector2.zero)
@@ -73,7 +73,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// Used to make an attack.
     /// </summary>
     /// <param name="attack">The attack you want to perform.</param>
-    public void Attack(IAttack attack)
+    public virtual void Attack(IAttack attack)
     {
         currentState.Attack(this, attack);
     }
@@ -81,23 +81,23 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// <summary>
     /// To make the character jump
     /// </summary>
-    public void Jump() => currentState.Jump(this);
+    public virtual void Jump() => currentState.Jump(this);
 
     /// <summary>
     /// To make the character block
     /// </summary>
-    public void Block() => currentState.Block(this); 
+    public virtual void Block() => currentState.Block(this); 
 
     /// <summary>
     /// To make the character dodge
     /// </summary>
-    public void Dodge() => currentState.Dodge(this); //todo - maybe
+    public virtual void Dodge() => currentState.Dodge(this); //todo - maybe
 
     /// <summary>
     /// When the character takes damage
     /// </summary>
     /// <param name="damageAmount">Amount of damage to be applied</param>
-    public void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
+    public virtual void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
 
     #endregion
 
@@ -173,9 +173,24 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         return jumpPower;
     }
 
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
+    public float GetMoveInputX()
+    {
+        return moveInput.x;
+    }
+
     public void SetCanMoveBool(bool canMove)
     {
         this.canMove = canMove;
+    }
+
+    public bool GetCanMoveBool()
+    {
+        return canMove;
     }
 
     public void AddForceToVelocity(Vector3 force)
@@ -217,7 +232,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             AudioManager.instance?.PlaySoundEffect((EnumSoundName)soundEffectName);
     }
 
-    void Move()
+    public virtual void Move()
     {
         if (canMove)
         {
@@ -228,7 +243,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         }
     }
 
-    void FlipSprite()
+    public virtual void FlipSprite()
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon; // Mathf.Epsilon is techincally 0
 
