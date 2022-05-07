@@ -86,13 +86,14 @@ public class AudioManager : MonoBehaviour
     /// Used to update the volume for all of the sound effects.
     /// </summary>
     /// <param name="volume">A value between 0..1</param>
-    public void UpdateSoundEffectVolume(float volume)
+    public void UpdateSoundEffectVolume(float volume, bool playSoundEffect)
     {
         soundEffectVolume = volume;
         UpdateVolume(soundEffectVolume, soundEffects);
 
-        // play sound effect to test 
-        PlaySoundEffect(EnumSoundName.SoundVolumeChange);
+        // play sound effect
+        if(playSoundEffect)
+            PlaySoundEffect(EnumSoundName.SoundVolumeChange);
     }
     #endregion
 
