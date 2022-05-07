@@ -50,7 +50,7 @@ public class JumpingCharacterState : BaseCharacterState
 
             // does the jump
             Vector3 jumpForce = new Vector3(0f, context.GetJumpForce(), 0f);
-            context.AddForceToVelocity(jumpForce);
+            context.AddToVelocity(jumpForce);
         }
     }
 }

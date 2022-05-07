@@ -20,14 +20,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     [SerializeField] float distanceToGround = 0.1f; // how close should the groundPoint be to the ground, to be considered "grounded"
     [SerializeField] LayerMask whatIsGround; // set the ground layer mask
     
-    // rigid body
+    // rigid body/collider
     public Rigidbody rigidBody { get; private set; } // character needs a rigid body attached
+    public CapsuleCollider characterCollider { get; private set; }
 
     // animations
     public CharacterAnimator characterAnimator { get; private set; } // character needs a characterAnimator attached
 
     // health
-    Health characterHealth; // character needs a health component attached
+    public Health characterHealth { get; private set; } // character needs a health component attached
 
     // text mesh (for testing purposes, placed on top of character to view states)
     TextMesh testingTextMesh = null;
@@ -43,6 +44,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterHealth = GetComponent<Health>();
         testingTextMesh = GetComponentInChildren<TextMesh>();
+        characterCollider = GetComponent<CapsuleCollider>();
     }
 
     void FixedUpdate()
@@ -163,6 +165,16 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         }
     }
 
+    // temporarily switch layers to avoid collision with opponent
+    public IEnumerator IgnoreCollisionTemporarily(Collider opponentCollider, float duration = 1f)
+    {
+        Physics.IgnoreCollision(characterCollider, opponentCollider, ignore:true);
+
+        yield return new WaitForSeconds(duration);
+
+        Physics.IgnoreCollision(characterCollider, opponentCollider, ignore:false);
+    }
+
     public bool IsWaitingForAnimationToFinish()
     {
         return characterAnimator.waitingForAnimationToComplete;
@@ -193,13 +205,24 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         return canMove;
     }
 
-    public void AddForceToVelocity(Vector3 force)
+    public void AddToVelocity(Vector3 force)
     {
         rigidBody.velocity += force;
         // rigidBody.AddForce(force, ForceMode.Impulse);
         // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
     }
-    
+
+    public void ApplyForceToVelocity(Vector3 force)
+    {
+        rigidBody.AddForce(force, ForceMode.Impulse);
+        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
+    }
+
+    public int GetMaxHealthStat()
+    {
+        return characterHealth.stat.health;
+    }
+
     public bool ApplyDamageToHealth(int damageAmont)
     {
         return characterHealth.TakeDamage(damageAmont);

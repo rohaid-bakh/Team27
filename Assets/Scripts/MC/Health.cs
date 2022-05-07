@@ -17,6 +17,12 @@ public class Health : MonoBehaviour
         renderer = GetComponentInChildren<SpriteRenderer>(); // might need to reconsider this if there's more sprite children
         defaultMat = renderer.material;
     }
+
+    public int GetCurrentHealth()
+    {
+        return hpbar;
+    }
+
     // returns true if character dies after the damge, false otherwise
     public bool TakeDamage(int damage)
     { // other classes call this

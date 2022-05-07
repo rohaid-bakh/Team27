@@ -6,33 +6,14 @@ public class MagogAttack2 : MonoBehaviour, IAttack
 {
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawn;
-    [SerializeField] float timeBetweenProjectiles = 0.75f;
-
-    MagogCharacterController characterController;
 
     public EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack2;
     public EnumSoundName? GetSoundEffectName() => null; //no sound effect for this attack, sound effects will be applied to projectiles
 
-    void Start()
-    {
-        characterController = GetComponentInParent<MagogCharacterController>();
-    }
-
     public void Attack()
     {
-        // fires projectiles
-        StartCoroutine(FireProjectiles());
-    }
-
-    IEnumerator FireProjectiles()
-    {
-        // keep firing when in attack state (basically lastts until animation is finished)
-        while (characterController.IsAttacking())
-        {
-            yield return new WaitForSeconds(timeBetweenProjectiles);
-
-            InstantiateProjectile();
-        }
+        // fires projectile
+        InstantiateProjectile();
     }
 
     public void InstantiateProjectile()

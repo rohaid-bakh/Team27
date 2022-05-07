@@ -28,7 +28,8 @@ public enum EnumCharacterAnimationStateName
     Blocking,
     Dodging,
     GettingHit,
-    Die
+    Die,
+    EnterRage
 }
 
 // used to identify the player state

@@ -19,8 +19,12 @@ public class MagogCharacterController : CharacterMonoBehaviour
     EnumMagogFightLoopState nextState = EnumMagogFightLoopState.SwipeAttack;
 
     // serialize field
-    [SerializeField] float chargeSpeed = 2f;
+    [SerializeField] float chargeSpeedModifier = 2f;
+    float baseSpeedModifier = 1;
+    float idleTimeModifier = 1;
 
+    // keep track of positions in the arena (player and end points of arena)
+    [Header("Transform Positions")]
     // the player transform
     [SerializeField] Transform playerTransform;
 
@@ -28,8 +32,22 @@ public class MagogCharacterController : CharacterMonoBehaviour
     [SerializeField] Transform leftEndPoint;
     [SerializeField] Transform rightEndPoint;
 
+    [Header("Rage Mode Details")]
+    [Range(0, 1)]
+    [SerializeField] float healthPercentageToEnterRage = 0.3f; // how low should health be to enter rage state
+    [SerializeField] float speedModifierOnRage = 1.5f; // what to multiply the speed by when in rage
+    [SerializeField] float idleTimeModifierOnRage = 0.75f; // what to multiply the idle time by when in rage
+    [SerializeField] Color rageColor; // temporary to flag if the magog is in rage
+    [SerializeField] SpriteRenderer magogSpriteRenderer;
+    bool inRageMode = false;
+    bool enteringRageMode = false;
+
     // to keep track of current coroutine
     Coroutine enemyLoopCoroutine = null;
+
+    // keep track of max health
+
+    int maxHealth;
 
     private void Start()
     {
@@ -37,13 +55,15 @@ public class MagogCharacterController : CharacterMonoBehaviour
         projectileAttack = GetComponentInChildren<MagogAttack2>();
         chargeAttack = GetComponentInChildren<MagogAttack3>();
         enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
+
+        maxHealth = GetMaxHealthStat();
     }
     
     // standard enemy behaviour loop
     private IEnumerator EnemyAIBehaviourLoop1()
     {
         yield return FacePlayer();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2f);
 
         // loop until enemy is dead
         while(IsDead() == false)
@@ -103,10 +123,44 @@ public class MagogCharacterController : CharacterMonoBehaviour
         // projectile
         yield return ProjectileAttack();
 
-        yield return Idle(1);
+        yield return Idle(2);
 
         // update the next state
         nextState = EnumMagogFightLoopState.SwipeAttack;
+    }
+    
+    IEnumerator EnterRageMode()
+    {
+        // stop corouting
+        StopCoroutine(enemyLoopCoroutine);
+
+        // stop moving
+        Move(Vector2.left);
+
+        // face player
+        yield return FacePlayer();
+
+        if (!inRageMode)
+        {
+            enteringRageMode = true;
+            inRageMode = true;
+
+            PlayAnimation(EnumCharacterAnimationStateName.EnterRage);
+
+            // wait for animation to finish
+            yield return new WaitUntil(() => IsWaitingForAnimationToFinish() == false);
+
+            // increase speed
+            baseSpeedModifier = speedModifierOnRage;
+            idleTimeModifier = idleTimeModifierOnRage;
+
+            // set visual indicator (ex. set colour to red)
+            magogSpriteRenderer.color = rageColor;
+
+            enteringRageMode = false;
+        }
+
+        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
     }
     #endregion
 
@@ -140,8 +194,8 @@ public class MagogCharacterController : CharacterMonoBehaviour
         // idle
         yield return Idle(1.5f);
 
-        // move towards left side of map
-        Move(playerDirection, chargeSpeed);
+        // move towards player
+        Move(playerDirection, chargeSpeedModifier * baseSpeedModifier);
 
         // attack
         Attack(chargeAttack);
@@ -159,25 +213,53 @@ public class MagogCharacterController : CharacterMonoBehaviour
     }
     
     IEnumerator ProjectileAttack()
-    {
-        // use attack2 shoots projectiles
-        PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
+    {        
+        // fire six projectiles
+        for(int i = 0; i < 6; i++)
+        {
+            MoveTowardsPlayer();
 
-        Attack(projectileAttack);
+            // use attack2 shoots projectiles
+            PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
 
-        yield return new WaitForSeconds(6f);
+            Attack(projectileAttack);
 
-        FinishAttackAnimation();
+            FinishAttackAnimation();
+
+            yield return new WaitForSeconds(1f);
+        }
     }
+    
     #endregion
 
     #region Override
     public override void TakeDamage(int damageAmount)
     {
-        // take damage
-        bool isCharacterDead = ApplyDamageToHealth(damageAmount);
-        if (isCharacterDead)
-            SetState(new DeadCharacterState());
+        // don't take damage when entering rage
+        if (enteringRageMode == false)
+        {
+            // take damage
+            bool isCharacterDead = ApplyDamageToHealth(damageAmount);
+            if (isCharacterDead)
+            {
+                StopCoroutine(enemyLoopCoroutine);
+                SetState(new DeadCharacterState());
+            }
+
+            // check if health is below a certain point to enter rage
+            if (!inRageMode)
+            {
+                int currentHealth = characterHealth.GetCurrentHealth();
+                float healthPercentage = (float)currentHealth / (float)maxHealth;
+
+                //Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
+
+                if (healthPercentage <= healthPercentageToEnterRage)
+                {
+                    StartCoroutine(EnterRageMode());
+                }
+            }
+        }
     }
 
     #endregion
@@ -198,7 +280,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
         // Idle
         Move(Vector2.zero);
 
-        yield return new WaitForSeconds(numberOfSeconds);
+        yield return new WaitForSeconds(numberOfSeconds * idleTimeModifier);
     }
 
     void PlayAttackAnimation(EnumCharacterAnimationStateName attackAnimation)
@@ -223,8 +305,10 @@ public class MagogCharacterController : CharacterMonoBehaviour
 
     void MoveTowardsPlayer(float speedModifier = 1)
     {
+        float setSpeedModifier = baseSpeedModifier * speedModifier;
+
         Vector2 playerDirection = GetPlayerDirection();
-        Move(playerDirection, speedModifier);
+        Move(playerDirection, setSpeedModifier);
     }
 
 

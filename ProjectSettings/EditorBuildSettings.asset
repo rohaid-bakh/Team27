@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/nightScene.unity
-    guid: 05588bd51fadb8244946f9d850af4da2
+    path: Assets/Scenes/MainMenu.unity
+    guid: 42593dba53340614d955699570881e3e
   - enabled: 1
     path: Assets/Scenes/MagogFight.unity
     guid: bfaec3438f7e3764894ce10a1d2ae5e7
