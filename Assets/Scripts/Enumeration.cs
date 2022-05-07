@@ -12,6 +12,7 @@ public enum EnumSoundName
     Jump,
     PlayerAttack1,
     PlayerAttack2,
+    MagogAttack,
     MagogProjectile
 }
 

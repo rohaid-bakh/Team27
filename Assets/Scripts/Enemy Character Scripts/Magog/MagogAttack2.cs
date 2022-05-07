@@ -11,7 +11,7 @@ public class MagogAttack2 : MonoBehaviour, IAttack
     MagogCharacterController characterController;
 
     public EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack2;
-    public EnumSoundName? GetSoundEffectName() => null; //no sound effect for attack, sound effects will be applied to projectiles
+    public EnumSoundName? GetSoundEffectName() => null; //no sound effect for this attack, sound effects will be applied to projectiles
 
     void Start()
     {

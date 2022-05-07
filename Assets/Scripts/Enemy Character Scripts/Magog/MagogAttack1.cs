@@ -5,5 +5,5 @@ using UnityEngine;
 public class MagogAttack1 : BaseAttack
 {
     public override EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack1;
-    public override EnumSoundName? GetSoundEffectName() => EnumSoundName.PlayerAttack1; // just using the player attack sound for now
+    public override EnumSoundName? GetSoundEffectName() => EnumSoundName.MagogAttack; 
 }
