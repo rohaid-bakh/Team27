@@ -24,6 +24,7 @@ public enum EnumCharacterAnimationStateName
     Jumping,
     Attack1,
     Attack2,
+    Attack3,
     Blocking,
     Dodging,
     GettingHit,

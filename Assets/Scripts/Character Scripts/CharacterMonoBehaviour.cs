@@ -24,7 +24,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public Rigidbody rigidBody { get; private set; } // character needs a rigid body attached
 
     // animations
-    CharacterAnimator characterAnimator; // character needs a characterAnimator attached
+    public CharacterAnimator characterAnimator { get; private set; } // character needs a characterAnimator attached
 
     // health
     Health characterHealth; // character needs a health component attached

@@ -39,7 +39,7 @@ public class ProjectileBehaviour : MonoBehaviour
         }
 
         //TODO: add some sort of particle effect or something
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 
         Destroy(gameObject);
     }

@@ -4,174 +4,213 @@ using UnityEngine;
 
 public enum EnumMagogFightLoopState
 {
-    Idle1,
     SwipeAttack,
-    Idle2,
+    ChargeAttack,
     ProjectileAttack
 }
 public class MagogCharacterController : CharacterMonoBehaviour
 {
     // could have a multiple attacks, just need to serialize and add them here
-    MagogAttack1 attack1;
-    MagogAttack2 attack2;
-
-    // to keep track of current coroutine
-    Coroutine enemyLoopCoroutine = null;
+    MagogAttack1 swipeAttacl;
+    MagogAttack2 projectileAttack;
+    MagogAttack3 chargeAttack;
 
     // keep track of current state in the fight
-    EnumMagogFightLoopState nextState = EnumMagogFightLoopState.Idle1;
+    EnumMagogFightLoopState nextState = EnumMagogFightLoopState.SwipeAttack;
+
+    // serialize field
+    [SerializeField] float chargeSpeed = 2f;
 
     // the player transform
     [SerializeField] Transform playerTransform;
 
+    // start/end transforms of map
+    [SerializeField] Transform leftEndPoint;
+    [SerializeField] Transform rightEndPoint;
+
+    // to keep track of current coroutine
+    Coroutine enemyLoopCoroutine = null;
+
     private void Start()
     {
-        attack1 = GetComponentInChildren<MagogAttack1>();
-        attack2 = GetComponentInChildren<MagogAttack2>();
+        swipeAttacl = GetComponentInChildren<MagogAttack1>();
+        projectileAttack = GetComponentInChildren<MagogAttack2>();
+        chargeAttack = GetComponentInChildren<MagogAttack3>();
         enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
     }
     
-    // standard enemy behaviour loop (could also implement different loops for different stages of the fight)
+    // standard enemy behaviour loop
     private IEnumerator EnemyAIBehaviourLoop1()
     {
+        yield return FacePlayer();
+        yield return new WaitForSeconds(2);
+
         // loop until enemy is dead
         while(IsDead() == false)
         {
             // actions based on current fight state
             switch (nextState)
             {
-                case EnumMagogFightLoopState.Idle1:
-                    yield return Idle1();
-                    break;
                 case EnumMagogFightLoopState.SwipeAttack:
-                    yield return SwipeAtPlayer();
+                    yield return SwipeAttackStage();
                     break;
-                case EnumMagogFightLoopState.Idle2:
-                    yield return Idle2();
+                case EnumMagogFightLoopState.ChargeAttack:
+                    yield return ChargePlayerAttackStage();
                     break;
                 case EnumMagogFightLoopState.ProjectileAttack:
-                    yield return ProjecttileAttack();
+                    yield return ProjecttileAttackStage();
                     break;
             }
-
-            yield return new WaitForSeconds(0f); // to avoid complaints about not all code paths return value
         }
 
         yield return new WaitForSeconds(0f); // to avoid complaints about not all code paths return value
     }
 
     #region Enemy Fight Actions - Loop 
-    private IEnumerator Idle1()
+    private IEnumerator SwipeAttackStage()
     {
-        nextState = EnumMagogFightLoopState.SwipeAttack;
+        // swipe three times
+        for(int i = 0; i < 3; i++)
+        {
+            yield return SwipeAttack();
+        }
 
-        // Idle
-        Move(Vector2.zero);
+        // idle 1 second
+        yield return Idle(1f);
 
-        yield return new WaitForSeconds(1.5f);
+        // update the next state
+        nextState = EnumMagogFightLoopState.ChargeAttack;
     }
 
-    private IEnumerator Idle2()
+    private IEnumerator ChargePlayerAttackStage()
     {
+        // charge attack twice
+        for(int i =0; i < 2; i++)
+        {
+            // charge
+            yield return ChargePlayerAttack();
+        }
+        
+        // update the next state
         nextState = EnumMagogFightLoopState.ProjectileAttack;
-
-        // Idle
-        Move(Vector2.zero);
-
-        yield return new WaitForSeconds(1.5f);
     }
 
-    private IEnumerator SwipeAtPlayer()
+    private IEnumerator ProjecttileAttackStage()
+    {
+        // face towards player
+        MoveTowardsPlayer();
+
+        // projectile
+        yield return ProjectileAttack();
+
+        yield return Idle(1);
+
+        // update the next state
+        nextState = EnumMagogFightLoopState.SwipeAttack;
+    }
+    #endregion
+
+    #region Attacks
+    IEnumerator SwipeAttack()
     {
         // move towards player and swipe
         MoveTowardsPlayer();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         // attack1 swipes at player
-        Attack(attack1);
+        Attack(swipeAttacl);
 
         // wait for attack animation to finish
         yield return new WaitUntil(() => IsWaitingForAnimationToFinish() == false);
-
-        // update the next state
-        nextState = EnumMagogFightLoopState.Idle2;
     }
-    private IEnumerator ProjecttileAttack()
+
+    IEnumerator ChargePlayerAttack()
     {
-        // move towards player
-        MoveTowardsPlayer();
+        // face player
+        yield return FacePlayer();
 
-        yield return new WaitForSeconds(1.5f);
+        // get target transofrm position
+        Vector2 playerDirection = GetPlayerDirection();
+        Transform targetPosition = playerDirection == Vector2.left ? leftEndPoint : rightEndPoint;
 
-        // stop moving & use attack2 shoots projectiles
+        // animation
+        PlayAttackAnimation(EnumCharacterAnimationStateName.Attack3);
+
+        // idle
+        yield return Idle(1.5f);
+
+        // move towards left side of map
+        Move(playerDirection, chargeSpeed);
+
+        // attack
+        Attack(chargeAttack);
+
+        // wait until enemy reaches target position on other side of arena
+        yield return new WaitUntil(() => Mathf.Abs((transform.position.x) - (targetPosition.position.x)) < 2);
+
+        // stop moving
         Move(Vector2.zero);
-        Attack(attack2);
 
-        // wait for attack animation to finish
-        yield return new WaitUntil(() => IsWaitingForAnimationToFinish() == false);
+        FinishAttackAnimation();
 
-        // update the next state
-        nextState = EnumMagogFightLoopState.Idle1;
+        // Idle
+        yield return Idle(1.5f);
+    }
+    
+    IEnumerator ProjectileAttack()
+    {
+        // use attack2 shoots projectiles
+        PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
+
+        Attack(projectileAttack);
+
+        yield return new WaitForSeconds(6f);
+
+        FinishAttackAnimation();
     }
     #endregion
 
-    #region Interupts/Retaliations (anything that might break the enemy out of their standatd loop)
-    // this needs work!!
+    #region Override
     public override void TakeDamage(int damageAmount)
     {
-        // stop coroutine
-        StopCoroutine(enemyLoopCoroutine);
-
-        // stop any movement
-        Move(Vector3.zero);
-
         // take damage
-        base.TakeDamage(damageAmount);
-
-        // retaliate attack (if not attacking already)
-        if(!IsAttacking())
-            StartCoroutine(RetaliateAttack());
-    }
-
-    IEnumerator RetaliateAttack()
-    {
-        // wait half a second
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("Retaliating!");
-
-        // retaliate by attacking player
-        Attack(attack1);
-
-        // resume coroutine
-        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
+        bool isCharacterDead = ApplyDamageToHealth(damageAmount);
+        if (isCharacterDead)
+            SetState(new DeadCharacterState());
     }
 
     #endregion
 
     #region Helper Functions
-    // override flip sprite 
-    public override void FlipSprite()
+    IEnumerator FacePlayer()
     {
-        // always face player
-        float playerDirection = GetPlayerDirection().x;
-        transform.localScale = new Vector2(Mathf.Sign(playerDirection), 1f);
+        // To face player, move towards them
+        MoveTowardsPlayer();
+
+        yield return new WaitForSeconds(0.1f);
+
+        // Stop moving
+        Move(Vector2.zero);
+    }
+    IEnumerator Idle(float numberOfSeconds)
+    {
+        // Idle
+        Move(Vector2.zero);
+
+        yield return new WaitForSeconds(numberOfSeconds);
     }
 
-    // overried move to always move towards player
-    public override void Move()
+    void PlayAttackAnimation(EnumCharacterAnimationStateName attackAnimation)
     {
-        if (GetCanMoveBool())
-        {
-            float targetDirection = Mathf.Sign(GetPlayerDirection().x) * Mathf.Abs(GetMoveInputX());
-            Vector3 characterVelocity = new Vector3(targetDirection * GetMoveSpeed(), rigidBody.velocity.y, rigidBody.velocity.z);
-            rigidBody.velocity = characterVelocity;
-
-            FlipSprite();
-        }
+        characterAnimator.ChangeAnimationState(attackAnimation);
+        characterAnimator.SetWaitForAnimationToComplete(true);
     }
 
+    void FinishAttackAnimation()
+    {
+        characterAnimator.SetWaitForAnimationToComplete(false);
+    }
 
     Vector2 GetPlayerDirection()
     {
@@ -182,11 +221,12 @@ public class MagogCharacterController : CharacterMonoBehaviour
             return Vector2.left;
     }
 
-    void MoveTowardsPlayer()
+    void MoveTowardsPlayer(float speedModifier = 1)
     {
         Vector2 playerDirection = GetPlayerDirection();
-        Move(playerDirection);
+        Move(playerDirection, speedModifier);
     }
+
 
     #endregion
 }

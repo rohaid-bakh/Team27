@@ -51,10 +51,28 @@ MonoBehaviour:
     pitch: 1.16
     loop: 0
     source: {fileID: 0}
+  - name: 3
+    clip: {fileID: 8300000, guid: 7ab0778bd3b906d408b8a62a1a7b8b24, type: 3}
+    volume: 0.323
+    pitch: 1.05
+    loop: 0
+    source: {fileID: 0}
+  - name: 5
+    clip: {fileID: 8300000, guid: 2741046bf26fa054db44958246210168, type: 3}
+    volume: 0.675
+    pitch: 1.05
+    loop: 0
+    source: {fileID: 0}
+  - name: 6
+    clip: {fileID: 8300000, guid: e4b10bfbb7e9cfa4b949b503712a5e0b, type: 3}
+    volume: 0.752
+    pitch: 1.05
+    loop: 0
+    source: {fileID: 0}
   musicTracks:
   - name: 0
-    clip: {fileID: 8300000, guid: 7bfc684bf67b6a24ea522de512bc90f3, type: 3}
-    volume: 0.711
+    clip: {fileID: 8300000, guid: cb91ebef54f622542b245647763b330f, type: 3}
+    volume: 0.5
     pitch: 1.23
     loop: 1
     source: {fileID: 0}

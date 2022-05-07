@@ -343,8 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a668a7b44ea9e4ba09c2bc89194044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpPower: 5
+  moveSpeed: 4
+  jumpPower: 8
   groundPoint: {fileID: 1873826683334567515}
   distanceToGround: 0.1
   whatIsGround:
