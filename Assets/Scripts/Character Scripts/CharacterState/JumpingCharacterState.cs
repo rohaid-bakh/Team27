@@ -29,10 +29,11 @@ public class JumpingCharacterState : BaseCharacterState
         }
     }
 
-    public override void Attack(ICharacterContext context, IAttack attack)
-    {
-        context.SetState(new AttackingCharacterState(attack));
-    }
+    // no attack when jumping
+    //public override void Attack(ICharacterContext context, IAttack attack)
+    //{
+    //    context.SetState(new AttackingCharacterState(attack));
+    //}
 
     public override void TakeDamage(ICharacterContext context, int damageAmount)
     {

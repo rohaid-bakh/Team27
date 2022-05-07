@@ -20,7 +20,7 @@ public class CharacterAnimator : MonoBehaviour
 
     void Start()
     {
-        animations = animator.runtimeAnimatorController.animationClips.ToList();
+        animations = animator?.runtimeAnimatorController.animationClips.ToList();
     }
     #endregion
 
