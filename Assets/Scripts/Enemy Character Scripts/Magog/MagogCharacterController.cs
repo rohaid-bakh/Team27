@@ -63,28 +63,30 @@ public class MagogCharacterController : CharacterMonoBehaviour
     #region Enemy Fight Actions - Loop 
     private IEnumerator Idle1()
     {
+        nextState = EnumMagogFightLoopState.SwipeAttack;
+
         // Idle
         Move(Vector2.zero);
 
-        yield return new WaitForSeconds(2f);
-
-        nextState = EnumMagogFightLoopState.SwipeAttack;
+        yield return new WaitForSeconds(1.5f);
     }
+
     private IEnumerator Idle2()
     {
+        nextState = EnumMagogFightLoopState.ProjectileAttack;
+
         // Idle
         Move(Vector2.zero);
 
-        yield return new WaitForSeconds(2f);
-
-        nextState = EnumMagogFightLoopState.ProjectileAttack;
+        yield return new WaitForSeconds(1.5f);
     }
+
     private IEnumerator SwipeAtPlayer()
     {
         // move towards player and swipe
         MoveTowardsPlayer();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         // attack1 swipes at player
         Attack(attack1);
@@ -100,7 +102,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
         // move towards player
         MoveTowardsPlayer();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         // stop moving & use attack2 shoots projectiles
         Move(Vector2.zero);

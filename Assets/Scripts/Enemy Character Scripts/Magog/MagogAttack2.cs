@@ -37,7 +37,10 @@ public class MagogAttack2 : MonoBehaviour, IAttack
 
     public void InstantiateProjectile()
     {
-        Instantiate(projectilePrefab, projectileSpawn.position, transform.rotation, transform.parent);
+        GameObject projectileInstance = Instantiate(projectilePrefab, projectileSpawn.position, transform.parent.rotation);
+
+        // set direction to shoot projectiles (same as parent)
+        projectileInstance.GetComponent<ProjectileBehaviour>().projectileDirection = transform.parent.localScale.x;
 
         // sound effect
         AudioManager.instance?.PlaySoundEffect(EnumSoundName.MagogProjectile);

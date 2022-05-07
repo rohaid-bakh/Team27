@@ -9,6 +9,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     Rigidbody rigidbody;
 
+    public float? projectileDirection { get; set; }
     bool forceApplied = false;
 
     // Start is called before the first frame update
@@ -20,11 +21,10 @@ public class ProjectileBehaviour : MonoBehaviour
     // for physics
     void FixedUpdate()
     {
-        if (!forceApplied)
+        if (!forceApplied && projectileDirection != null)
         {
             forceApplied = true;
-            float direction = transform.parent.localScale.x; // what direction to shoot projectiles (same as parent)
-            Vector3 force = new Vector3(Speed.x * direction, Speed.y, Speed.z); // create force with speed
+            Vector3 force = new Vector3(Speed.x * (float)projectileDirection, Speed.y, Speed.z); // create force with speed
             rigidbody?.AddForce(force, ForceMode.Impulse);
         }
     }
