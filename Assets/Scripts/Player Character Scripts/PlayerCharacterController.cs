@@ -10,35 +10,24 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     #region Input functions
     void OnMove(InputValue value)
     {
-        Move(value.Get<Vector2>());
+        if(PauseMenu.GamePaused != true)
+            Move(value.Get<Vector2>());
     }
 
     void OnJump(InputValue value)
     {
         if (value.isPressed)
         {
-            Jump();
-        }
-    }
-
-    void OnBlock(InputValue value)
-    {
-        if (value.isPressed)
-        {
-            Block();
+            if (PauseMenu.GamePaused != true)
+                Jump();
         }
     }
 
     void OnAttack1(InputValue value)
     {
-        // first attack
-        Attack(attack1);
-    }
-
-    void OnAttack2(InputValue value)
-    {
-        // second attack
-        Attack(attack2);
+        if (PauseMenu.GamePaused != true)
+            // first attack
+            Attack(attack1);
     }
     #endregion
 }
