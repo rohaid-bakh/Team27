@@ -5,19 +5,25 @@ using TMPro;
 
 public class IntroDialoug : MonoBehaviour
 {
+    [Header("Objects to turn OFF/ON")]
     [SerializeField]
     private GameObject Player;
     [SerializeField]
     private GameObject Enemy;
     [SerializeField]
     private GameObject HealthBar;
+
+    [Header("TV Screen UI")]
     [SerializeField]
     private GameObject Button;
     [SerializeField]
-    private Animator tvScreen;
-
-    [SerializeField]
     private GameObject textBox;
+
+    [Header("TV Animator")]
+    [SerializeField]
+    private Animator tvScreen;
+    
+    [Header("Text Box")]
     private TextMeshProUGUI text;
     [SerializeField]
     private string[] textLog;
@@ -32,7 +38,7 @@ public class IntroDialoug : MonoBehaviour
     }
 
     private void Update(){
-        if(tvScreen.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f){
+        if(tvScreen.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f){ // check that the tv animation is done
             textBox.SetActive(true);
             Button.SetActive(true);
         };
@@ -42,7 +48,7 @@ public class IntroDialoug : MonoBehaviour
     public void textScroll(){
         if (textIndex == textLog.Length){
             StartGame();
-            textIndex = 0;
+            textIndex = 1;
         } else {
             text.text = textLog[textIndex];
             textIndex++;
