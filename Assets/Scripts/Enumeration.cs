@@ -11,7 +11,9 @@ public enum EnumSoundName
     SoundVolumeChange,
     Jump,
     PlayerAttack1,
-    PlayerAttack2
+    PlayerAttack2,
+    MagogAttack,
+    MagogProjectile
 }
 
 // note: these names must match the states in the animator for the player / enemy

@@ -21,13 +21,16 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     [SerializeField] LayerMask whatIsGround; // set the ground layer mask
     
     // rigid body
-    Rigidbody rigidBody; // character needs a rigid body attached
+    public Rigidbody rigidBody { get; private set; } // character needs a rigid body attached
 
     // animations
     CharacterAnimator characterAnimator; // character needs a characterAnimator attached
 
     // health
     Health characterHealth; // character needs a health component attached
+
+    // text mesh (for testing purposes, placed on top of character to view states)
+    TextMesh testingTextMesh = null;
 
     ICharacterState currentState = new IdlingCharacterState();
 
@@ -39,12 +42,14 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         rigidBody = GetComponent<Rigidbody>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterHealth = GetComponent<Health>();
+        testingTextMesh = GetComponentInChildren<TextMesh>();
     }
 
     void FixedUpdate()
     {
         Move();
         currentState.OnUpdate(this);
+        UpdateTeshMeshWithCharacterState(); // for testing. Can be removed when finished game
     }
     #endregion
 
@@ -55,7 +60,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// </summary>
     /// <param name="newMoveInput">Ex. Vector2.right, Vector2.left, Vector2.zero</param>
     /// <param name="speedModifier">If you want to increase speed (ex. 1.25) or decrease speed (ex. 0.75). 1 by default</param>
-    public void Move(Vector2 newMoveInput, float speedModifier = 1) 
+    public virtual void Move(Vector2 newMoveInput, float speedModifier = 1) 
     {
         moveInput = newMoveInput * speedModifier;
         if (newMoveInput == Vector2.zero)
@@ -68,7 +73,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// Used to make an attack.
     /// </summary>
     /// <param name="attack">The attack you want to perform.</param>
-    public void Attack(IAttack attack)
+    public virtual void Attack(IAttack attack)
     {
         currentState.Attack(this, attack);
     }
@@ -76,23 +81,23 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// <summary>
     /// To make the character jump
     /// </summary>
-    public void Jump() => currentState.Jump(this);
+    public virtual void Jump() => currentState.Jump(this);
 
     /// <summary>
     /// To make the character block
     /// </summary>
-    public void Block() => currentState.Block(this); 
+    public virtual void Block() => currentState.Block(this); 
 
     /// <summary>
     /// To make the character dodge
     /// </summary>
-    public void Dodge() => currentState.Dodge(this); //todo - maybe
+    public virtual void Dodge() => currentState.Dodge(this); //todo - maybe
 
     /// <summary>
     /// When the character takes damage
     /// </summary>
     /// <param name="damageAmount">Amount of damage to be applied</param>
-    public void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
+    public virtual void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
 
     #endregion
 
@@ -135,7 +140,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     public bool IsJumping()
     {
-        return Mathf.Abs(rigidBody.velocity.y) > 0.2;
+        return Mathf.Abs(rigidBody.velocity.y) > Mathf.Epsilon;
     }
     #endregion
 
@@ -149,6 +154,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         Gizmos.DrawWireSphere(groundPoint.position, distanceToGround);
     }
 
+    // used to display character state (for testing purposes)
+    void UpdateTeshMeshWithCharacterState()
+    {
+        if(testingTextMesh != null)
+        {
+            testingTextMesh.text = currentState.GetState().ToString();
+        }
+    }
+
     public bool IsWaitingForAnimationToFinish()
     {
         return characterAnimator.waitingForAnimationToComplete;
@@ -159,14 +173,31 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         return jumpPower;
     }
 
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
+    public float GetMoveInputX()
+    {
+        return moveInput.x;
+    }
+
     public void SetCanMoveBool(bool canMove)
     {
         this.canMove = canMove;
     }
 
+    public bool GetCanMoveBool()
+    {
+        return canMove;
+    }
+
     public void AddForceToVelocity(Vector3 force)
     {
         rigidBody.velocity += force;
+        // rigidBody.AddForce(force, ForceMode.Impulse);
+        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
     }
     
     public bool ApplyDamageToHealth(int damageAmont)
@@ -198,21 +229,21 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void PlaySoundEffect(EnumSoundName? soundEffectName)
     {
         if (soundEffectName != null)
-            AudioManager.instance.PlaySoundEffect((EnumSoundName)soundEffectName);
+            AudioManager.instance?.PlaySoundEffect((EnumSoundName)soundEffectName);
     }
 
-    void Move()
+    public virtual void Move()
     {
         if (canMove)
         {
-            Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
+            Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             rigidBody.velocity = characterVelocity;
 
             FlipSprite();
         }
     }
 
-    void FlipSprite()
+    public virtual void FlipSprite()
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon; // Mathf.Epsilon is techincally 0
 
