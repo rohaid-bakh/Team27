@@ -71,6 +71,9 @@ public class MagogCharacterController : CharacterMonoBehaviour
         // loop until enemy is dead
         while(IsDead() == false)
         {
+            //testing
+            //nextState = EnumMagogFightLoopState.ProjectileAttack;
+
             // actions based on current fight state
             switch (nextState)
             {
@@ -93,7 +96,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
     private IEnumerator SwipeAttackStage()
     {
         // swipe three times
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 4; i++)
         {
             yield return SwipeAttack();
         }
@@ -138,6 +141,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
 
         if (!inRageMode)
         {
+            enteringRageMode = true;
             inRageMode = true;
 
             // stop any current attack animations that are playing 
@@ -245,7 +249,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
     public override void TakeDamage(int damageAmount)
     {
         // don't take damage when entering rage
-        if (enemyRageCoroutine == null)
+        if (enteringRageMode == false)
         {
             // take damage
             bool isCharacterDead = ApplyDamageToHealth(damageAmount);

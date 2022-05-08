@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9203488132263634616}
-  - component: {fileID: 9203488132263634621}
-  - component: {fileID: 9203488132263634618}
   - component: {fileID: 9203488132263634619}
   - component: {fileID: 3185898972243005130}
+  - component: {fileID: 8997540585489110412}
+  - component: {fileID: 3122638484602200924}
   m_Layer: 3
   m_Name: Magog Projectile
   m_TagString: Untagged
@@ -36,35 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &9203488132263634621
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203488132263634617}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.18865746
-  m_Center: {x: 0.051573843, y: 0.02311635, z: 0.027249277}
---- !u!54 &9203488132263634618
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9203488132263634617}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 0
 --- !u!114 &9203488132263634619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,8 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5700b49d6010b469317b788d402fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 8997540585489110412}
   damageAmount: 2
-  Speed: {x: 8, y: 3, z: 0}
+  maxLifeTime: 8
 --- !u!65 &3185898972243005130
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,6 +64,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.45885134, y: 0.45929146, z: 0.56253314}
   m_Center: {x: 0.049481153, y: -0.011385202, z: 0.21873343}
+--- !u!54 &8997540585489110412
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203488132263634617}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 120
+  m_CollisionDetection: 1
+--- !u!135 &3122638484602200924
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203488132263634617}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.23639011
+  m_Center: {x: 0, y: 0, z: 0.2636099}
 --- !u!1 &9203488132279614872
 GameObject:
   m_ObjectHideFlags: 0

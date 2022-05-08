@@ -31,8 +31,14 @@ public class CharacterAnimator : MonoBehaviour
     /// <param name="newState"></param>
     public void ChangeAnimationState(EnumCharacterAnimationStateName newState)
     {
-        //stop the same animation from interuptting itself, or stop if waiting for other animation to complete. Also, returns if animation doesn't exist
-        if (currentAnimationState == newState || waitingForAnimationToComplete || !DoesAnimationExist(newState)) return;
+        // return if animation doesn't exist 
+        if (!DoesAnimationExist(newState)) return;
+
+        // stop if waiting for other animation to complete (only Die state can interrupt animation)
+        if (waitingForAnimationToComplete && newState != EnumCharacterAnimationStateName.Die) return;
+
+        //stop the same animation from interuptting itself
+        if (currentAnimationState == newState) return;
 
         //check if we need to wait for animation to complete (ex. if animation doesn't loop, wait for it to complete)
         if (!IsAnimationClipLoopable(newState))

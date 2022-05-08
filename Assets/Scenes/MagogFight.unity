@@ -786,9 +786,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 120
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!4 &905086816
 Transform:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897330003056836666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 0.035, z: 0}
+  m_LocalPosition: {x: 0.27, y: -0.333, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1585,6 +1585,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 9203488132263634617, guid: 4aac07aa9af31fb4dba4d40c23a1b11a,
     type: 3}
   projectileSpawn: {fileID: 1897330003056836665}
+  shootForce: 10
+  upwardForce: 5
 --- !u!114 &4374285656981249159
 MonoBehaviour:
   m_ObjectHideFlags: 0
