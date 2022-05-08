@@ -435,30 +435,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: musicTracks.Array.data[0].volume
-      value: 0.688
-      objectReference: {fileID: 0}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[0].volume
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[1].volume
-      value: 0.714
-      objectReference: {fileID: 0}
     - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}

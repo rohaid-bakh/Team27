@@ -47,13 +47,13 @@ MonoBehaviour:
   soundEffects:
   - name: 1
     clip: {fileID: 8300000, guid: f6d9c51413349334aa140634f3aff00b, type: 3}
-    volume: 0.358
+    volume: 0.64
     pitch: 1.16
     loop: 0
     source: {fileID: 0}
   - name: 3
     clip: {fileID: 8300000, guid: 7ab0778bd3b906d408b8a62a1a7b8b24, type: 3}
-    volume: 0.323
+    volume: 0.714
     pitch: 1.05
     loop: 0
     source: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   musicTracks:
   - name: 0
     clip: {fileID: 8300000, guid: cb91ebef54f622542b245647763b330f, type: 3}
-    volume: 0.5
+    volume: 0.688
     pitch: 1.23
     loop: 1
     source: {fileID: 0}
