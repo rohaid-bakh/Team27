@@ -16,13 +16,10 @@ public class EnemyCharacterMonoBehaviour : CharacterMonoBehaviour
     #region Helper Functions
     public IEnumerator FacePlayer()
     {
-        // To face player, move towards them
-        MoveTowardsPlayer();
+        // Flip sprite in player firection
+        FlipSprite(GetPlayerDirection().x);
 
-        yield return new WaitForSeconds(0.1f);
-
-        // Stop moving
-        Move(Vector2.zero);
+        yield return new WaitForSeconds(0f);
     }
     public IEnumerator Idle(float numberOfSeconds)
     {

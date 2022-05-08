@@ -20,6 +20,7 @@ public class AttackingCharacterState : BaseCharacterState
     public override void OnEnter(ICharacterContext context)
     {
         base.OnEnter(context);
+
         CurrentAttack.Attack();
     }
 

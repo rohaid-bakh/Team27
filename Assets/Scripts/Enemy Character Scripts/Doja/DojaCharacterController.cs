@@ -56,16 +56,11 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
     // standard enemy behaviour loop
     private IEnumerator EnemyAIBehaviourLoop1()
     {
-        yield return FacePlayer();
-        yield return new WaitForSeconds(1f);
-        MoveTowardsPlayer();
-        yield return new WaitForSeconds(1f);
-
         // loop until enemy is dead
-        while(IsDead() == false)
+        while (IsDead() == false)
         {
             //testing
-            //nextState = EnumMagogFightLoopState.ProjectileAttack;
+            nextState = EnumDojaFightLoopState.DashAttack; // EnumDojaFightLoopState.BiteAttack; //
 
             // actions based on current fight state
             switch (nextState)
@@ -116,13 +111,14 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
 
     private IEnumerator DashAttackStage()
     {
-        // face towards player
-        MoveTowardsPlayer();
+        // charge attack twice
+        for (int i = 0; i < 4; i++)
+        {
+            // charge
+            yield return DashAttack();
+        }
 
-        // projectile
-        yield return DashAttack();
-
-        yield return Idle(2);
+        yield return Idle(1);
 
         // update the next state
         nextState = EnumDojaFightLoopState.BiteAttack;
@@ -187,43 +183,19 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
 
     IEnumerator ClawAttack()
     {
-        // face player
-        yield return FacePlayer();
-
-        // get target transofrm position
-        Vector2 playerDirection = GetPlayerDirection();
-        Transform targetPosition = playerDirection == Vector2.left ? leftEndPoint : rightEndPoint;
-
-        // idle
-        yield return Idle(1.5f);
-
-        // move towards player
-        Move(playerDirection, baseSpeedModifier);
-
-        // attack
-        Attack(dashAttack);
-
-        // wait until enemy reaches target position on other side of arena
-        yield return new WaitUntil(() => Mathf.Abs((transform.position.x) - (targetPosition.position.x)) < 2);
-
-        // stop moving
-        Move(Vector2.zero);
-
-        // Idle
-        yield return Idle(1.5f);
+        //todo
+        yield return new WaitForSeconds(0f);
     }
     
     IEnumerator DashAttack()
-    {        
-        // fire six projectiles
-        for(int i = 0; i < 6; i++)
-        {
-            MoveTowardsPlayer();
+    {
+        yield return FacePlayer();
 
-            Attack(clawAttack);
+        yield return Idle(1f);
 
-            yield return new WaitForSeconds(1f);
-        }
+        yield return Dash();
+
+        yield return Idle(1f);
     }
     
     #endregion
@@ -264,10 +236,30 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
 
     #region Helper functions
 
-    void Dash()
+    IEnumerator Dash()
     {
         float direction = Mathf.Sign(transform.localScale.x);
-        rigidBody.velocity = new Vector2(direction * dashSpeed, rigidBody.velocity.y);
+        float attackTime = (float)characterAnimator.GetAnimationClipTime((EnumCharacterAnimationStateName)biteAttack.GetAnimationStateName());
+
+        Move(Vector2.zero);
+
+        // pause regular movement when dashing
+        SetCanMoveBool(false);
+
+        Attack(biteAttack);
+
+        float timePassed = 0;
+        while (timePassed < attackTime)
+        {
+            // Code to go left here
+            rigidBody.velocity = new Vector2(direction * dashSpeed, rigidBody.velocity.y);
+
+            timePassed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        SetCanMoveBool(true);
     }
 
     #endregion

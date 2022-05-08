@@ -264,7 +264,10 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             rigidBody.velocity = characterVelocity;
 
-            FlipSprite();
+            if (Mathf.Abs(moveInput.x) != 0)
+            {
+                FlipSprite();
+            }
         }
     }
 
@@ -274,10 +277,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
         if (playerHasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rigidBody.velocity.x), 1f);
+            FlipSprite(rigidBody.velocity.x);
         }
     }
-    
+
+    public virtual void FlipSprite(float direction)
+    {
+        transform.localScale = new Vector2(Mathf.Sign(direction), 1f);
+    }
+
     public virtual void HandleFallVelocity()
     {
         // if falling

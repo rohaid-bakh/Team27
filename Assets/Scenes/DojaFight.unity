@@ -740,7 +740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &905086812
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197c5c06e3f341b499bf9bb2efdf0a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 2
   jumpPower: 5
   fallModifier: 2
   groundPoint: {fileID: 154869065}
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   baseSpeedModifier: 1
   idleTimeModifier: 1
   playerTransform: {fileID: 604413905}
-  dashSpeed: 2
+  dashSpeed: 6
   leftEndPoint: {fileID: 1360966190}
   rightEndPoint: {fileID: 1486391549}
   healthPercentageToEnterRage: 0.3
