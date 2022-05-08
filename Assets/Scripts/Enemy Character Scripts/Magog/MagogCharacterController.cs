@@ -44,6 +44,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
 
     // to keep track of current coroutine
     Coroutine enemyLoopCoroutine = null;
+    Coroutine enemyRageCoroutine = null;
 
     // keep track of max health
 
@@ -133,10 +134,14 @@ public class MagogCharacterController : CharacterMonoBehaviour
     
     IEnumerator EnterRageMode()
     {
-        if (!inRageMode && !enteringRageMode)
+        Debug.Log("Entering Rage Mode");
+
+        if (!inRageMode)
         {
-            enteringRageMode = true;
             inRageMode = true;
+
+            // stop any current attack animations that are playing 
+            FinishAttackAnimation();
 
             // stop corouting
             StopCoroutine(enemyLoopCoroutine);
@@ -162,6 +167,8 @@ public class MagogCharacterController : CharacterMonoBehaviour
             enteringRageMode = false;
 
             enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
+
+            StopCoroutine(enemyRageCoroutine);
         }
     }
     #endregion
@@ -238,7 +245,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
     public override void TakeDamage(int damageAmount)
     {
         // don't take damage when entering rage
-        if (enteringRageMode == false)
+        if (enemyRageCoroutine == null)
         {
             // take damage
             bool isCharacterDead = ApplyDamageToHealth(damageAmount);
@@ -254,11 +261,13 @@ public class MagogCharacterController : CharacterMonoBehaviour
                 int currentHealth = characterHealth.GetCurrentHealth();
                 float healthPercentage = (float)currentHealth / (float)maxHealth;
 
-                //Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
+                Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
 
                 if (healthPercentage <= healthPercentageToEnterRage)
                 {
-                    StartCoroutine(EnterRageMode());
+                    Debug.Log("Starting Rage Coroutine");
+                    if(enemyRageCoroutine == null)
+                        enemyRageCoroutine = StartCoroutine(EnterRageMode());
                 }
             }
         }
