@@ -13,6 +13,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     // movement
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] int jumpPower = 5;
+    [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
     Vector2 moveInput;
 
     // ground check
@@ -50,6 +51,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     void FixedUpdate()
     {
         Move();
+        HandleFallVelocity();
         currentState.OnUpdate(this);
         UpdateTeshMeshWithCharacterState(); // for testing. Can be removed when finished game
     }
@@ -210,14 +212,12 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void AddToVelocity(Vector3 force)
     {
         rigidBody.velocity += force;
-        // rigidBody.AddForce(force, ForceMode.Impulse);
-        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
+        //rigidBody.AddForce(force, ForceMode.Impulse);
     }
 
     public void ApplyForceToVelocity(Vector3 force)
     {
         rigidBody.AddForce(force, ForceMode.Impulse);
-        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
     }
 
     public int GetMaxHealthStat()
@@ -275,6 +275,16 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         if (playerHasHorizontalSpeed)
         {
             transform.localScale = new Vector2(Mathf.Sign(rigidBody.velocity.x), 1f);
+        }
+    }
+    
+    public virtual void HandleFallVelocity()
+    {
+        // if falling
+        if(rigidBody.velocity.y < 0)
+        {
+            // falls faster
+            rigidBody.velocity += (Vector3.up * Physics.gravity.y * fallModifier * Time.deltaTime);
         }
     }
     #endregion
