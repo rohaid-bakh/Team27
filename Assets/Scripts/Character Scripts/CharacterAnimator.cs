@@ -16,12 +16,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         waitingForAnimationToComplete = false;
         animator = GetComponent<Animator>();
-    }
-
-    void Start()
-    {
         animations = animator?.runtimeAnimatorController.animationClips.ToList();
     }
+
     #endregion
 
     #region public functions
@@ -84,7 +81,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{animationState.ToString()} Animation clip not found in animator");
+            Debug.Log($"{animationState.ToString()} Animation clip not found in animator (from GetAnimationClipTime)");
             foreach (AnimationClip animClip in animations) { Debug.Log(animClip.name + " " + animClip.name.ToUpper().Contains(animationState.ToString().ToUpper())); }
         }
 
@@ -108,7 +105,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{animationState.ToString()} Animation clip not found in animator");
+            Debug.Log($"{animationState.ToString()} Animation clip not found in animator (from IsAnimationClipLoopable)");
         }
 
         return true;
@@ -131,7 +128,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{animationState.ToString()} Animation clip not found in animator");
+            Debug.Log($"{animationState.ToString()} Animation clip not found in animator (from DoesAnimationExist())");
         }
 
         return false;

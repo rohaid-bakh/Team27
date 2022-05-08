@@ -2,24 +2,24 @@
 using System.Collections;
 using UnityEngine;
 
-public enum EnumMagogFightLoopState
+public enum EnumDojaFightLoopState
 {
-    SwipeAttack,
-    ProjectileAttack,
-    ChargeAttack
+    BiteAttack,
+    ClawAttack,
+    DashAttack
 }
-public class MagogCharacterController : EnemyCharacterMonoBehaviour
+public class DojaCharacterController : EnemyCharacterMonoBehaviour
 {
     // could have a multiple attacks, just need to serialize and add them here
-    MagogAttack1 swipeAttacl;
-    MagogAttack2 projectileAttack;
-    MagogAttack3 chargeAttack;
+    DojaAttack1 biteAttack;
+    DojaAttack2 clawAttack;
+    DojaAttack3 dashAttack;
 
     // keep track of current state in the fight
-    EnumMagogFightLoopState nextState = EnumMagogFightLoopState.SwipeAttack;
+    EnumDojaFightLoopState nextState = EnumDojaFightLoopState.BiteAttack;
 
     // serialize field
-    [SerializeField] float chargeSpeedModifier = 2f;
+    [SerializeField] float dashSpeed = 2f;
 
     // start/end transforms of map
     [SerializeField] Transform leftEndPoint;
@@ -45,9 +45,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
 
     private void Start()
     {
-        swipeAttacl = GetComponentInChildren<MagogAttack1>();
-        projectileAttack = GetComponentInChildren<MagogAttack2>();
-        chargeAttack = GetComponentInChildren<MagogAttack3>();
+        biteAttack = GetComponentInChildren<DojaAttack1>();
+        clawAttack = GetComponentInChildren<DojaAttack2>();
+        dashAttack = GetComponentInChildren<DojaAttack3>();
         enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
 
         maxHealth = GetMaxHealthStat();
@@ -70,14 +70,14 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             // actions based on current fight state
             switch (nextState)
             {
-                case EnumMagogFightLoopState.SwipeAttack:
-                    yield return SwipeAttackStage();
+                case EnumDojaFightLoopState.BiteAttack:
+                    yield return BiteAttackStage();
                     break;
-                case EnumMagogFightLoopState.ChargeAttack:
-                    yield return ChargePlayerAttackStage();
+                case EnumDojaFightLoopState.ClawAttack:
+                    yield return ClawAttackStage();
                     break;
-                case EnumMagogFightLoopState.ProjectileAttack:
-                    yield return ProjecttileAttackStage();
+                case EnumDojaFightLoopState.DashAttack:
+                    yield return DashAttackStage();
                     break;
             }
         }
@@ -86,46 +86,46 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     }
 
     #region Enemy Fight Actions - Loop 
-    private IEnumerator SwipeAttackStage()
+    private IEnumerator BiteAttackStage()
     {
         // swipe three times
         for(int i = 0; i < 4; i++)
         {
-            yield return SwipeAttack();
+            yield return BiteAttack();
         }
 
         // idle 1 second
         yield return Idle(1f);
 
         // update the next state
-        nextState = EnumMagogFightLoopState.SwipeAttack;
+        nextState = EnumDojaFightLoopState.ClawAttack;
     }
 
-    private IEnumerator ChargePlayerAttackStage()
+    private IEnumerator ClawAttackStage()
     {
         // charge attack twice
         for(int i =0; i < 2; i++)
         {
             // charge
-            yield return ChargePlayerAttack();
+            yield return ClawAttack();
         }
         
         // update the next state
-        nextState = EnumMagogFightLoopState.ProjectileAttack;
+        nextState = EnumDojaFightLoopState.DashAttack;
     }
 
-    private IEnumerator ProjecttileAttackStage()
+    private IEnumerator DashAttackStage()
     {
         // face towards player
         MoveTowardsPlayer();
 
         // projectile
-        yield return ProjectileAttack();
+        yield return DashAttack();
 
         yield return Idle(2);
 
         // update the next state
-        nextState = EnumMagogFightLoopState.SwipeAttack;
+        nextState = EnumDojaFightLoopState.BiteAttack;
     }
     
     IEnumerator EnterRageMode()
@@ -171,7 +171,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     #endregion
 
     #region Attacks
-    IEnumerator SwipeAttack()
+    IEnumerator BiteAttack()
     {
         // move towards player and swipe
         MoveTowardsPlayer();
@@ -179,13 +179,13 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // attack1 swipes at player
-        Attack(swipeAttacl);
+        Attack(biteAttack);
 
         // wait for attack animation to finish
         yield return new WaitUntil(() => IsWaitingForAnimationToFinish() == false);
     }
 
-    IEnumerator ChargePlayerAttack()
+    IEnumerator ClawAttack()
     {
         // face player
         yield return FacePlayer();
@@ -201,10 +201,10 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         yield return Idle(1.5f);
 
         // move towards player
-        Move(playerDirection, chargeSpeedModifier * baseSpeedModifier);
+        Move(playerDirection, baseSpeedModifier);
 
         // attack
-        Attack(chargeAttack);
+        Attack(dashAttack);
 
         // wait until enemy reaches target position on other side of arena
         yield return new WaitUntil(() => Mathf.Abs((transform.position.x) - (targetPosition.position.x)) < 2);
@@ -218,7 +218,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         yield return Idle(1.5f);
     }
     
-    IEnumerator ProjectileAttack()
+    IEnumerator DashAttack()
     {        
         // fire six projectiles
         for(int i = 0; i < 6; i++)
@@ -228,7 +228,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             // use attack2 shoots projectiles
             PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
 
-            Attack(projectileAttack);
+            Attack(clawAttack);
 
             FinishAttackAnimation();
 
@@ -268,6 +268,16 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
                 }
             }
         }
+    }
+
+    #endregion
+
+    #region Helper functions
+
+    void Dash()
+    {
+        float direction = Mathf.Sign(transform.localScale.x);
+        rigidBody.velocity = new Vector2(direction * dashSpeed, rigidBody.velocity.y);
     }
 
     #endregion
