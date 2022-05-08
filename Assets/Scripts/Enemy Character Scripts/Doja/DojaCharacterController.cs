@@ -194,9 +194,6 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
         Vector2 playerDirection = GetPlayerDirection();
         Transform targetPosition = playerDirection == Vector2.left ? leftEndPoint : rightEndPoint;
 
-        // animation
-        PlayAttackAnimation(EnumCharacterAnimationStateName.Attack3);
-
         // idle
         yield return Idle(1.5f);
 
@@ -212,8 +209,6 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
         // stop moving
         Move(Vector2.zero);
 
-        FinishAttackAnimation();
-
         // Idle
         yield return Idle(1.5f);
     }
@@ -225,12 +220,7 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
         {
             MoveTowardsPlayer();
 
-            // use attack2 shoots projectiles
-            PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
-
             Attack(clawAttack);
-
-            FinishAttackAnimation();
 
             yield return new WaitForSeconds(1f);
         }

@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 842970428}
   - component: {fileID: 842970430}
   - component: {fileID: 842970429}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Testing - Character States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873826683949692255}
-  m_Material: {fileID: 13400000, guid: c63271aa41ff34b4ebcc76e9cb1bc4b0, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a668a7b44ea9e4ba09c2bc89194044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 5
   jumpPower: 8
   groundPoint: {fileID: 1873826683334567515}
   distanceToGround: 0.1
@@ -351,7 +351,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attack1: {fileID: 1137707214}
-  attack2: {fileID: 2112737141}
+  attackCoolDownTime: 0.5
 --- !u!114 &1964360969489657525
 MonoBehaviour:
   m_ObjectHideFlags: 0
