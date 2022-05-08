@@ -32,10 +32,10 @@ public class JumpingCharacterState : BaseCharacterState
     }
 
     // no attack when jumping
-    //public override void Attack(ICharacterContext context, IAttack attack)
-    //{
-    //    context.SetState(new AttackingCharacterState(attack));
-    //}
+    public override void Attack(ICharacterContext context, IAttack attack)
+    {
+        context.SetState(new AttackingCharacterState(attack));
+    }
 
     public override void TakeDamage(ICharacterContext context, int damageAmount)
     {
@@ -52,7 +52,7 @@ public class JumpingCharacterState : BaseCharacterState
 
             // does the jump
             Vector3 jumpForce = new Vector3(0f, context.GetJumpForce(), 0f);
-            context.AddToVelocity(jumpForce);
+            context.AddToJumpVelocity(jumpForce);
         }
 
         hasStartedJump = true;

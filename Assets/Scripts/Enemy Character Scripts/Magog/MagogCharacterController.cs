@@ -98,7 +98,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         yield return Idle(1f);
 
         // update the next state
-        nextState = EnumMagogFightLoopState.SwipeAttack;
+        nextState = EnumMagogFightLoopState.ChargeAttack;
     }
 
     private IEnumerator ChargePlayerAttackStage()

@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 4374285656981249159}
   - component: {fileID: 5906745521837652259}
   m_Layer: 3
-  m_Name: Magog Enemy
+  m_Name: Doja Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1416,20 +1416,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1873826683949692247, guid: 91c195affd1c74c4787e4be488d416c3,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1873826683949692255, guid: 91c195affd1c74c4787e4be488d416c3,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873826683949692265, guid: 91c195affd1c74c4787e4be488d416c3,
-        type: 3}
-      propertyPath: jumpPower
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1964360969489657525, guid: 91c195affd1c74c4787e4be488d416c3,
         type: 3}

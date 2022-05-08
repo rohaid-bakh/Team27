@@ -12,7 +12,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 {
     // movement
     [SerializeField] float moveSpeed = 2f;
-    [SerializeField] int jumpPower = 5;
+    [SerializeField] float jumpPower = 5;
     [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
     Vector2 moveInput;
 
@@ -209,10 +209,10 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         return canMove;
     }
 
-    public void AddToVelocity(Vector3 force)
+    public void AddToJumpVelocity(Vector3 force)
     {
-        rigidBody.velocity += force;
-        //rigidBody.AddForce(force, ForceMode.Impulse);
+        rigidBody.velocity += new Vector3(0, 0.1f, 0); // add a small amount of velocity first so IsJumping() returns true
+        rigidBody.AddForce(force, ForceMode.Impulse); // add force
     }
 
     public void ApplyForceToVelocity(Vector3 force)
@@ -281,7 +281,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public virtual void HandleFallVelocity()
     {
         // if falling
-        if(rigidBody.velocity.y < 0)
+        if(rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0.5)
         {
             // falls faster
             rigidBody.velocity += (Vector3.up * Physics.gravity.y * fallModifier * Time.deltaTime);

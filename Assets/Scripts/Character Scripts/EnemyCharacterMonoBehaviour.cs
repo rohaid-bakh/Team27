@@ -59,7 +59,5 @@ public class EnemyCharacterMonoBehaviour : CharacterMonoBehaviour
         Vector2 playerDirection = GetPlayerDirection();
         Move(playerDirection, setSpeedModifier);
     }
-
-
     #endregion
 }
