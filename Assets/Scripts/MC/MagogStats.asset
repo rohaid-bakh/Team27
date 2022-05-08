@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4983bc4551a1f5b4aabe2c7db0c3b5d3, type: 3}
   m_Name: MagogStats
   m_EditorClassIdentifier: 
-  health: 50
+  health: 100
   damage: 0
   flash: {fileID: 2100000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}

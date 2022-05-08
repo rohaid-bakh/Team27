@@ -13,7 +13,7 @@ public interface ICharacterContext
     void SetCanMoveBool(bool canMove);
     bool ApplyDamageToHealth(int damageAmont);
     float GetJumpForce();
-    void AddForceToVelocity(Vector3 force);
+    void AddToVelocity(Vector3 force);
     bool IsGrounded();
     bool IsMovingLeftOrRight();
     bool IsJumping();

@@ -31,10 +31,16 @@ public class CharacterAnimator : MonoBehaviour
     /// <param name="newState"></param>
     public void ChangeAnimationState(EnumCharacterAnimationStateName newState)
     {
-        //stop the same animation from interuptting itself. Also, stops if animation doesn't exist
-        if (currentAnimationState == newState || waitingForAnimationToComplete || !DoesAnimationExist(newState)) return;
+        // return if animation doesn't exist 
+        if (!DoesAnimationExist(newState)) return;
 
-        //check if we need to wait for animation to complete (no loopable animations should complete)
+        // stop if waiting for other animation to complete (only Die state can interrupt animation)
+        if (waitingForAnimationToComplete && newState != EnumCharacterAnimationStateName.Die) return;
+
+        //stop the same animation from interuptting itself
+        if (currentAnimationState == newState) return;
+
+        //check if we need to wait for animation to complete (ex. if animation doesn't loop, wait for it to complete)
         if (!IsAnimationClipLoopable(newState))
         {
             waitingForAnimationToComplete = true;
@@ -42,7 +48,7 @@ public class CharacterAnimator : MonoBehaviour
             // get animation clip length, and wait x seconds to set wait bool to false
             float? animationClipTime = GetAnimationClipTime(newState);
             if (animationClipTime != null)
-                Invoke("AnimationComplete", (float)animationClipTime);
+                StartCoroutine(WaitForAnimationToComplete((float)animationClipTime));
             else
                 waitingForAnimationToComplete = false;
         }
@@ -52,6 +58,11 @@ public class CharacterAnimator : MonoBehaviour
 
         //reassign current state
         currentAnimationState = newState;
+    }
+
+    public void SetWaitForAnimationToComplete(bool waitToCompleteAnim)
+    {
+        this.waitingForAnimationToComplete = waitToCompleteAnim;
     }
     #endregion
 
@@ -129,8 +140,9 @@ public class CharacterAnimator : MonoBehaviour
     /// <summary>
     /// Called when an animation is completed, to set the bool back to true
     /// </summary>
-    void AnimationComplete()
+    IEnumerator WaitForAnimationToComplete(float numberOfSeconds)
     {
+        yield return new WaitForSeconds(numberOfSeconds);
         waitingForAnimationToComplete = false;
     }
     #endregion

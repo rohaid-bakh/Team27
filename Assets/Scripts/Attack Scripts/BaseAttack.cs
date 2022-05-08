@@ -37,9 +37,14 @@ public class BaseAttack : MonoBehaviour, IAttack
             }
             else
             {
-                Debug.Log("Character monobehaviour not found");
-                // ie. if no charactermonobehavior, search for health component & apply the damage directly
-                col.gameObject.GetComponent<Health>()?.TakeDamage(damageAmount);
+                Health health = col.gameObject.GetComponent<Health>();
+                if(health != null)
+                {
+                    Debug.Log("Character monobehaviour not found for attack damage. Using Health.TakeDamage directly");
+
+                    // ie. if no charactermonobehavior, search for health component & apply the damage directly
+                    col.gameObject.GetComponent<Health>()?.TakeDamage(damageAmount);
+                }
             }
         }
     }
