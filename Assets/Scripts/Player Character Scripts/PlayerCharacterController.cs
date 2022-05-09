@@ -12,6 +12,30 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     [SerializeField] float attackCoolDownTime = 2f;
     float attackCoolDownTimer = 0f;
 
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
+
+    public float JumpPower
+    {
+        get
+        {
+            return jumpPower;
+        }
+        set
+        {
+            jumpPower = value;
+        }
+    }
+
     private void Start()
     {
         // for player we want to avoid the collision with the boundary collidesr (the player can fall of the map)

@@ -13,7 +13,10 @@ public enum EnumSoundName
     PlayerAttack1,
     PlayerAttack2,
     MagogAttack,
-    MagogProjectile
+    MagogProjectile,
+    DojaBite,
+    DojaClaw
+
 }
 
 // note: these names must match the states in the animator for the player / enemy

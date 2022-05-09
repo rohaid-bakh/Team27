@@ -5,5 +5,5 @@ using UnityEngine;
 public class DojaAttack2 : BaseAttack
 {
     public override EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack2;
-    public override EnumSoundName? GetSoundEffectName() => null; //todo
+    public override EnumSoundName? GetSoundEffectName() => EnumSoundName.DojaClaw;
 }

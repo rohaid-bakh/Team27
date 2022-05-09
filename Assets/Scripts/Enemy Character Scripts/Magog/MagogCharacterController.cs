@@ -56,7 +56,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     // standard enemy behaviour loop
     private IEnumerator EnemyAIBehaviourLoop1()
     {
-        yield return FacePlayer();
+        FacePlayer();
         yield return new WaitForSeconds(1f);
         MoveTowardsPlayer();
         yield return new WaitForSeconds(1f);
@@ -147,7 +147,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             Move(Vector2.left);
 
             // face player
-            yield return FacePlayer();
+            FacePlayer();
 
             PlayAnimation(EnumCharacterAnimationStateName.EnterRage);
 
@@ -188,7 +188,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     IEnumerator ChargePlayerAttack()
     {
         // face player
-        yield return FacePlayer();
+        FacePlayer();
 
         // get target transofrm position
         Vector2 playerDirection = GetPlayerDirection();

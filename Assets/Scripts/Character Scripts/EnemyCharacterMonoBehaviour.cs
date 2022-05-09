@@ -14,12 +14,10 @@ public class EnemyCharacterMonoBehaviour : CharacterMonoBehaviour
     [SerializeField] public Transform playerTransform;
 
     #region Helper Functions
-    public IEnumerator FacePlayer()
+    public void FacePlayer()
     {
         // Flip sprite in player firection
         FlipSprite(GetPlayerDirection().x);
-
-        yield return new WaitForSeconds(0f);
     }
     public IEnumerator Idle(float numberOfSeconds)
     {

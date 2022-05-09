@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 {
     // movement
-    [SerializeField] float moveSpeed = 2f;
-    [SerializeField] float jumpPower = 5;
+    [SerializeField] public float moveSpeed = 2f;
+    [SerializeField] public float jumpPower = 5;
     [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
     Vector2 moveInput;
 

@@ -5,21 +5,19 @@ using UnityEngine;
 public enum EnumDojaFightLoopState
 {
     BiteAttack,
-    ClawAttack,
-    DashAttack
+    ClawAttack
 }
 public class DojaCharacterController : EnemyCharacterMonoBehaviour
 {
     // could have a multiple attacks, just need to serialize and add them here
     DojaAttack1 biteAttack;
     DojaAttack2 clawAttack;
-    DojaAttack3 dashAttack;
 
     // keep track of current state in the fight
     EnumDojaFightLoopState nextState = EnumDojaFightLoopState.BiteAttack;
 
     // serialize field
-    [SerializeField] float dashSpeed = 2f;
+    [SerializeField] float clawSweepSpeed = 2f;
 
     // start/end transforms of map
     [SerializeField] Transform leftEndPoint;
@@ -47,7 +45,6 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
     {
         biteAttack = GetComponentInChildren<DojaAttack1>();
         clawAttack = GetComponentInChildren<DojaAttack2>();
-        dashAttack = GetComponentInChildren<DojaAttack3>();
         enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
 
         maxHealth = GetMaxHealthStat();
@@ -60,7 +57,7 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
         while (IsDead() == false)
         {
             //testing
-            nextState = EnumDojaFightLoopState.DashAttack; // EnumDojaFightLoopState.BiteAttack; //
+            //nextState = EnumDojaFightLoopState.DashAttack; // EnumDojaFightLoopState.BiteAttack; //
 
             // actions based on current fight state
             switch (nextState)
@@ -71,10 +68,15 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
                 case EnumDojaFightLoopState.ClawAttack:
                     yield return ClawAttackStage();
                     break;
-                case EnumDojaFightLoopState.DashAttack:
-                    yield return DashAttackStage();
-                    break;
             }
+
+            //MoveTowardsPlayer();
+
+            //yield return new WaitForSeconds(3f);
+
+            //yield return Idle(5);
+
+            //yield return Idle(30f);
         }
 
         yield return new WaitForSeconds(0f); // to avoid complaints about not all code paths return value
@@ -89,11 +91,11 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
             yield return BiteAttack();
         }
 
-        // idle 1 second
-        yield return Idle(1f);
-
         // update the next state
         nextState = EnumDojaFightLoopState.ClawAttack;
+
+        // idle 1 second
+        yield return Idle(2f);
     }
 
     private IEnumerator ClawAttackStage()
@@ -104,24 +106,12 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
             // charge
             yield return ClawAttack();
         }
-        
-        // update the next state
-        nextState = EnumDojaFightLoopState.DashAttack;
-    }
-
-    private IEnumerator DashAttackStage()
-    {
-        // charge attack twice
-        for (int i = 0; i < 4; i++)
-        {
-            // charge
-            yield return DashAttack();
-        }
-
-        yield return Idle(1);
 
         // update the next state
-        nextState = EnumDojaFightLoopState.BiteAttack;
+        nextState = EnumDojaFightLoopState.ClawAttack;
+
+        // idle 1 second
+        yield return Idle(2f);
     }
     
     IEnumerator EnterRageMode()
@@ -143,7 +133,7 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
             Move(Vector2.left);
 
             // face player
-            yield return FacePlayer();
+            FacePlayer();
 
             PlayAnimation(EnumCharacterAnimationStateName.EnterRage);
 
@@ -183,19 +173,16 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
 
     IEnumerator ClawAttack()
     {
-        //todo
-        yield return new WaitForSeconds(0f);
-    }
-    
-    IEnumerator DashAttack()
-    {
-        yield return FacePlayer();
+        // move towards player and swipe
+        MoveTowardsPlayer(clawSweepSpeed);
 
-        yield return Idle(1f);
+        yield return new WaitForSeconds(0.5f);
 
-        yield return Dash();
+        // attack1 swipes at player
+        Attack(clawAttack);
 
-        yield return Idle(1f);
+        // wait for attack animation to finish
+        yield return new WaitUntil(() => IsWaitingForAnimationToFinish() == false);
     }
     
     #endregion
@@ -234,33 +221,20 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
 
     #endregion
 
-    #region Helper functions
+    #region Retaliate
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    // check for collision with player
+    //    if (collision.gameObject.CompareTag("Player"))
+    //    {
+    //        FacePlayer();
+    //        Attack(biteAttack);
+    //    }
+    //}
 
-    IEnumerator Dash()
-    {
-        float direction = Mathf.Sign(transform.localScale.x);
-        float attackTime = (float)characterAnimator.GetAnimationClipTime((EnumCharacterAnimationStateName)biteAttack.GetAnimationStateName());
+    //IEnumerator RetaliateAttack()
+    //{
 
-        Move(Vector2.zero);
-
-        // pause regular movement when dashing
-        SetCanMoveBool(false);
-
-        Attack(biteAttack);
-
-        float timePassed = 0;
-        while (timePassed < attackTime)
-        {
-            // Code to go left here
-            rigidBody.velocity = new Vector2(direction * dashSpeed, rigidBody.velocity.y);
-
-            timePassed += Time.deltaTime;
-
-            yield return null;
-        }
-
-        SetCanMoveBool(true);
-    }
-
+    //}
     #endregion
 }

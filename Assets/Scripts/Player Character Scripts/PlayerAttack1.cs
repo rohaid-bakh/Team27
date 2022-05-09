@@ -5,4 +5,16 @@ public class PlayerAttack1 : BaseAttack
 {
     public override EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack1;
     public override EnumSoundName? GetSoundEffectName() => EnumSoundName.PlayerAttack1;
+
+    public int DamageAmount
+    {
+        get
+        {
+            return damageAmount;
+        }
+        set
+        {
+            damageAmount = value;
+        }
+    }
 }
