@@ -5,10 +5,10 @@ using UnityEngine;
 public enum EnumMagogFightLoopState
 {
     SwipeAttack,
-    ChargeAttack,
-    ProjectileAttack
+    ProjectileAttack,
+    ChargeAttack
 }
-public class MagogCharacterController : CharacterMonoBehaviour
+public class MagogCharacterController : EnemyCharacterMonoBehaviour
 {
     // could have a multiple attacks, just need to serialize and add them here
     MagogAttack1 swipeAttacl;
@@ -20,13 +20,6 @@ public class MagogCharacterController : CharacterMonoBehaviour
 
     // serialize field
     [SerializeField] float chargeSpeedModifier = 2f;
-    float baseSpeedModifier = 1;
-    float idleTimeModifier = 1;
-
-    // keep track of positions in the arena (player and end points of arena)
-    [Header("Transform Positions")]
-    // the player transform
-    [SerializeField] Transform playerTransform;
 
     // start/end transforms of map
     [SerializeField] Transform leftEndPoint;
@@ -63,7 +56,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
     // standard enemy behaviour loop
     private IEnumerator EnemyAIBehaviourLoop1()
     {
-        yield return FacePlayer();
+        FacePlayer();
         yield return new WaitForSeconds(1f);
         MoveTowardsPlayer();
         yield return new WaitForSeconds(1f);
@@ -154,7 +147,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
             Move(Vector2.left);
 
             // face player
-            yield return FacePlayer();
+            FacePlayer();
 
             PlayAnimation(EnumCharacterAnimationStateName.EnterRage);
 
@@ -195,7 +188,7 @@ public class MagogCharacterController : CharacterMonoBehaviour
     IEnumerator ChargePlayerAttack()
     {
         // face player
-        yield return FacePlayer();
+        FacePlayer();
 
         // get target transofrm position
         Vector2 playerDirection = GetPlayerDirection();
@@ -276,56 +269,6 @@ public class MagogCharacterController : CharacterMonoBehaviour
             }
         }
     }
-
-    #endregion
-
-    #region Helper Functions
-    IEnumerator FacePlayer()
-    {
-        // To face player, move towards them
-        MoveTowardsPlayer();
-
-        yield return new WaitForSeconds(0.1f);
-
-        // Stop moving
-        Move(Vector2.zero);
-    }
-    IEnumerator Idle(float numberOfSeconds)
-    {
-        // Idle
-        Move(Vector2.zero);
-
-        yield return new WaitForSeconds(numberOfSeconds * idleTimeModifier);
-    }
-
-    void PlayAttackAnimation(EnumCharacterAnimationStateName attackAnimation)
-    {
-        characterAnimator.ChangeAnimationState(attackAnimation);
-        characterAnimator.SetWaitForAnimationToComplete(true);
-    }
-
-    void FinishAttackAnimation()
-    {
-        characterAnimator.SetWaitForAnimationToComplete(false);
-    }
-
-    Vector2 GetPlayerDirection()
-    {
-        // if the player x position is greater than the current enemy position
-        if (playerTransform.position.x > transform.position.x)
-            return Vector2.right;
-        else
-            return Vector2.left;
-    }
-
-    void MoveTowardsPlayer(float speedModifier = 1)
-    {
-        float setSpeedModifier = baseSpeedModifier * speedModifier;
-
-        Vector2 playerDirection = GetPlayerDirection();
-        Move(playerDirection, setSpeedModifier);
-    }
-
 
     #endregion
 }

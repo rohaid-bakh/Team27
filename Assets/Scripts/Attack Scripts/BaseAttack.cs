@@ -5,7 +5,7 @@ public class BaseAttack : MonoBehaviour, IAttack
 {
 
     [SerializeField] private Transform attackPoint; 
-    [SerializeField] int damageAmount = 1;
+    [SerializeField] public int damageAmount = 1;
     [SerializeField] float attackRadius = 0.25f;
     public LayerMask enemy;
 

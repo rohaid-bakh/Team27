@@ -12,6 +12,8 @@ public class JumpingCharacterState : BaseCharacterState
 
     public override EnumSoundName? GetSoundEffectName() => EnumSoundName.Jump;
 
+    bool hasStartedJump = false;
+
     public override void OnEnter(ICharacterContext context)
     {
         DoJump(context);
@@ -20,7 +22,7 @@ public class JumpingCharacterState : BaseCharacterState
     public override void OnUpdate(ICharacterContext context)
     {
         // check if player has landed, then resume walking or idling state
-        if (context.IsGrounded() && !context.IsJumping())
+        if (hasStartedJump == true && context.IsGrounded() && !context.IsJumping())
         {
             if (context.IsMovingLeftOrRight())
                 context.SetState(new WalkingCharacterState());
@@ -30,10 +32,10 @@ public class JumpingCharacterState : BaseCharacterState
     }
 
     // no attack when jumping
-    //public override void Attack(ICharacterContext context, IAttack attack)
-    //{
-    //    context.SetState(new AttackingCharacterState(attack));
-    //}
+    public override void Attack(ICharacterContext context, IAttack attack)
+    {
+        context.SetState(new AttackingCharacterState(attack));
+    }
 
     public override void TakeDamage(ICharacterContext context, int damageAmount)
     {
@@ -50,7 +52,9 @@ public class JumpingCharacterState : BaseCharacterState
 
             // does the jump
             Vector3 jumpForce = new Vector3(0f, context.GetJumpForce(), 0f);
-            context.AddToVelocity(jumpForce);
+            context.AddToJumpVelocity(jumpForce);
         }
+
+        hasStartedJump = true;
     }
 }

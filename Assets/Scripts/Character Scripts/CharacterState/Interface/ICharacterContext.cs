@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ public interface ICharacterContext
     void SetCanMoveBool(bool canMove);
     bool ApplyDamageToHealth(int damageAmont);
     float GetJumpForce();
-    void AddToVelocity(Vector3 force);
+    void AddToJumpVelocity(Vector3 force);
     bool IsGrounded();
     bool IsMovingLeftOrRight();
     bool IsJumping();
