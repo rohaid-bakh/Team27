@@ -220,10 +220,14 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     
     IEnumerator ProjectileAttack()
     {        
-        // fire six projectiles
+        // fire 
         for(int i = 0; i < 6; i++)
         {
+            yield return new WaitForSeconds(0.5f);
+
             MoveTowardsPlayer();
+
+            yield return new WaitForSeconds(1f);
 
             // use attack2 shoots projectiles
             PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
@@ -231,8 +235,6 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             Attack(projectileAttack);
 
             FinishAttackAnimation();
-
-            yield return new WaitForSeconds(1f);
         }
     }
     
@@ -271,4 +273,13 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     }
 
     #endregion
+
+    #region If
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // TODO: if player collides with boundary, turn around
+    }
+
+    #endregion 
 }
