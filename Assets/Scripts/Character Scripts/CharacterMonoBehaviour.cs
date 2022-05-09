@@ -11,8 +11,9 @@ using UnityEngine.InputSystem;
 public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 {
     // movement
-    [SerializeField] float moveSpeed = 2f;
-    [SerializeField] int jumpPower = 5;
+    [SerializeField] public float moveSpeed = 2f;
+    [SerializeField] public float jumpPower = 5;
+    [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
     Vector2 moveInput;
 
     // ground check
@@ -50,6 +51,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     void FixedUpdate()
     {
         Move();
+        HandleFallVelocity();
         currentState.OnUpdate(this);
         UpdateTeshMeshWithCharacterState(); // for testing. Can be removed when finished game
     }
@@ -207,17 +209,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         return canMove;
     }
 
-    public void AddToVelocity(Vector3 force)
+    public void AddToJumpVelocity(Vector3 force)
     {
-        rigidBody.velocity += force;
-        // rigidBody.AddForce(force, ForceMode.Impulse);
-        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
+        rigidBody.velocity += new Vector3(0, 0.1f, 0); // add a small amount of velocity first so IsJumping() returns true
+        rigidBody.AddForce(force, ForceMode.Impulse); // add force
     }
 
     public void ApplyForceToVelocity(Vector3 force)
     {
         rigidBody.AddForce(force, ForceMode.Impulse);
-        // todo: need to refine jump at some point to be less floaty. Will also need to update IsJumping() when doing so.
     }
 
     public int GetMaxHealthStat()
@@ -264,7 +264,10 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             Vector3 characterVelocity = new Vector3(moveInput.x * moveSpeed, rigidBody.velocity.y, rigidBody.velocity.z);
             rigidBody.velocity = characterVelocity;
 
-            FlipSprite();
+            if (Mathf.Abs(moveInput.x) != 0)
+            {
+                FlipSprite();
+            }
         }
     }
 
@@ -274,7 +277,22 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
         if (playerHasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rigidBody.velocity.x), 1f);
+            FlipSprite(rigidBody.velocity.x);
+        }
+    }
+
+    public virtual void FlipSprite(float direction)
+    {
+        transform.localScale = new Vector2(Mathf.Sign(direction), 1f);
+    }
+
+    public virtual void HandleFallVelocity()
+    {
+        // if falling
+        if(rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0.5)
+        {
+            // falls faster
+            rigidBody.velocity += (Vector3.up * Physics.gravity.y * fallModifier * Time.deltaTime);
         }
     }
     #endregion
