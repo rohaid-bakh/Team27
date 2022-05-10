@@ -28,9 +28,6 @@ public class CharacterAnimator : MonoBehaviour
     /// <param name="newState"></param>
     public void ChangeAnimationState(EnumCharacterAnimationStateName newState)
     {
-        // return if animation doesn't exist 
-        if (!DoesAnimationExist(newState)) return;
-
         // stop if waiting for other animation to complete (only Die state can interrupt animation)
         if (waitingForAnimationToComplete && newState != EnumCharacterAnimationStateName.Die) return;
 
@@ -40,6 +37,9 @@ public class CharacterAnimator : MonoBehaviour
         //check if we need to wait for animation to complete (ex. if animation doesn't loop, wait for it to complete)
         if (!IsAnimationClipLoopable(newState))
         {
+            // return if animation doesn't exist 
+            if (!DoesAnimationExist(newState)) return;
+
             waitingForAnimationToComplete = true;
 
             // get animation clip length, and wait x seconds to set wait bool to false
@@ -138,8 +138,9 @@ public class CharacterAnimator : MonoBehaviour
     /// <summary>
     /// Called when an animation is completed, to set the bool back to true
     /// </summary>
-    IEnumerator WaitForAnimationToComplete(float numberOfSeconds)
+    IEnumerator WaitForAnimationToComplete(float numberOfSecondsInAnimation)
     {
+        float numberOfSeconds = numberOfSecondsInAnimation * 0.65f; // wait for a fraction of animation to complete
         yield return new WaitForSeconds(numberOfSeconds);
         waitingForAnimationToComplete = false;
     }

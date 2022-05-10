@@ -53,6 +53,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
         Move();
         HandleFallVelocity();
         currentState.OnUpdate(this);
+        SetAnimation();
         UpdateTeshMeshWithCharacterState(); // for testing. Can be removed when finished game
     }
     #endregion
@@ -88,20 +89,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public virtual void Jump() => currentState.Jump(this);
 
     /// <summary>
-    /// To make the character block
-    /// </summary>
-    public virtual void Block() => currentState.Block(this); 
-
-    /// <summary>
-    /// To make the character dodge
-    /// </summary>
-    public virtual void Dodge() => currentState.Dodge(this); //todo - maybe
-
-    /// <summary>
     /// When the character takes damage
     /// </summary>
     /// <param name="damageAmount">Amount of damage to be applied</param>
-    public virtual void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
+    public virtual void TakeDamage(int damageAmount) 
+    {
+        bool isCharacterDead = ApplyDamageToHealth(damageAmount);
+        if (isCharacterDead)
+            currentState.Die(this);
+    } 
 
     #endregion
 
@@ -257,6 +253,14 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             AudioManager.instance?.PlaySoundEffect((EnumSoundName)soundEffectName);
     }
 
+    // used to stop sound effect based on sound effect name
+    public void StopSoundEffect(EnumSoundName? soundEffectName)
+    {
+        if (soundEffectName != null)
+            AudioManager.instance?.StopSoundEffect((EnumSoundName)soundEffectName);
+    }
+
+
     public virtual void Move()
     {
         if (canMove)
@@ -295,6 +299,30 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             rigidBody.velocity += (Vector3.up * Physics.gravity.y * fallModifier * Time.deltaTime);
         }
     }
+
+    void SetAnimation()
+    {
+        EnumCharacterAnimationStateName state;
+
+        Vector2 playerVelocity = rigidBody.velocity;
+
+        bool isTouchingGround = IsGrounded();
+        bool isMoving = isTouchingGround && Mathf.Abs(playerVelocity.x) > Mathf.Epsilon;
+        bool isJumping = !isTouchingGround && Mathf.Abs(playerVelocity.y) > Mathf.Epsilon;
+
+        if (!IsWaitingForAnimationToFinish())
+        {
+            if (isJumping)
+                state = EnumCharacterAnimationStateName.Jumping;
+            else if (isMoving)
+                state = EnumCharacterAnimationStateName.Walking;
+            else
+                state = EnumCharacterAnimationStateName.Idling;
+
+            PlayAnimation(state);
+        }
+    }
+
     #endregion
 
 }

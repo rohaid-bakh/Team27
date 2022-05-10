@@ -37,11 +37,6 @@ public class JumpingCharacterState : BaseCharacterState
         context.SetState(new AttackingCharacterState(attack));
     }
 
-    public override void TakeDamage(ICharacterContext context, int damageAmount)
-    {
-        context.SetState(new TakingDamageCharacterState(damageAmount));
-    }
-
     private void DoJump(ICharacterContext context)
     {
         // check if grounded first, then jump

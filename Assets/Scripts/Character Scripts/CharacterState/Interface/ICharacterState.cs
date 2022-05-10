@@ -16,8 +16,6 @@ public interface ICharacterState
     void Idle(ICharacterContext context);
     void Walk(ICharacterContext context);
     void Jump(ICharacterContext context);
+    void Die(ICharacterContext context);
     void Attack(ICharacterContext context, IAttack attack);
-    void Block(ICharacterContext context);
-    void Dodge(ICharacterContext context);
-    void TakeDamage(ICharacterContext context, int damageAmount);
 }

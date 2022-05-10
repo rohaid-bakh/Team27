@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -20,41 +21,33 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    private float _trauma;
+    [SerializeField] float shakeDuration = 1f;
+    [SerializeField] float shakeMagnitude = 0.5f;
 
-    public static float Trauma { get { return Instance._trauma; } set { Instance._trauma = value; } }
+    Vector3 initialPosition;
 
-    private float _seed;
-
-    private float _elapsedTime;
-
-    public static Vector3 TargetPos;
-
-    // Use this for initialization
-    private void Start()
+    void Start()
     {
-        _seed = Random.Range(0, 999999);
+        initialPosition = transform.position;
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void Play()
     {
-        _trauma -= Time.deltaTime;
-        _trauma = Mathf.Clamp(_trauma, 0, 1);
-
-        var xPos = GetPerlin(_seed, 100, 1);
-        var yPos = GetPerlin(_seed + 1, 100, 1);
-        var rot = GetPerlin(_seed + 2, 100, 10);
-        transform.position = new Vector3(TargetPos.x + xPos, TargetPos.y + yPos, -10);
-        transform.eulerAngles = new Vector3(0, 0, rot);
-        _elapsedTime += Time.deltaTime;
+        StartCoroutine(Shake());
     }
 
-    private float GetPerlin(float newSeed, float frequency, float strength)
+    IEnumerator Shake()
     {
-        var noise = Mathf.PerlinNoise(newSeed + _elapsedTime * frequency, newSeed + _elapsedTime * frequency);
-        noise = noise * 2 - 1;
-        return noise * Mathf.Pow(_trauma, 2) * strength;
+        float elapsedTime = 0;
+
+        while (elapsedTime < shakeDuration)
+        {
+            transform.position = initialPosition + (Vector3)Random.insideUnitCircle * shakeMagnitude;
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.position = initialPosition;
     }
 
 }

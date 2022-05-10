@@ -86,4 +86,15 @@ public class PlayerCharacterController : CharacterMonoBehaviour
         }
     }
     #endregion
+
+    #region overrise
+    public override void TakeDamage(int damageAmount)
+    {
+        base.TakeDamage(damageAmount);
+
+        // sound effect
+        PlaySoundEffect(EnumSoundName.PlayerTakeDamage);
+    }
+
+    #endregion
 }

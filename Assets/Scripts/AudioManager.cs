@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="soundName"></param>
     public void PlaySoundEffect(EnumSoundName soundName)
     {
-        Sound soundEffect = soundEffects.FirstOrDefault(s => s.name == soundName);
+        Sound soundEffect = soundEffects.FirstOrDefault(s => s.soundName == soundName);
         if (soundEffect != null)
         {
             soundEffect.source.Play();
@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="soundName"></param>
     public void PlayMusicTrack(EnumSoundName soundName)
     {
-        Sound musicTrack = musicTracks.FirstOrDefault(s => s.name == soundName);
+        Sound musicTrack = musicTracks.FirstOrDefault(s => s.soundName == soundName);
         if (musicTrack != null)
         {
             musicTrack.source.Play();
@@ -94,6 +94,31 @@ public class AudioManager : MonoBehaviour
         // play sound effect
         if(playSoundEffect)
             PlaySoundEffect(EnumSoundName.SoundVolumeChange);
+    }
+
+    /// <summary>
+    /// Used to stop a sound effect currently playing.
+    /// </summary>
+    /// <param name="soundName"></param>
+    public void StopSoundEffect(EnumSoundName soundName)
+    {
+        Sound soundEffect = soundEffects.FirstOrDefault(s => s.soundName == soundName);
+        if (soundEffect != null)
+        {
+            soundEffect.source.Stop();
+        }
+        else
+        {
+            Debug.Log($"{soundName.ToString()} Sound doesn't exist in AudioManager list of sounds");
+        }
+    }
+
+    public void StopPlayingAllSoundEffects()
+    {
+        foreach(Sound sound in soundEffects)
+        {
+            StopSoundEffect(sound.soundName);
+        }
     }
     #endregion
 

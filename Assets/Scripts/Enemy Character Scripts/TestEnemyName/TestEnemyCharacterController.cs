@@ -29,8 +29,6 @@ public class TestEnemyCharacterController : CharacterMonoBehaviour
             Move(Vector2.left);
             yield return new WaitForSeconds(2f);
 
-            Block();
-
             yield return new WaitForSeconds(0.5f);
 
             Attack(attack1);
