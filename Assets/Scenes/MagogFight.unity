@@ -435,82 +435,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: musicTracks.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7bc41d33b4a360140ac4329893c79213,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: e3e040c98d9981b438fc40071827e4a0,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 10a89b8f67723b044b8734236984fb23,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: a36ddefed3e90e94dbe562e8247bb7d6,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 44fb62072844a0e4eafa96a5243ed3ce,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: ddb393bf7c40f3649b17aa962f3a5956,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: bced68c6ee61a5843b92ca578adf5eff,
-        type: 2}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c110d12f8fe1d6d43bf29aac3716e2cf, type: 3}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: musicTracks.Array.data[0].volume
-      value: 0.688
-      objectReference: {fileID: 0}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[0].volume
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: soundEffects.Array.data[1].volume
-      value: 0.714
-      objectReference: {fileID: 0}
     - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
@@ -862,6 +790,7 @@ GameObject:
   - component: {fileID: 5906745521837652258}
   - component: {fileID: 4374285656981249159}
   - component: {fileID: 5906745521837652259}
+  - component: {fileID: 5906745521837652260}
   m_Layer: 3
   m_Name: Magog Enemy
   m_TagString: Untagged
@@ -907,7 +836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905086811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.38, y: 1.55, z: -2.41}
+  m_LocalPosition: {x: 4.38, y: 0.79, z: -2.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2104,6 +2033,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 905086812}
+--- !u!1001 &4569617511095855007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865187, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569617511189865190, guid: 48ee972796fec514a9b7e9b39709a2f9,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Death Zone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 48ee972796fec514a9b7e9b39709a2f9, type: 3}
 --- !u!114 &5906745521837652258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2144,11 +2142,35 @@ MonoBehaviour:
   chargeSpeedModifier: 2.5
   leftEndPoint: {fileID: 1360966190}
   rightEndPoint: {fileID: 1486391549}
+  numberOfSwipes: 3
+  numberOfCharges: 2
+  numberOfProjectileAttacks: 2
   healthPercentageToEnterRage: 0.2
   speedModifierOnRage: 1.25
   idleTimeModifierOnRage: 0.85
   rageColor: {r: 1, g: 0.10588236, b: 0, a: 1}
   magogSpriteRenderer: {fileID: 561416925}
+  numberOfExtraSwipes: 2
+  numberOfExtraCharges: 2
+  numberOfExtraProjectileAttacks: 2
+--- !u!114 &5906745521837652260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905086811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d159d7228f607b2459e08536aceb9ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shadowPrefab: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943,
+    type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  shadowSize: 0.552
 --- !u!1 &6033188393797994686
 GameObject:
   m_ObjectHideFlags: 0

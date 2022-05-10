@@ -306,22 +306,8 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         // TODO: if player collides with boundary, turn around
         if(collision.gameObject.layer == LayerMask.NameToLayer("Boundaries"))
         {
-            
-            StartCoroutine(TurnAroundAfterBorderCollision());
+            MoveTowardsPlayer();
         }
-    }
-
-    IEnumerator TurnAroundAfterBorderCollision()
-    {
-        Debug.Log("Turning to face character");
-
-        StopCoroutine(enemyLoopCoroutine); // stop current attack coroutine
-
-        MoveTowardsPlayer();
-
-        yield return new WaitForSeconds(0.1f);
-
-        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1()); // resume attack loop coroutine
     }
 
     #endregion 

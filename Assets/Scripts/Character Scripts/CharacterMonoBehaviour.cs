@@ -89,20 +89,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public virtual void Jump() => currentState.Jump(this);
 
     /// <summary>
-    /// To make the character block
-    /// </summary>
-    public virtual void Block() => currentState.Block(this); 
-
-    /// <summary>
-    /// To make the character dodge
-    /// </summary>
-    public virtual void Dodge() => currentState.Dodge(this); //todo - maybe
-
-    /// <summary>
     /// When the character takes damage
     /// </summary>
     /// <param name="damageAmount">Amount of damage to be applied</param>
-    public virtual void TakeDamage(int damageAmount) => currentState.TakeDamage(this, damageAmount); //todo, need to set up animation + health check
+    public virtual void TakeDamage(int damageAmount) 
+    {
+        bool isCharacterDead = ApplyDamageToHealth(damageAmount);
+        if (isCharacterDead)
+            currentState.Die(this);
+    } 
 
     #endregion
 

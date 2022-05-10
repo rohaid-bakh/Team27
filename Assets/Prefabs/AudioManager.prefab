@@ -45,34 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffects:
-  - name: 1
-    clip: {fileID: 8300000, guid: f6d9c51413349334aa140634f3aff00b, type: 3}
-    volume: 0.358
-    pitch: 1.16
-    loop: 0
-    source: {fileID: 0}
-  - name: 3
-    clip: {fileID: 8300000, guid: 7ab0778bd3b906d408b8a62a1a7b8b24, type: 3}
-    volume: 0.323
-    pitch: 1.05
-    loop: 0
-    source: {fileID: 0}
-  - name: 5
-    clip: {fileID: 8300000, guid: 2741046bf26fa054db44958246210168, type: 3}
-    volume: 0.675
-    pitch: 1.05
-    loop: 0
-    source: {fileID: 0}
-  - name: 6
-    clip: {fileID: 8300000, guid: e4b10bfbb7e9cfa4b949b503712a5e0b, type: 3}
-    volume: 0.752
-    pitch: 1.05
-    loop: 0
-    source: {fileID: 0}
+  - {fileID: 11400000, guid: 16563b07e9a61504a87db78eeed44f81, type: 2}
+  - {fileID: 11400000, guid: e3e040c98d9981b438fc40071827e4a0, type: 2}
+  - {fileID: 11400000, guid: 10a89b8f67723b044b8734236984fb23, type: 2}
+  - {fileID: 11400000, guid: a36ddefed3e90e94dbe562e8247bb7d6, type: 2}
+  - {fileID: 11400000, guid: 44fb62072844a0e4eafa96a5243ed3ce, type: 2}
+  - {fileID: 11400000, guid: ddb393bf7c40f3649b17aa962f3a5956, type: 2}
+  - {fileID: 11400000, guid: bced68c6ee61a5843b92ca578adf5eff, type: 2}
   musicTracks:
-  - name: 0
-    clip: {fileID: 8300000, guid: cb91ebef54f622542b245647763b330f, type: 3}
-    volume: 0.5
-    pitch: 1.23
-    loop: 1
-    source: {fileID: 0}
+  - {fileID: 11400000, guid: 7bc41d33b4a360140ac4329893c79213, type: 2}

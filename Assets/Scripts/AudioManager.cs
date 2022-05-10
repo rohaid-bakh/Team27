@@ -112,6 +112,14 @@ public class AudioManager : MonoBehaviour
             Debug.Log($"{soundName.ToString()} Sound doesn't exist in AudioManager list of sounds");
         }
     }
+
+    public void StopPlayingAllSoundEffects()
+    {
+        foreach(Sound sound in soundEffects)
+        {
+            StopSoundEffect(sound.soundName);
+        }
+    }
     #endregion
 
     #region private functions 

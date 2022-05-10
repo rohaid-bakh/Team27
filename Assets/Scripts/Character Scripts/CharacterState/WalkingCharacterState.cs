@@ -28,19 +28,4 @@ public class WalkingCharacterState : BaseCharacterState
     {
         context.SetState(new AttackingCharacterState(attack));
     }
-
-    public override void Block(ICharacterContext context)
-    {
-        context.SetState(new BlockingCharacterState());
-    }
-
-    public override void Dodge(ICharacterContext context)
-    {
-        context.SetState(new DodgingCharacterState());
-    }
-
-    public override void TakeDamage(ICharacterContext context, int damageAmount)
-    {
-        context.SetState(new TakingDamageCharacterState(damageAmount));
-    }
 }

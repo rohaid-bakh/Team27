@@ -29,18 +29,6 @@ public class BaseCharacterState : ICharacterState
     {
     }
 
-    public virtual void Block(ICharacterContext context)
-    {
-    }
-
-    public virtual void Dodge(ICharacterContext context)
-    {
-    }
-
-    public virtual void TakeDamage(ICharacterContext context, int damageAmount)
-    {
-    }
-
     public virtual void Idle(ICharacterContext context)
     {
     }
@@ -51,5 +39,10 @@ public class BaseCharacterState : ICharacterState
 
     public virtual void Walk(ICharacterContext context)
     {
+    }
+
+    public void Die(ICharacterContext context)
+    {
+        context.SetState(new DeadCharacterState());
     }
 }

@@ -33,13 +33,8 @@ public class AttackingCharacterState : BaseCharacterState
                 context.SetState(new WalkingCharacterState());
             else if (context.IsGrounded() & !context.IsMovingLeftOrRight())
                 context.SetState(new IdlingCharacterState());
+            else // jumping
+                context.SetState(new JumpingCharacterState());
         }
     }
-
-    public override void TakeDamage(ICharacterContext context, int damageAmount)
-    {
-        context.SetState(new TakingDamageCharacterState(damageAmount));
-    }
-
-    //win?
 }
