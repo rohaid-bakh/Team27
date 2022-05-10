@@ -25,6 +25,11 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     [SerializeField] Transform leftEndPoint;
     [SerializeField] Transform rightEndPoint;
 
+    [Header("Attack Details")]
+    [SerializeField] int numberOfSwipes = 3;
+    [SerializeField] int numberOfCharges = 2;
+    [SerializeField] int numberOfProjectileAttacks = 2;
+
     [Header("Rage Mode Details")]
     [Range(0, 1)]
     [SerializeField] float healthPercentageToEnterRage = 0.3f; // how low should health be to enter rage state
@@ -32,6 +37,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     [SerializeField] float idleTimeModifierOnRage = 0.75f; // what to multiply the idle time by when in rage
     [SerializeField] Color rageColor; // temporary to flag if the magog is in rage
     [SerializeField] SpriteRenderer magogSpriteRenderer;
+    [SerializeField] int numberOfExtraSwipes = 2; // additional swipes on rage
+    [SerializeField] int numberOfExtraCharges = 2; // additional charges on rage
+    [SerializeField] int numberOfExtraProjectileAttacks = 2; // aditional projectiles on rage
     bool inRageMode = false;
     bool enteringRageMode = false;
 
@@ -89,22 +97,22 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     private IEnumerator SwipeAttackStage()
     {
         // swipe three times
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < numberOfSwipes; i++)
         {
             yield return SwipeAttack();
         }
 
-        // idle 1 second
-        yield return Idle(1f);
-
         // update the next state
         nextState = EnumMagogFightLoopState.ChargeAttack;
+
+        // idle 1 second
+        yield return Idle(2f);
     }
 
     private IEnumerator ChargePlayerAttackStage()
     {
         // charge attack twice
-        for(int i =0; i < 2; i++)
+        for(int i =0; i < numberOfCharges; i++)
         {
             // charge
             yield return ChargePlayerAttack();
@@ -122,10 +130,10 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         // projectile
         yield return ProjectileAttack();
 
-        yield return Idle(2);
-
         // update the next state
         nextState = EnumMagogFightLoopState.SwipeAttack;
+
+        yield return Idle(2);
     }
     
     IEnumerator EnterRageMode()
@@ -157,6 +165,11 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             // increase speed
             baseSpeedModifier = speedModifierOnRage;
             idleTimeModifier = idleTimeModifierOnRage;
+
+            //extra attacks
+            numberOfSwipes += numberOfExtraSwipes;
+            numberOfCharges += numberOfExtraCharges;
+            numberOfProjectileAttacks += numberOfExtraProjectileAttacks;
 
             // set visual indicator (ex. set colour to red)
             magogSpriteRenderer.color = rageColor;
@@ -200,6 +213,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         // idle
         yield return Idle(1.5f);
 
+        // sound
+        PlaySoundEffect(EnumSoundName.MagogCharge);
+
         // move towards player
         Move(playerDirection, chargeSpeedModifier * baseSpeedModifier);
 
@@ -214,6 +230,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
 
         FinishAttackAnimation();
 
+        // stop sound
+        StopSoundEffect(EnumSoundName.MagogCharge);
+
         // Idle
         yield return Idle(1.5f);
     }
@@ -221,20 +240,23 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     IEnumerator ProjectileAttack()
     {        
         // fire 
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < numberOfProjectileAttacks; i++)
         {
             yield return new WaitForSeconds(0.5f);
 
             MoveTowardsPlayer();
 
-            yield return new WaitForSeconds(1f);
+            for(int j = 0; j < 2; j++)
+            {
+                yield return new WaitForSeconds(1f);
 
-            // use attack2 shoots projectiles
-            PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
+                // use attack2 shoots projectiles
+                PlayAttackAnimation(EnumCharacterAnimationStateName.Attack2);
 
-            Attack(projectileAttack);
+                Attack(projectileAttack);
 
-            FinishAttackAnimation();
+                FinishAttackAnimation();
+            }
         }
     }
     
@@ -253,6 +275,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
                 StopCoroutine(enemyLoopCoroutine);
                 SetState(new DeadCharacterState());
             }
+
+            // sound effect
+            PlaySoundEffect(EnumSoundName.MagogTakeDamage);
 
             // check if health is below a certain point to enter rage
             if (!inRageMode)
@@ -279,6 +304,24 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // TODO: if player collides with boundary, turn around
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Boundaries"))
+        {
+            
+            StartCoroutine(TurnAroundAfterBorderCollision());
+        }
+    }
+
+    IEnumerator TurnAroundAfterBorderCollision()
+    {
+        Debug.Log("Turning to face character");
+
+        StopCoroutine(enemyLoopCoroutine); // stop current attack coroutine
+
+        MoveTowardsPlayer();
+
+        yield return new WaitForSeconds(0.1f);
+
+        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1()); // resume attack loop coroutine
     }
 
     #endregion 

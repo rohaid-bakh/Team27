@@ -31,7 +31,7 @@ public class Health : MonoBehaviour
         updateUIbar();
         StartCoroutine(HitFlash());
 
-        CameraShake.Trauma = .3f; // Set the amount of camera shake 
+        CameraShake.Instance.Play(); // Set the camera shake 
 
         if (hpbar <= 0)
         {

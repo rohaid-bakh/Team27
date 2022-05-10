@@ -11,9 +11,11 @@ public enum EnumSoundName
     SoundVolumeChange,
     Jump,
     PlayerAttack1,
-    PlayerAttack2,
+    PlayerTakeDamage,
     MagogAttack,
     MagogProjectile,
+    MagogCharge,
+    MagogTakeDamage,
     DojaBite,
     DojaClaw
 

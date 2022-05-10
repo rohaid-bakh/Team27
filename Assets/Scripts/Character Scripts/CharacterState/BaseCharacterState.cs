@@ -15,7 +15,6 @@ public class BaseCharacterState : ICharacterState
 
     public virtual void OnEnter(ICharacterContext context)
     {
-        context.PlayAnimation(GetCharacterAnimationStateName());
         context.PlaySoundEffect(GetSoundEffectName());
     }
     public virtual void OnUpdate(ICharacterContext context)
