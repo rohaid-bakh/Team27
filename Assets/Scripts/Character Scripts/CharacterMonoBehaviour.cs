@@ -247,7 +247,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void PlayAnimation(EnumCharacterAnimationStateName? animationStateName)
     {
         if(animationStateName != null)
-            characterAnimator.ChangeAnimationState((EnumCharacterAnimationStateName)animationStateName);
+            characterAnimator?.ChangeAnimationState((EnumCharacterAnimationStateName)animationStateName);
     }
 
     // used to play sound effect based on sound effect name
