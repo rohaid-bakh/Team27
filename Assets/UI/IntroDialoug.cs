@@ -26,6 +26,7 @@ public class IntroDialoug : MonoBehaviour
     [Header("Text Box")]
     private TextMeshProUGUI text;
     [SerializeField]
+    [TextArea]
     private string[] textLog;
     private int textIndex = 1;
 

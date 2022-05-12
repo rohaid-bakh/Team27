@@ -244,7 +244,7 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
 
-            MoveTowardsPlayer();
+            MoveTowardsPlayer(0.85f); // move a little slower when firing projectiles
 
             for(int j = 0; j < 2; j++)
             {
@@ -268,6 +268,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         // don't take damage when entering rage
         if (enteringRageMode == false)
         {
+            // sound effect
+            PlaySoundEffect(EnumSoundName.MagogTakeDamage);
+
             // take damage
             bool isCharacterDead = ApplyDamageToHealth(damageAmount);
             if (isCharacterDead)
@@ -275,25 +278,25 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
                 StopCoroutine(enemyLoopCoroutine);
                 SetState(new DeadCharacterState());
             }
-
-            // sound effect
-            PlaySoundEffect(EnumSoundName.MagogTakeDamage);
-
-            // check if health is below a certain point to enter rage
-            if (!inRageMode)
+            else
             {
-                int currentHealth = characterHealth.GetCurrentHealth();
-                float healthPercentage = (float)currentHealth / (float)maxHealth;
-
-                Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
-
-                if (healthPercentage <= healthPercentageToEnterRage)
+                // check if health is below a certain point to enter rage
+                if (!inRageMode)
                 {
-                    Debug.Log("Starting Rage Coroutine");
-                    if(enemyRageCoroutine == null)
-                        enemyRageCoroutine = StartCoroutine(EnterRageMode());
+                    int currentHealth = characterHealth.GetCurrentHealth();
+                    float healthPercentage = (float)currentHealth / (float)maxHealth;
+
+                    Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
+
+                    if (healthPercentage <= healthPercentageToEnterRage)
+                    {
+                        Debug.Log("Starting Rage Coroutine");
+                        if (enemyRageCoroutine == null)
+                            enemyRageCoroutine = StartCoroutine(EnterRageMode());
+                    }
                 }
             }
+            
         }
     }
 

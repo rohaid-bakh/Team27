@@ -40,8 +40,19 @@ public class Dialouge : MonoBehaviour
          textBox.SetActive(true);
          playerSprite.sprite = playerDialoug.DialougeSprites[0]; // set up victory quote
          text.text = playerDialoug.Dialouge[0]; // set up victory dialouge
-         int scene = SceneManager.GetActiveScene().buildIndex+1; // use this instead when actual level build index is finalized
-         StartCoroutine(SceneTransition(3)); // change the passed in when the actual level build index is finalized
+        
+         Scene scene = SceneManager.GetActiveScene();
+
+         if(scene.name.Trim() == "MagogFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
+         {
+            StartCoroutine(StartVictorySceneDialog());
+         } // otherwise load next scene
+         else 
+         {
+            int nextScene = scene.buildIndex + 1; // use this instead when actual level build index is finalized
+            StartCoroutine(SceneTransition(2)); // change the passed in when the actual level build index is finalized
+         }
+         
      }  
     }
 
@@ -53,6 +64,17 @@ public class Dialouge : MonoBehaviour
             text.text = playerDialoug.Dialouge[2];
             StartCoroutine(SceneTransition(2));
         }
+    }
+
+    private IEnumerator StartVictorySceneDialog()
+    {
+        yield return new WaitForSeconds(2f);
+
+        textBox.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        FindObjectOfType<OutroDialoug>().StartOutroDialog();
     }
 
     private IEnumerator SceneTransition(int scene){
