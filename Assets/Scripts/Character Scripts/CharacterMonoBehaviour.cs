@@ -14,7 +14,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     [SerializeField] public float moveSpeed = 2f;
     [SerializeField] public float jumpPower = 5;
     [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
-    Vector2 moveInput;
+    Vector2 moveInput = new Vector2();
 
     // ground check
     [SerializeField] Transform groundPoint; // set a transform point on the character where the ground is
@@ -243,7 +243,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public void PlayAnimation(EnumCharacterAnimationStateName? animationStateName)
     {
         if(animationStateName != null)
-            characterAnimator.ChangeAnimationState((EnumCharacterAnimationStateName)animationStateName);
+            characterAnimator?.ChangeAnimationState((EnumCharacterAnimationStateName)animationStateName);
     }
 
     // used to play sound effect based on sound effect name
