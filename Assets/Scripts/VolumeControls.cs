@@ -16,13 +16,9 @@ public class VolumeControls : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
 
-        // update start volume values to 50% to start
-        float startVolume = 0.5f;
-        musicVolumeSlider.value = startVolume;
-        AudioManager.instance?.UpdateMusicVolume(startVolume);
-
-        soundEffectVolumeSlider.value = startVolume;
-        AudioManager.instance?.UpdateSoundEffectVolume(startVolume, playSoundEffect:false);
+        // update volume sliders
+        musicVolumeSlider.value = AudioManager.instance.MusicVolume;
+        soundEffectVolumeSlider.value = AudioManager.instance.SoundEffectVolume;
 
         isStarting = false;
     }

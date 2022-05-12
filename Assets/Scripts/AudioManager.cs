@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     private float musicVolume = 1f;
     private float soundEffectVolume = 1f;
 
+    public float MusicVolume { get { return musicVolume; } }
+    public float SoundEffectVolume { get { return soundEffectVolume; } }
+
     public static AudioManager instance;
 
     // Use this for initialization
@@ -29,6 +32,11 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        // update start volume values to 50% to start
+        float startVolume = 0.5f;
+        instance?.UpdateMusicVolume(startVolume);
+        instance?.UpdateSoundEffectVolume(startVolume, playSoundEffect: false);
+
         // by default, play the main theme if nothing is playing on start
         Sound musicTrack = musicTracks.FirstOrDefault();
         if (musicTrack != null && !musicTrack.source.isPlaying)
