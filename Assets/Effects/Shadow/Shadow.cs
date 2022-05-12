@@ -16,7 +16,7 @@ public class Shadow : MonoBehaviour
     void Start()
     {
         //shadow = Instantiate(shadowPrefab, shadowParent);
-        shadow = Instantiate(shadowPrefab);
+        shadow = Instantiate(shadowPrefab, transform);
         mesh = shadow.GetComponent<MeshRenderer>();
         mat = Instantiate(mesh.material);
         mesh.material = mat;

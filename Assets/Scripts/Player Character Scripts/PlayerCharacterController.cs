@@ -12,6 +12,22 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     [SerializeField] float attackCoolDownTime = 2f;
     float attackCoolDownTimer = 0f;
 
+    // can be called from other functions to pause player from controlling character (ex. opening dialog).
+    public bool canControlPlayer = true;
+    public bool CanControlPlayer
+    {
+        get
+        {
+            return canControlPlayer;
+        }
+        set
+        {
+            // stop moving
+            Move(Vector2.zero);
+            canControlPlayer = value;
+        }
+    }
+
     public float MoveSpeed
     {
         get
@@ -60,7 +76,7 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     #region Input functions
     void OnMove(InputValue value)
     {
-        if(PauseMenu.GamePaused != true)
+        if(PauseMenu.GamePaused != true && canControlPlayer)
             Move(value.Get<Vector2>());
     }
 
@@ -68,14 +84,14 @@ public class PlayerCharacterController : CharacterMonoBehaviour
     {
         if (value.isPressed)
         {
-            if (PauseMenu.GamePaused != true)
+            if (PauseMenu.GamePaused != true && canControlPlayer)
                 Jump();
         }
     }
 
     void OnAttack1(InputValue value)
     {
-        if (PauseMenu.GamePaused != true)
+        if (PauseMenu.GamePaused != true && canControlPlayer)
         {
             // check if player can attack (based on attack rate/time since last attack)
             if(attackCoolDownTimer <= 0)
