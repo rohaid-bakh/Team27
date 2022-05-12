@@ -95,7 +95,24 @@ PrefabInstance:
     - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
         type: 3}
       propertyPath: m_text
-      value: Sound Effects
+      value: sfx
+      objectReference: {fileID: 0}
+    - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b23c71b367c7e3d4fb29880f0f2afba4,
+        type: 2}
+    - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8319873616930753324, guid: b23c71b367c7e3d4fb29880f0f2afba4,
+        type: 2}
+    - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4560303610706878436, guid: c0f8821c30e725a4aad55eb2622d75c2,
         type: 3}
@@ -329,6 +346,18 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b23c71b367c7e3d4fb29880f0f2afba4,
+        type: 2}
+    - target: {fileID: 4501362084747849398, guid: c0f8821c30e725a4aad55eb2622d75c2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8319873616930753324, guid: b23c71b367c7e3d4fb29880f0f2afba4,
+        type: 2}
     - target: {fileID: 4560303610706878436, guid: c0f8821c30e725a4aad55eb2622d75c2,
         type: 3}
       propertyPath: m_AnchorMax.x
