@@ -28,7 +28,7 @@ public class IntroDialoug : MonoBehaviour
     [SerializeField]
     [TextArea]
     private string[] textLog;
-    private int textIndex = 1;
+    private int textIndex = 0;
 
     void Awake(){
         Player.SetActive(false);
@@ -42,17 +42,42 @@ public class IntroDialoug : MonoBehaviour
         if(tvScreen.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f){ // check that the tv animation is done
             textBox.SetActive(true);
             Button.SetActive(true);
+            if(textIndex == 0)
+            {
+                TypeText();
+            }
         };
 
     }
 
     public void textScroll(){
-        if (textIndex == textLog.Length){
+        // if it's the last test dialog, and the type writer has finished typing. start game
+        if (textIndex == textLog.Length && TypeWriter.instance?.isCurrentlyTyping == false){
             StartGame();
             textIndex = 1;
         } else {
-            text.text = textLog[textIndex];
-            textIndex++;
+            TypeText();
+        }
+    }
+
+    // types the text using the type writer class
+    private void TypeText()
+    {
+        // check if type writer exists in scene
+        if (TypeWriter.instance != null)
+        {
+            // get line to type from the text log (if textIndex is less than the length)
+            string lineToType = textIndex < textLog.Length ? textLog[textIndex] : "";
+
+            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(lineToType, text);
+
+            // if the type writer started typing the new line, increase textIndex (otherwise, type writer was finishing a line currently being typed)
+            if (startedTypeingLine)
+                textIndex++;
+        }
+        else
+        {
+            Debug.Log("TypeWriterMonoBehaviour doesn't exist in the current scene, so texts are not being written.");
         }
     }
 

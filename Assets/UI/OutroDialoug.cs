@@ -13,10 +13,6 @@ public class OutroDialoug : MonoBehaviour
     [SerializeField]
     private GameObject HealthBar;
 
-    [Header("Player")]
-    [SerializeField]
-    private PlayerCharacterController Player;
-
     [Header("TV Screen UI")]
     [SerializeField]
     private GameObject tvButton;
@@ -34,7 +30,7 @@ public class OutroDialoug : MonoBehaviour
     [SerializeField]
     [TextArea]
     private string[] tvTextLog;
-    private int tvTextIndex = 1;
+    private int tvTextIndex = 0;
 
     [Header("Player Dialouge Box")]
     [SerializeField]
@@ -47,6 +43,7 @@ public class OutroDialoug : MonoBehaviour
     [Header("Player Dialouge Sprite")]
     [SerializeField]
     private Image playerSprite;
+    string playerDialogLine = "Wait. . . what about me? Do I get to be an honorary Krokor? For completing Ogenjjak?";
 
     private void Awake()
     {
@@ -55,9 +52,6 @@ public class OutroDialoug : MonoBehaviour
     }
 
     public void StartOutroDialog(){
-        // first disable player controls (we still want to see the player)
-        Player.CanControlPlayer = false;
-
         // hide enemy & health bar
         Enemy.SetActive(false);
         HealthBar.SetActive(false);
@@ -76,31 +70,61 @@ public class OutroDialoug : MonoBehaviour
 
         tvTextBox.SetActive(true);
         tvButton.SetActive(true);
+
+        TypeTvText();
     }
 
     public void textScroll(){
-        // if it's the second last outro dialogue, show player dialogue
-        if (tvTextIndex == tvTextLog.Length - 2) {
+        // if it's the second last outro dialogue, and if the dialog is finished typing, show player dialogue
+        if (tvTextIndex == tvTextLog.Length - 2 && TypeWriter.instance?.isCurrentlyTyping == false) {
             
             ShowPlayerDialogue();
-            tvTextIndex++;
         }
-        // if it's the last outro dialogue, hide player dialog
-        else if (tvTextIndex == tvTextLog.Length - 1)
+        // if it's the last outro dialogue, if the dialog is finished typing, hide player dialog
+        else if (tvTextIndex == tvTextLog.Length - 1 && TypeWriter.instance?.isCurrentlyTyping == false)
         {
             HidePlayerDialogue();
-            tvText.text = tvTextLog[tvTextIndex];
-            tvTextIndex++;
+            TypeTvText();
+        }
+        // if it's the last outro dialogue, if the dialog is currently typing, finish the player dialog line
+        else if (tvTextIndex == tvTextLog.Length - 1 && TypeWriter.instance?.isCurrentlyTyping == true)
+        {
+            // stop typewriter
+            TypeWriter.instance?.StopTyping();
+
+            // finish typing the player dialog
+            dialogText.text = playerDialogLine;
         }
         // no more dialog, transition to the end scene
-        else if (tvTextIndex >= tvTextLog.Length)
+        else if (tvTextIndex >= tvTextLog.Length && TypeWriter.instance?.isCurrentlyTyping == false)
         {
             tvButton.SetActive(false);
             StartCoroutine(EndGame()); // transition to outro scene
         }
-        else {
-            tvText.text = tvTextLog[tvTextIndex];
-            tvTextIndex++;
+        else
+        {
+            TypeTvText();
+        }
+    }
+
+    // types the text using the type writer class
+    private void TypeTvText()
+    {
+        // check if type writer exists in scene
+        if (TypeWriter.instance != null)
+        {
+            // get line to type from the text log (if textIndex is less than the length)
+            string lineToType = tvTextIndex < tvTextLog.Length ? tvTextLog[tvTextIndex] : "";
+
+            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(lineToType, tvText);
+
+            // if the type writer started typing the new line, increase textIndex (otherwise, type writer was finishing a line currently being typed)
+            if (startedTypeingLine)
+                tvTextIndex++;
+        }
+        else
+        {
+            Debug.Log("TypeWriterMonoBehaviour doesn't exist in the current scene, so texts are not being written.");
         }
     }
 
@@ -109,9 +133,22 @@ public class OutroDialoug : MonoBehaviour
         // hide tv text
         tvText.text = "";
 
+        // show dialog box
         dialogTextBox.SetActive(true);
-        playerSprite.sprite = playerDialoug.DialougeSprites[0]; // set up victory quote
-        dialogText.text = "Wait… what about me? Do I get to be an honorary Krokor? For completing Ogenjjak?";
+        playerSprite.sprite = playerDialoug.DialougeSprites[0]; // set up sprite
+
+        if (TypeWriter.instance != null)
+        {
+            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(playerDialogLine, dialogText);
+
+            // if the type writer started typing the new line, increase tvIndex
+            if (startedTypeingLine)
+                tvTextIndex++;
+        }
+        else
+        {
+            Debug.Log("TypeWriterMonoBehaviour doesn't exist in the current scene, so texts are not being written.");
+        }
     }
 
     public void HidePlayerDialogue()

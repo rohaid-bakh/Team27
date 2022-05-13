@@ -16,8 +16,8 @@ MonoBehaviour:
   damage: 0
   flash: {fileID: 2100000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
   DialougeSprites:
-  - {fileID: 21300000, guid: 0648e02ef5c7b0b41be0977c21b5f39a, type: 3}
-  - {fileID: 21300000, guid: 7d56cff9510b92345be39e7c000b227a, type: 3}
+  - {fileID: 21300000, guid: 17335c119e7b80c47829be664b15324c, type: 3}
+  - {fileID: 21300000, guid: ce8b095abdd6ba54b8f2bcca9a13a244, type: 3}
   Dialouge:
   - Finally, a worthy foe. Our battle has been legendary!
   - "Ogenjjak! More like OgenJOKE! \u2026 LAUGH"

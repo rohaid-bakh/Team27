@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class Dialouge : MonoBehaviour
 {
+    [Header("Player")]
+    [SerializeField]
+    private PlayerCharacterController Player; // to turn off player controls on victory/loss
+
     [Header("Sliders")]
     [SerializeField]
     private Slider enemy;
@@ -37,9 +41,13 @@ public class Dialouge : MonoBehaviour
     public void Victory() // TODO: add randomizer to choose different quotes
     {
      if(enemy.value == 0){
+         // first disable player controls (we still want to see the player)
+         Player.CanControlPlayer = false;
+
          textBox.SetActive(true);
+
          playerSprite.sprite = playerDialoug.DialougeSprites[0]; // set up victory quote
-         text.text = playerDialoug.Dialouge[0]; // set up victory dialouge
+         TypeWriter.instance?.TypeWriteLine(playerDialoug.Dialouge[0], text); // set up victory dialouge
         
          Scene scene = SceneManager.GetActiveScene();
 
@@ -56,19 +64,25 @@ public class Dialouge : MonoBehaviour
      }  
     }
 
-
     public void Loss(){ // TODO: add randomizer to choose different quotes
-        if(player.value == 0){ 
+        if(player.value == 0){
+            // first disable player controls (we still want to see the player)
+            Player.CanControlPlayer = false;
+
             textBox.SetActive(true);
             playerSprite.sprite = playerDialoug.DialougeSprites[1];
-            text.text = playerDialoug.Dialouge[2];
+            TypeWriter.instance?.TypeWriteLine(playerDialoug.Dialouge[2], text);
             StartCoroutine(SceneTransition(2));
         }
     }
 
     private IEnumerator StartVictorySceneDialog()
     {
-        yield return new WaitForSeconds(2f);
+        // wait for text to finish typing
+        yield return new WaitUntil(() => TypeWriter.instance.isCurrentlyTyping == false);
+
+        // wait for one second
+        yield return new WaitForSeconds(1f);
 
         textBox.SetActive(false);
 
@@ -78,7 +92,14 @@ public class Dialouge : MonoBehaviour
     }
 
     private IEnumerator SceneTransition(int scene){
+
+        // wait for text to finish typing
+        yield return new WaitUntil(() => TypeWriter.instance.isCurrentlyTyping == false);
+
+        // wait for one second
         yield return new WaitForSeconds(1f);
+
+        //transition
         sceneTransition.SetTrigger("startTransit");
         
         yield return new WaitForSeconds(1f);

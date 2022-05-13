@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -32,5 +33,21 @@ public class PauseMenu : MonoBehaviour
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
+    }
+
+    public void MainMenu()
+    {
+        StartCoroutine(LoadMainMenu());
+    }
+
+    IEnumerator LoadMainMenu()
+    {
+        yield return new WaitForSeconds(0f); // todo: adjust
+
+        Time.timeScale = 1f;
+        
+        GamePaused = false;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
