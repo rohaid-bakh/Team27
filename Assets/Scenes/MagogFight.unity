@@ -502,6 +502,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8, type: 3}
+--- !u!114 &336520099 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1411736152136441017, guid: 4585832dbc11e83448665506e8bfce1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 669579924634675509}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &345601976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1616,11 +1628,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialougBoxV2
       objectReference: {fileID: 0}
-    - target: {fileID: 7062662009434835090, guid: 4585832dbc11e83448665506e8bfce1b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7062662009434835094, guid: 4585832dbc11e83448665506e8bfce1b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1764,6 +1771,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430892874310624, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_text
+      value: ' Challenger'
       objectReference: {fileID: 0}
     - target: {fileID: 6721430892874310625, guid: b815926481a26524faed079ff955f131,
         type: 3}
@@ -2541,6 +2553,11 @@ PrefabInstance:
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 6033188394450193693}
+    - target: {fileID: 6399172945852670066, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed474a00734ae84e9a80d505fbc0b40, type: 3}
 --- !u!1001 &5642765115868937598
@@ -2748,11 +2765,6 @@ PrefabInstance:
       objectReference: {fileID: 905086811}
     - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1873826683144600785}
-    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
-        type: 3}
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 6033188394450193693}
@@ -2771,6 +2783,16 @@ PrefabInstance:
       propertyPath: dialogTextBox
       value: 
       objectReference: {fileID: 7730796861721125287}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: sceneTransition
+      value: 
+      objectReference: {fileID: 345601977}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: playerContinueButtonImage
+      value: 
+      objectReference: {fileID: 336520099}
     - target: {fileID: 3273102656340063471, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
       propertyPath: m_Pivot.x

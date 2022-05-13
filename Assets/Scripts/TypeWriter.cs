@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TypeWriter : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class TypeWriter : MonoBehaviour
     private float typingSpeed = 0.04f;
 
     Coroutine displayLineCoroutine = null;
-    private GameObject continueButton = null;
+    private Image continueButtonImage = null;
 
     string currentTypingLine = "";
     public bool isCurrentlyTyping { get { return currentTypingLine == "" ? false : true; } }
@@ -23,7 +24,7 @@ public class TypeWriter : MonoBehaviour
         ManageSingleton();
     }
 
-    public bool TypeWriteLine(string newLineToType, TextMeshProUGUI text)
+    public bool TypeWriteLine(string newLineToType, TextMeshProUGUI text, Image dialogContinueButtonImage = null)
     {
         bool startedTypingNewLine = false;
 
@@ -31,15 +32,25 @@ public class TypeWriter : MonoBehaviour
         if (displayLineCoroutine != null)
             StopCoroutine(displayLineCoroutine);
 
-        // if currently typing, finish the line currently being type
+        // if currently typing, finish the line currently being typed
         if (isCurrentlyTyping)
         {
-            // first, finish typing the current line
+            // first, finish typing the current line, and show button
             text.text = currentTypingLine;
+
+            // show continue button after finished
+            if(continueButtonImage != null)
+                continueButtonImage.enabled = true;
+
             currentTypingLine = "";
         }
         else
         {
+            // hide continue button 
+            if (continueButtonImage != null)
+                continueButtonImage.enabled = false;
+
+            continueButtonImage = dialogContinueButtonImage;
             displayLineCoroutine = StartCoroutine(TypeWriteLineCoroutine(newLineToType, text));
             startedTypingNewLine = true;
         }
@@ -52,6 +63,10 @@ public class TypeWriter : MonoBehaviour
         if (displayLineCoroutine != null)
             StopCoroutine(displayLineCoroutine);
         currentTypingLine = "";
+
+        // show continue button 
+        if (continueButtonImage != null)
+            continueButtonImage.enabled = true;
     }
 
     private IEnumerator TypeWriteLineCoroutine(string line, TextMeshProUGUI text)
@@ -69,6 +84,10 @@ public class TypeWriter : MonoBehaviour
         }
 
         currentTypingLine = "";
+
+        // show continue button 
+        if (continueButtonImage != null)
+            continueButtonImage.enabled = true;
     }
 
     /// <summary>

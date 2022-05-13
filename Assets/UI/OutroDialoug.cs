@@ -13,26 +13,23 @@ public class OutroDialoug : MonoBehaviour
     [SerializeField]
     private GameObject HealthBar;
 
-    [Header("TV Screen UI")]
+    [Header("Scene Transition")]
     [SerializeField]
-    private GameObject tvButton;
-    [SerializeField]
-    private GameObject tvTextBox;
+    private Animator sceneTransition;
 
-    [Header("TV Animator")]
+    [Header("TV Screen")]
     [SerializeField]
-    private Image tvScreenImage;
-    [SerializeField]
-    private Animator tvScreenAnimator;
+    private GameObject tvScreen;
     
-    [Header("Tv Text Box")]
-    private TextMeshProUGUI tvText;
-    [SerializeField]
+    [Header("Tv Screen Dialog")]
+    [SerializeField] Image tvContinueButtonImage;
     [TextArea]
+    [SerializeField]
     private string[] tvTextLog;
     private int tvTextIndex = 0;
 
     [Header("Player Dialouge Box")]
+    [SerializeField] Image playerContinueButtonImage;
     [SerializeField]
     private GameObject dialogTextBox;
     [SerializeField]
@@ -45,10 +42,14 @@ public class OutroDialoug : MonoBehaviour
     private Image playerSprite;
     string playerDialogLine = "Wait. . . what about me? Do I get to be an honorary Krokor? For completing Ogenjjak?";
 
+    // components
+    Animator tvScreenAnimator;
+    TextMeshProUGUI tvText;
+    Button tvButton;
+
     private void Awake()
     {
-        tvScreenImage.enabled = false;
-        tvScreenAnimator.enabled = false;
+        tvScreen.SetActive(false);
     }
 
     public void StartOutroDialog(){
@@ -57,19 +58,27 @@ public class OutroDialoug : MonoBehaviour
         HealthBar.SetActive(false);
 
         // enable tv animator & wait for animation to finish
-        tvText = tvTextBox.GetComponent<TextMeshProUGUI>();
         StartCoroutine(WaitForTvAnimationToFinish());
     }
 
     IEnumerator WaitForTvAnimationToFinish()
     {
-        tvScreenImage.enabled = true;
-        tvScreenAnimator.enabled = true;
+        tvScreen.SetActive(true);
+
+        // get components
+        tvScreenAnimator = GetComponentInChildren<Animator>();
+        tvButton = GetComponentInChildren<Button>();
+        tvText = GetComponentInChildren<TextMeshProUGUI>();
+
+        // hide text & disable button
+        tvText.text = "";
+        tvContinueButtonImage.enabled = false;
+        tvButton.enabled = false;
 
         yield return new WaitUntil(() => tvScreenAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
 
-        tvTextBox.SetActive(true);
-        tvButton.SetActive(true);
+        // enable button
+        tvButton.enabled = true;
 
         TypeTvText();
     }
@@ -98,7 +107,7 @@ public class OutroDialoug : MonoBehaviour
         // no more dialog, transition to the end scene
         else if (tvTextIndex >= tvTextLog.Length && TypeWriter.instance?.isCurrentlyTyping == false)
         {
-            tvButton.SetActive(false);
+            tvButton.enabled = false;
             StartCoroutine(EndGame()); // transition to outro scene
         }
         else
@@ -116,7 +125,7 @@ public class OutroDialoug : MonoBehaviour
             // get line to type from the text log (if textIndex is less than the length)
             string lineToType = tvTextIndex < tvTextLog.Length ? tvTextLog[tvTextIndex] : "";
 
-            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(lineToType, tvText);
+            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(lineToType, tvText, tvContinueButtonImage);
 
             // if the type writer started typing the new line, increase textIndex (otherwise, type writer was finishing a line currently being typed)
             if (startedTypeingLine)
@@ -139,7 +148,7 @@ public class OutroDialoug : MonoBehaviour
 
         if (TypeWriter.instance != null)
         {
-            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(playerDialogLine, dialogText);
+            bool startedTypeingLine = TypeWriter.instance.TypeWriteLine(playerDialogLine, dialogText, playerContinueButtonImage);
 
             // if the type writer started typing the new line, increase tvIndex
             if (startedTypeingLine)
@@ -157,10 +166,22 @@ public class OutroDialoug : MonoBehaviour
     }
 
     private IEnumerator EndGame(){
+        // hide text & disable button
+        tvText.text = "";
+        tvButton.enabled = false;
+        tvContinueButtonImage.enabled = false;
+
+        // tv scroll up
         tvScreenAnimator.SetTrigger("ScrollOut");
 
-        // load main menu
+        // wait for tv to scroll up
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("MainMenu");
+
+        //transition to final scene
+        sceneTransition.SetTrigger("startTransit");
+
+        // load win screen
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("WinScreen");
     }
 }
