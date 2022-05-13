@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MagogFight.unity
     guid: bfaec3438f7e3764894ce10a1d2ae5e7
   - enabled: 1
+    path: Assets/Scenes/BorealFight.unity
+    guid: d9d88cd35c6c5ff48acdf590272b28aa
+  - enabled: 1
     path: Assets/Scenes/LoseScreen.unity
     guid: 6bcff41d256e6844fbace21e1fa26e85
   - enabled: 1
