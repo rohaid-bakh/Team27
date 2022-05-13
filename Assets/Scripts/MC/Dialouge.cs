@@ -52,8 +52,11 @@ public class Dialouge : MonoBehaviour
          List<int> victoryQuoteIndexes = new List<int> { 0, 1 };
          int randomVictoryQuoteIndex = victoryQuoteIndexes[random.Next(victoryQuoteIndexes.Count)];
          string victoryQuote = playerDialoug.Dialouge[randomVictoryQuoteIndex]; // TODO: add randomizer to choose different quotes
-
-         // get current scene
+                     
+         // victory sprite
+         Sprite victorySprite = playerDialoug.DialougeSprites[0];
+         
+            // get current scene
          Scene scene = SceneManager.GetActiveScene();
 
          if(scene.name.Trim() == "MagogFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
@@ -63,7 +66,7 @@ public class Dialouge : MonoBehaviour
          else 
          {
             int nextScene = scene.buildIndex + 1; // use this instead when actual level build index is finalized
-            StartCoroutine(DialogAndSceneTransition(victoryQuote, nextScene)); 
+            StartCoroutine(DialogAndSceneTransition(victoryQuote, victorySprite, nextScene)); 
          }
          
      }  
@@ -79,8 +82,11 @@ public class Dialouge : MonoBehaviour
             int randomLossQuoteIndex = lossQuoteIndexes[random.Next(lossQuoteIndexes.Count)];
             string lossQuote = playerDialoug.Dialouge[randomLossQuoteIndex];
 
+            // loss sprite
+            Sprite lossSprite = playerDialoug.DialougeSprites[1];
+
             int loseScreenIndex = 3; // TODO: once build index is finalized, double check if this is okay
-            StartCoroutine(DialogAndSceneTransition(lossQuote, loseScreenIndex));
+            StartCoroutine(DialogAndSceneTransition(lossQuote, lossSprite, loseScreenIndex));
         }
     }
 
@@ -98,7 +104,7 @@ public class Dialouge : MonoBehaviour
         // wait half a quarter second before dialog text appears
         yield return new WaitForSeconds(0.25f);
 
-        playerSprite.sprite = playerDialoug.DialougeSprites[1];
+        playerSprite.sprite = playerDialoug.DialougeSprites[0];
         TypeWriter.instance?.TypeWriteLine(victoryQuote, text);
 
         // wait for text to finish typing
@@ -114,7 +120,7 @@ public class Dialouge : MonoBehaviour
         FindObjectOfType<OutroDialoug>().StartOutroDialog();
     }
 
-    private IEnumerator DialogAndSceneTransition(string victoryOrLossQuote, int scene){
+    private IEnumerator DialogAndSceneTransition(string victoryOrLossQuote, Sprite victoryOrLossSprite, int scene){
         // no text to start
         text.text = "";
 
@@ -127,7 +133,7 @@ public class Dialouge : MonoBehaviour
         // wait half a quarter second before dialog text appears
         yield return new WaitForSeconds(0.25f);
 
-        playerSprite.sprite = playerDialoug.DialougeSprites[1];
+        playerSprite.sprite = victoryOrLossSprite;
         TypeWriter.instance?.TypeWriteLine(victoryOrLossQuote, text);
 
         // wait for text to finish typing
