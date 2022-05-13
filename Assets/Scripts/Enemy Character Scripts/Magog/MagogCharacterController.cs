@@ -276,6 +276,11 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             if (isCharacterDead)
             {
                 StopCoroutine(enemyLoopCoroutine);
+
+                // stop any current animations
+                FinishAttackAnimation();
+
+                // dead state
                 SetState(new DeadCharacterState());
             }
             else
