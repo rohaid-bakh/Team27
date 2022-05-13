@@ -306,13 +306,16 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
         Vector2 playerVelocity = rigidBody.velocity;
 
+        bool isDead = IsDead();
         bool isTouchingGround = IsGrounded();
         bool isMoving = isTouchingGround && Mathf.Abs(playerVelocity.x) > Mathf.Epsilon;
         bool isJumping = !isTouchingGround && Mathf.Abs(playerVelocity.y) > Mathf.Epsilon;
 
         if (!IsWaitingForAnimationToFinish())
         {
-            if (isJumping)
+            if (isDead)
+                state = EnumCharacterAnimationStateName.Die;
+            else if (isJumping)
                 state = EnumCharacterAnimationStateName.Jumping;
             else if (isMoving)
                 state = EnumCharacterAnimationStateName.Walking;
