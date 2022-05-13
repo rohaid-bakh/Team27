@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SoundEffectVolumeChange
   m_EditorClassIdentifier: 
   soundName: 1
-  clip: {fileID: 8300000, guid: f6d9c51413349334aa140634f3aff00b, type: 3}
-  volume: 0.65
+  clip: {fileID: 8300000, guid: 429a651a9db494d4597d3fb0f1654e1b, type: 3}
+  volume: 1
   pitch: 1
   loop: 0
   source: {fileID: 0}
