@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
 
     private float musicVolume = 1f;
     private float soundEffectVolume = 1f;
-
+    private List<Sound> pausedSoundEffects;
     public float MusicVolume { get { return musicVolume; } }
     public float SoundEffectVolume { get { return soundEffectVolume; } }
 
@@ -28,6 +28,8 @@ public class AudioManager : MonoBehaviour
 
         // create an audio source for each sound effect 
         InitializeAudioSources(soundEffects);
+
+        pausedSoundEffects = new List<Sound>();
     }
 
     private void Start()
@@ -119,6 +121,36 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log($"{soundName.ToString()} Sound doesn't exist in AudioManager list of sounds");
         }
+    }
+
+    /// <summary>
+    /// Used to pause all sound effects currently playing
+    /// </summary>
+    /// <param name="soundName"></param>
+    public void PauseAllSoundEffects()
+    {
+        foreach(Sound soundEffect in soundEffects)
+        {
+            if(soundEffect.source.isPlaying == true)
+            {
+                soundEffect.source.Pause();
+                pausedSoundEffects.Add(soundEffect);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Used to unpause all sound effects currently pause
+    /// </summary>
+    /// <param name="soundName"></param>
+    public void UnPauseAllSoundEffects()
+    {
+        foreach (Sound soundEffect in pausedSoundEffects)
+        {
+            soundEffect.source.UnPause();
+        }
+
+        pausedSoundEffects.Clear();
     }
 
     public void StopPlayingAllSoundEffects()

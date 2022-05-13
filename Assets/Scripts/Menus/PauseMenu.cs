@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
 
             if (GamePaused)
             {
+                AudioManager.instance?.PauseAllSoundEffects();
                 PauseMenuUI.SetActive(true);
                 Time.timeScale = 0f;
             }
@@ -30,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     // this is seperate so button can call it
     public void UnPause () 
     {
+        AudioManager.instance?.UnPauseAllSoundEffects();
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
