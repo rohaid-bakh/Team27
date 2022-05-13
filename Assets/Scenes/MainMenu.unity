@@ -277,11 +277,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TypeWriter
       objectReference: {fileID: 0}
-    - target: {fileID: 8625562412371814114, guid: f2804a64d1e5f3e4fb4011a3f97ad893,
-        type: 3}
-      propertyPath: typingSpeed
-      value: 0.02
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2804a64d1e5f3e4fb4011a3f97ad893, type: 3}
 --- !u!1001 &496449547
