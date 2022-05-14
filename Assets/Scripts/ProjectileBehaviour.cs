@@ -15,6 +15,19 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void Start()
     {
+        // want to avoid the collision with the boundary colliders & enemy (the player can fall of the map)
+        // boundaries are for the enemies
+        Collider projectilleCollider = GetComponent<Collider>();
+        int ignoreBoundariesLayer = LayerMask.NameToLayer("Boundaries");
+        int ignoreEnemyLayer = LayerMask.NameToLayer("Enemy");
+        Collider[] colliders = FindObjectsOfType<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject.layer == ignoreBoundariesLayer || collider.gameObject.layer == ignoreEnemyLayer)
+            {
+                Physics.IgnoreCollision(projectilleCollider, collider, ignore: true);
+            }
+        }
         StartCoroutine(WaitAndDestroy());
     }
 
@@ -52,9 +65,10 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // can't collide with enemies
-        if (other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
+        // collides with player or ground
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") || other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            Debug.Log($"Collision with {LayerMask.LayerToName(other.gameObject.layer)}");
             StartCoroutine(OnCollision(other));
         }
     }

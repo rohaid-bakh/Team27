@@ -7,8 +7,20 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
     public EnumCharacterAnimationStateName? GetAnimationStateName() => EnumCharacterAnimationStateName.Attack1;
     public EnumSoundName? GetSoundEffectName() => EnumSoundName.PlayerAttack1;
 
+    public int DamageAmount
+    {
+        get
+        {
+            return damageAmount;
+        }
+        set
+        {
+            damageAmount = value;
+        }
+    }
+
     [SerializeField] private Transform attackPoint;
-    [SerializeField] public int damageAmount = 1;
+    [SerializeField] int damageAmount = 1;
     [SerializeField] float attackRadius = 0.25f;
     public LayerMask enemy;
 
@@ -30,7 +42,6 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
     public IEnumerator SwordAttack()
     {
         enemyHit = false;
-        Debug.Log("Swinging");
 
         // keep attacking while character is in the attack state/animation and if they haven't already hit the enemy yet
         while(characterController.IsAttacking() == true && !enemyHit)
@@ -40,8 +51,6 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
 
             yield return new WaitForSeconds(0f);
         }
-
-        Debug.Log("Finished Swinging");
     }
 
     // for custom behaviour you can override this. Returns true if hit landed, returns false if no hit landed

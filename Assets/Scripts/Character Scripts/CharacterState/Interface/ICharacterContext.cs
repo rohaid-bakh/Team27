@@ -19,4 +19,5 @@ public interface ICharacterContext
     bool IsMovingLeftOrRight();
     bool IsJumping();
     bool IsWaitingForAnimationToFinish();
+    void DestroyShadow();
 }

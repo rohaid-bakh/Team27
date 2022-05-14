@@ -44,7 +44,7 @@ public class CharacterAnimator : MonoBehaviour
 
             // get animation clip length, and wait x seconds to set wait bool to false
             float? animationClipTime = GetAnimationClipTime(newState);
-            Debug.Log($"{newState.ToString()} animation time {animationClipTime}");
+            //Debug.Log($"{newState.ToString()} animation time {animationClipTime}");
             if (animationClipTime != null)
                 StartCoroutine(WaitForAnimationToComplete((float)animationClipTime));
             else

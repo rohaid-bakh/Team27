@@ -15,7 +15,9 @@ public class DeadCharacterState : BaseCharacterState
         base.OnEnter(context);
         context.SetCanMoveBool(false); // can't move
         Debug.Log("Character in dead state.");
-        // todo call something that transitions the scene (whether win (if enemy died) or lose (if player died))
+
+        // destroy shadow
+        context.DestroyShadow();
     }
 
     // can't transition to any other states when dead
