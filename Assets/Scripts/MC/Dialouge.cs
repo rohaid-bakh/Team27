@@ -43,14 +43,14 @@ public class Dialouge : MonoBehaviour
         
          Scene scene = SceneManager.GetActiveScene();
 
-         if(scene.name.Trim() == "MagogFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
+         if(scene.name.Trim() == "BorealFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
          {
             StartCoroutine(StartVictorySceneDialog());
          } // otherwise load next scene
          else 
          {
             int nextScene = scene.buildIndex + 1; // use this instead when actual level build index is finalized
-            StartCoroutine(SceneTransition(2)); // change the passed in when the actual level build index is finalized
+            StartCoroutine(SceneTransition(nextScene)); // change the passed in when the actual level build index is finalized
          }
          
      }  
@@ -62,7 +62,7 @@ public class Dialouge : MonoBehaviour
             textBox.SetActive(true);
             playerSprite.sprite = playerDialoug.DialougeSprites[1];
             text.text = playerDialoug.Dialouge[2];
-            StartCoroutine(SceneTransition(2));
+            StartCoroutine(SceneTransition(3));
         }
     }
 
