@@ -73,12 +73,12 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
             }
             else
             {
-                // sound effect
-                AudioManager.instance?.PlaySoundEffect(EnumSoundName.PlayerAttackHit);
-
                 Health health = col.gameObject.GetComponent<Health>();
                 if (health != null)
                 {
+                    // sound effect
+                    AudioManager.instance?.PlaySoundEffect(EnumSoundName.PlayerAttackHit);
+
                     Debug.Log("Character monobehaviour not found for attack damage. Using Health.TakeDamage directly");
 
                     // ie. if no charactermonobehavior, search for health component & apply the damage directly

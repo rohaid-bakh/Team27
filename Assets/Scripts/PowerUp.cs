@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    [SerializeField] public GameObject powerUpEffect;
+
     // power up stuff
     PowerUpManager powerUpSpawner;
     bool powerUpActive = false;
@@ -25,12 +27,15 @@ public class PowerUp : MonoBehaviour
     {
         powerUpSpawner = FindObjectOfType<PowerUpManager>();
 
-        // calculate move speed based on the arrive animation time + start and target position
+        // wait for animation intro to complete
         float? time = GetAnimationClipTime("Arrive");
         if (time != null)
         {
             StartCoroutine(WaitForIntroAnimationToComplete((float)time));
         }
+
+        // sound effect
+        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpAppear);
     }
 
     private IEnumerator WaitForIntroAnimationToComplete(float animationTime)
