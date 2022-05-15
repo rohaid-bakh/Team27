@@ -260,7 +260,6 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
             AudioManager.instance?.StopSoundEffect((EnumSoundName)soundEffectName);
     }
 
-
     public virtual void Move()
     {
         if (canMove)
@@ -323,6 +322,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
                 state = EnumCharacterAnimationStateName.Idling;
 
             PlayAnimation(state);
+        }
+    }
+
+    public void DestroyShadow() 
+    {
+        Shadow shadow = GetComponent<Shadow>();
+        if(shadow != null)
+        {
+            Destroy(shadow.shadow);
         }
     }
 

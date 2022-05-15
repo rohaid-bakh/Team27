@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Damage
   - Damagable
+  - Health
+  - Speed
+  - Strength
   layers:
   - Default
   - TransparentFX

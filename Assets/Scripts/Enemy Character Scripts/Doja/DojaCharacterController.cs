@@ -207,7 +207,7 @@ public class DojaCharacterController : EnemyCharacterMonoBehaviour
                 int currentHealth = characterHealth.GetCurrentHealth();
                 float healthPercentage = (float)currentHealth / (float)maxHealth;
 
-                Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
+                //Debug.Log($"{currentHealth}/{maxHealth} : {healthPercentage} <= {healthPercentageToEnterRage}");
 
                 if (healthPercentage <= healthPercentageToEnterRage)
                 {
