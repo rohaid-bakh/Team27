@@ -19,6 +19,8 @@ public class IntroDialoug : MonoBehaviour
     [SerializeField]
     [TextArea]
     private string[] textLog;
+    [SerializeField] bool showTutorialImage = false;
+    [SerializeField] GameObject tutorialImages;
 
     private int textIndex = 0;
 
@@ -57,7 +59,14 @@ public class IntroDialoug : MonoBehaviour
         if (textIndex == textLog.Length && TypeWriter.instance?.isCurrentlyTyping == false){
             StartGame();
             textIndex = 1;
-        } else {
+        }
+        // shows tutorial for the last text on the first scene
+        else if(textIndex == textLog.Length - 1 && showTutorialImage && tutorialImages != null && TypeWriter.instance?.isCurrentlyTyping == false)
+        {
+            tutorialImages.SetActive(true);
+            TypeText();
+        }
+        else {
             TypeText();
         }
     }
@@ -95,6 +104,10 @@ public class IntroDialoug : MonoBehaviour
         text.text = "";
         button.enabled = false;
         continueButtonImage.enabled = false;
+
+        // hide tutorial if applicable
+        if(tutorialImages != null)
+            tutorialImages.SetActive(false);
 
         yield return new WaitForSeconds(1.5f);
 
