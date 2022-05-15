@@ -11,14 +11,17 @@ public enum EnumSoundName
     SoundVolumeChange,
     Jump,
     PlayerAttack1,
+    PlayerAttackHit,
     PlayerTakeDamage,
     MagogAttack,
     MagogProjectile,
     MagogCharge,
-    MagogTakeDamage,
     DojaBite,
-    DojaClaw
-
+    DojaClaw,
+    PowerUpAppear,
+    PowerUpPickUp,
+    PowerUpDebuff,
+    PowerUpReady
 }
 
 // tag names for the power ups

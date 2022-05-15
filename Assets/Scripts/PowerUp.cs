@@ -1,25 +1,46 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    // power up stuff
+    PowerUpManager powerUpSpawner;
     bool powerUpActive = false;
 
+    // animations
     Animator animator;
-
-    PowerUpManager powerUpSpawner;
+    List<AnimationClip> animations;
+    bool introAnimationCompleted = false;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        animations = animator?.runtimeAnimatorController.animationClips.ToList();
+
     }
 
     private void Start()
     {
         powerUpSpawner = FindObjectOfType<PowerUpManager>();
 
-        // play sound effect on appear
-        //audioPlayer.PlaySoundEffect(Enum.Sounds.PowerUpAppear);
+        // calculate move speed based on the arrive animation time + start and target position
+        float? time = GetAnimationClipTime("Arrive");
+        if (time != null)
+        {
+            StartCoroutine(WaitForIntroAnimationToComplete((float)time));
+        }
+    }
+
+    private IEnumerator WaitForIntroAnimationToComplete(float animationTime)
+    {
+        yield return new WaitForSeconds(animationTime*0.8f);
+
+        introAnimationCompleted = true;
+
+        // sound effect to indicate power up is ready
+        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpReady);
     }
 
     public bool IsPowerUpActive()
@@ -27,14 +48,15 @@ public class PowerUp : MonoBehaviour
         return powerUpActive;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (collision.CompareTag("Player") && powerUpActive == false)
+        // check if collision with player, and power up not already picked up, and power up reached target position
+        if (collision.CompareTag("Player") && powerUpActive == false && introAnimationCompleted == true)
         {
             powerUpActive = true;
 
             // hide sprite + play sound effect
-            //audioPlayer.PlaySoundEffect(Enum.Sounds.PowerUpGained);
+            AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpPickUp);
             ChangeAnimationState("PowerUp_Dissapear");
 
             powerUpSpawner.ActivatePowerUp(gameObject.tag);
@@ -51,4 +73,30 @@ public class PowerUp : MonoBehaviour
         animator.Play(animationName);
     }
 
+    #region Helper Functions
+    /// <summary>
+    /// Used to get the duration of a specific animation clip
+    /// </summary>
+    /// <param name="animationClipName"></param>
+    /// <returns></returns>
+    public float? GetAnimationClipTime(string animationClipName)
+    {
+        // animation clip name, should contain a substring of the animation state name (ex. Animation State: Idling; Animation Clip: Player_Idling)
+        AnimationClip clip = animations?.FirstOrDefault(animClip => animClip.name.ToUpper().Contains(animationClipName.ToUpper()));
+
+        // check if anmation exists in list
+        if (clip != null)
+        {
+            return clip.length;
+        }
+        else
+        {
+            Debug.Log($"{animationClipName} Animation clip not found in animator (from GetAnimationClipTime)");
+            foreach (AnimationClip animClip in animations) { Debug.Log(animClip.name + " " + animClip.name.ToUpper().Contains(animationClipName.ToUpper())); }
+        }
+
+        return null;
+    }
+
+    #endregion
 }

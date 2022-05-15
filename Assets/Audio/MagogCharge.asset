@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: MagogCharge
   m_EditorClassIdentifier: 
-  soundName: 7
+  soundName: 8
   clip: {fileID: 8300000, guid: e4b10bfbb7e9cfa4b949b503712a5e0b, type: 3}
   volume: 1
   pitch: 1

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657755, g: 0.4964127, b: 0.57481825, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -338,14 +338,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173399886}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &173399889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,11 +439,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409541611060354247, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8516421855330980697, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
@@ -757,6 +752,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &593703837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 593703838}
+  m_Layer: 0
+  m_Name: MagogChargeTargetRight
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &593703838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593703837}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.52, y: 0, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &604413905 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1873826683949692241, guid: 91c195affd1c74c4787e4be488d416c3,
@@ -1019,18 +1045,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1360966190 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1360966190, guid: da889d7d0643bda4a9e076b74e79d6f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 3435102548968479686}
+--- !u!1 &1461824387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1486391549 stripped
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461824388}
+  m_Layer: 0
+  m_Name: MagogChargeTargetLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1461824388
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1486391549, guid: da889d7d0643bda4a9e076b74e79d6f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 3435102548968479686}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461824387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.57, y: 0, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1543391583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,6 +1442,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1080126310600674604, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080126310600674604, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080126310600674604, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080126310600674604, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430892874310625, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430892874310625, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430892874310625, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430892874310625, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6721430893870066264, guid: b815926481a26524faed079ff955f131,
         type: 3}
       propertyPath: text
@@ -1532,6 +1617,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBarsV2
       objectReference: {fileID: 0}
+    - target: {fileID: 6721430894249668539, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430894249668539, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430894249668539, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721430894249668539, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7399964012362005510, guid: b815926481a26524faed079ff955f131,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1540,6 +1645,26 @@ PrefabInstance:
     - target: {fileID: 7399964012362005510, guid: b815926481a26524faed079ff955f131,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399964013440916102, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399964013440916102, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399964013440916102, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399964013440916102, guid: b815926481a26524faed079ff955f131,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1894,11 +2019,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3932083090507586095, guid: ac2ab039d00b5d544ae27b06ae003508,
-        type: 3}
-      propertyPath: speedBoost
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2ab039d00b5d544ae27b06ae003508, type: 3}
 --- !u!114 &4374285656981249159
@@ -1925,6 +2045,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TVScreen (Intro)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523240636736664, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2960523240636736668, guid: 3ed474a00734ae84e9a80d505fbc0b40,
         type: 3}
@@ -2155,8 +2280,8 @@ MonoBehaviour:
   idleTimeModifier: 1
   playerTransform: {fileID: 604413905}
   chargeSpeedModifier: 2.5
-  leftEndPoint: {fileID: 1360966190}
-  rightEndPoint: {fileID: 1486391549}
+  leftEndPoint: {fileID: 1461824388}
+  rightEndPoint: {fileID: 593703838}
   numberOfSwipes: 3
   numberOfCharges: 2
   numberOfProjectileAttacks: 2
@@ -2289,6 +2414,31 @@ PrefabInstance:
       propertyPath: sceneTransition
       value: 
       objectReference: {fileID: 345601977}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: tvTextLog.Array.data[0]
+      value: "Okay, well, it looks like our challenger has made it through our toughest
+        competitors. \n\nThis\u2026 has never happened before. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: tvTextLog.Array.data[1]
+      value: "Uh\u2026 well, thanks for coming everybody! \n\nNo REFUNDS! And don\u2019t
+        forget to leave a review on the way out of what you saw! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: tvTextLog.Array.data[3]
+      value: "We understand that some issues might have slipped through the cracks,
+        but honestly, what did you expect! \n\nI mean, we didn\u2019t even account
+        for the play-er, uh, challenger to win! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: tvTextLog.Array.data[5]
+      value: "What? Are you serious? You thought that was real? \n\nNo, we\u2019re
+        just gonna eat you. See you at dinner!"
+      objectReference: {fileID: 0}
     - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
       propertyPath: playerContinueButtonImage

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
 {
     [Header("Power Ups")]
     [SerializeField] List<GameObject> powerUps;
-    [SerializeField] float timeBetweenPowerUps = 15f;
+    [SerializeField] int maxTimeBetweenPowerUps = 15;
+    [SerializeField] int spawnTimeSecondsVariance = 5;
     [SerializeField] float powerUpDuration = 15f;
 
     [Header("Power Up Abilities")]
@@ -23,11 +25,14 @@ public class PowerUpManager : MonoBehaviour
 
     System.Random random;
 
-    
+    List<Transform> spawnPoints;
 
     void Start()
     {
         random = new System.Random();
+
+        // get spawn points (children transforms)
+        spawnPoints = GetComponentsInChildren<Transform>().ToList();
 
         StartCoroutine(WaitAndStartPowerUpSpawner());
     }
@@ -49,30 +54,47 @@ public class PowerUpManager : MonoBehaviour
     /// <returns>Nothing. IEnumerator used for "WaitForSeconds"</returns>
     IEnumerator SpawnPowerUps()
     {
-
-        yield return new WaitForSeconds(timeBetweenPowerUps / 2);
         do
         {
             // wait until there are no power ups active, and when player is controllable and game is not paused
             yield return new WaitUntil(() => isPowerUpInPlay == false && CanControlPlayer() == true);
 
-            float waitTime = timeBetweenPowerUps;
+            // create wait time, add some variance between spawn times 
+            float waitTime = random.Next(maxTimeBetweenPowerUps - spawnTimeSecondsVariance, maxTimeBetweenPowerUps);
 
             // wait to spawn a new power up
             yield return new WaitForSeconds(waitTime);
 
-            // choose random power up
-            int powerUpIndex = random.Next(powerUps.Count);
-            GameObject power = powerUps[powerUpIndex];
-
-            // instantiate power up
-            Instantiate(power,  // what object to instantiate
-                transform.position, // where to spawn the object
-                Quaternion.identity); // need to specify rotation
-
-            isPowerUpInPlay = true;
+            SpawnPowerUp();
 
         } while (true);
+    }
+    
+    void SpawnPowerUp()
+    {
+        isPowerUpInPlay = true;
+
+        // pick a random spawn point
+        Transform spawnPoint = spawnPoints[random.Next(spawnPoints.Count)];
+
+        // choose a random power up 
+        int powerUpIndex = random.Next(powerUps.Count);
+
+        // if player health is full, don't choose health power up [health power up is index 0]
+        if (playerCharacter.characterHealth.GetCurrentHealth() == playerCharacter.characterHealth.stat.health && powerUpIndex == 0)
+        {
+            // random.next(min, max) returns an int greater than or equal to min, and less than max
+            powerUpIndex += random.Next(1, 3);
+        }
+        GameObject power = powerUps[powerUpIndex];
+
+        // sound effect
+        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpAppear);
+
+        // instantiate power up
+        Instantiate(power,  // what object to instantiate
+            spawnPoint.position, // where to spawn the object
+            Quaternion.identity); // need to specify rotation
     }
     #endregion
 
@@ -93,8 +115,8 @@ public class PowerUpManager : MonoBehaviour
     {
         playerCharacter.characterHealth.AddHealth(healthBoost);
         
-        // power up in play
-        yield return new WaitForSeconds(powerUpDuration);
+        // power up in play (for health it's instant)
+        yield return new WaitForSeconds(0f);
 
         isPowerUpInPlay = false;
     }
@@ -110,6 +132,9 @@ public class PowerUpManager : MonoBehaviour
 
         // power up in play
         yield return new WaitForSeconds(powerUpDuration);
+
+        // debuff sound effect
+        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpDebuff);
 
         // revert speed back
         playerCharacter.MoveSpeed = originalMoveSpeed;
@@ -129,6 +154,9 @@ public class PowerUpManager : MonoBehaviour
         // power up in play
         yield return new WaitForSeconds(powerUpDuration);
 
+        // debuff sound effect
+        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpDebuff);
+
         // revert damage back
         playerAttack.DamageAmount = originalDamage;
 
@@ -138,8 +166,7 @@ public class PowerUpManager : MonoBehaviour
     #endregion
 
     #region Helper Functions
-
-    public bool CanControlPlayer()
+    bool CanControlPlayer()
     {
         if(playerCharacter?.isActiveAndEnabled == true)
         {
