@@ -1964,6 +1964,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUpManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3932083090507586092, guid: ac2ab039d00b5d544ae27b06ae003508,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3932083090507586094, guid: ac2ab039d00b5d544ae27b06ae003508,
         type: 3}
       propertyPath: m_RootOrder
@@ -2018,6 +2023,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932083090507586095, guid: ac2ab039d00b5d544ae27b06ae003508,
+        type: 3}
+      propertyPath: powerUpDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932083090507586095, guid: ac2ab039d00b5d544ae27b06ae003508,
+        type: 3}
+      propertyPath: maxTimeBetweenPowerUps
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932083090507586095, guid: ac2ab039d00b5d544ae27b06ae003508,
+        type: 3}
+      propertyPath: spawnTimeSecondsVariance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2ab039d00b5d544ae27b06ae003508, type: 3}

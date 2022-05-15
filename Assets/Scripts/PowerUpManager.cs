@@ -27,6 +27,9 @@ public class PowerUpManager : MonoBehaviour
 
     List<Transform> spawnPoints;
 
+    public GameObject powerUpEffectPrefab { get; set; }
+    GameObject powerUpEffectInstance;
+
     void Start()
     {
         random = new System.Random();
@@ -72,29 +75,33 @@ public class PowerUpManager : MonoBehaviour
     
     void SpawnPowerUp()
     {
-        isPowerUpInPlay = true;
-
-        // pick a random spawn point
-        Transform spawnPoint = spawnPoints[random.Next(spawnPoints.Count)];
-
-        // choose a random power up 
-        int powerUpIndex = random.Next(powerUps.Count);
-
-        // if player health is full, don't choose health power up [health power up is index 0]
-        if (playerCharacter.characterHealth.GetCurrentHealth() == playerCharacter.characterHealth.stat.health && powerUpIndex == 0)
+        if (CanControlPlayer())
         {
-            // random.next(min, max) returns an int greater than or equal to min, and less than max
-            powerUpIndex += random.Next(1, 3);
+            isPowerUpInPlay = true;
+
+            // pick a random spawn point
+            Transform spawnPoint = spawnPoints[random.Next(spawnPoints.Count)];
+
+            // choose a random power up 
+            int powerUpIndex = random.Next(powerUps.Count);
+
+            // if player health is full, don't choose health power up [health power up is index 0]
+            if (playerCharacter.characterHealth.GetCurrentHealth() == playerCharacter.characterHealth.stat.health && powerUpIndex == 0)
+            {
+                // random.next(min, max) returns an int greater than or equal to min, and less than max
+                powerUpIndex += random.Next(1, 3);
+            }
+            GameObject power = powerUps[powerUpIndex];
+
+            // instantiate power up
+            GameObject powerUpInstance =
+                Instantiate(power,  // what object to instantiate
+                spawnPoint.position, // where to spawn the object
+                Quaternion.identity); // need to specify rotation
+
+            // get power up effect
+            powerUpEffectPrefab = powerUpInstance.GetComponent<PowerUp>().powerUpEffect;
         }
-        GameObject power = powerUps[powerUpIndex];
-
-        // sound effect
-        AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpAppear);
-
-        // instantiate power up
-        Instantiate(power,  // what object to instantiate
-            spawnPoint.position, // where to spawn the object
-            Quaternion.identity); // need to specify rotation
     }
     #endregion
 
@@ -102,7 +109,9 @@ public class PowerUpManager : MonoBehaviour
 
     public void ActivatePowerUp(string powerUpTag)
     {
-        if(powerUpTag == EnumPowerUpTag.Health.ToString())
+        StartCoroutine(FadeInPowerUpEffect());
+
+        if (powerUpTag == EnumPowerUpTag.Health.ToString())
                 StartCoroutine(HealthPowerUp());
         else if(powerUpTag == EnumPowerUpTag.Speed.ToString())
                 StartCoroutine(SpeedPowerUp());
@@ -115,8 +124,11 @@ public class PowerUpManager : MonoBehaviour
     {
         playerCharacter.characterHealth.AddHealth(healthBoost);
         
-        // power up in play (for health it's instant)
-        yield return new WaitForSeconds(0f);
+        // power up in play 
+        yield return new WaitForSeconds(0.5f);
+
+        // fade out power up effect
+        yield return FadeOutPowerUpEffect();
 
         isPowerUpInPlay = false;
     }
@@ -135,6 +147,9 @@ public class PowerUpManager : MonoBehaviour
 
         // debuff sound effect
         AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpDebuff);
+
+        // fade out power up effect
+        yield return FadeOutPowerUpEffect();
 
         // revert speed back
         playerCharacter.MoveSpeed = originalMoveSpeed;
@@ -157,11 +172,43 @@ public class PowerUpManager : MonoBehaviour
         // debuff sound effect
         AudioManager.instance?.PlaySoundEffect(EnumSoundName.PowerUpDebuff);
 
+        // fade out power up effect
+        yield return FadeOutPowerUpEffect();
+
         // revert damage back
         playerAttack.DamageAmount = originalDamage;
 
         isPowerUpInPlay = false;
     }
+
+    IEnumerator FadeInPowerUpEffect()
+    {
+        powerUpEffectInstance = Instantiate(powerUpEffectPrefab, playerCharacter.transform);
+
+        Material material = powerUpEffectInstance.GetComponent<Renderer>().material;
+
+        for (float f = 0.05f; f <= 1; f += 0.05f)
+        {
+            material.SetFloat("_Alpha", f);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    IEnumerator FadeOutPowerUpEffect()
+    {
+        Material material = powerUpEffectInstance.GetComponent<Renderer>().material;
+
+        for (float f = 1f; f >= 0; f -= 0.05f)
+        {
+            material.SetFloat("_Alpha", f);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        Destroy(powerUpEffectInstance);
+    }
+
 
     #endregion
 

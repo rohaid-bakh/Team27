@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f1f36e7418fec4fa5388bfd0fcf352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpEffect: {fileID: 3278214239043551214, guid: 78ee31688c01dc14eb160181c8d85ca1,
+    type: 3}
 --- !u!1 &7773511628662627702
 GameObject:
   m_ObjectHideFlags: 0
