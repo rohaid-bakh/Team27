@@ -26,7 +26,9 @@ public class Shadow : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, 5f, groundLayer))
+            if(shadow != null){
             shadow.transform.position = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z);
         mat.SetFloat("_Scale", shadowSize);
+            }
     }
 }
