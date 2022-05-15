@@ -21,6 +21,14 @@ public enum EnumSoundName
 
 }
 
+// tag names for the power ups
+public enum EnumPowerUpTag
+{
+    Health = 0,
+    Speed = 1,
+    Strength = 2
+}
+
 // note: these names must match the states in the animator for the player / enemy
 public enum EnumCharacterAnimationStateName
 {

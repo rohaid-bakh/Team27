@@ -42,6 +42,15 @@ public class Health : MonoBehaviour
         return false;
     }
 
+    public void AddHealth(int health)
+    {
+        hpbar += health;
+        if (hpbar > stat.health)
+            hpbar = stat.health;
+
+        updateUIbar();
+    }
+
     private void updateUIbar(){
         healthbar.normalizedValue = 1f - ((float)(stat.health - hpbar) / (float)stat.health);
     }

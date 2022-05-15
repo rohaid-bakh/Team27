@@ -59,7 +59,7 @@ public class Dialouge : MonoBehaviour
             // get current scene
          Scene scene = SceneManager.GetActiveScene();
 
-         if(scene.name.Trim() == "MagogFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
+         if(scene.name.Trim() == "BorealFight") // if it's the final boss, load outro dialog (TODO: replace with the real final scene name)
          {
             StartCoroutine(DialogAndStartVictorySceneDialog(victoryQuote));
          } // otherwise load next scene

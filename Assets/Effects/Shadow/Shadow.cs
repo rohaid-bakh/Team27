@@ -9,14 +9,14 @@ public class Shadow : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] [Range(0f, 1f)] private float shadowSize = 0.5f;
 
-    private GameObject shadow;
+    public GameObject shadow;
     private MeshRenderer mesh;
     private Material mat;
 
     void Start()
     {
         //shadow = Instantiate(shadowPrefab, shadowParent);
-        shadow = Instantiate(shadowPrefab, transform);
+        shadow = Instantiate(shadowPrefab); //, transform
         mesh = shadow.GetComponent<MeshRenderer>();
         mat = Instantiate(mesh.material);
         mesh.material = mat;
@@ -26,7 +26,9 @@ public class Shadow : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position, Vector3.down, out hit, 5f, groundLayer))
+            if(shadow != null){
             shadow.transform.position = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z);
         mat.SetFloat("_Scale", shadowSize);
+            }
     }
 }
