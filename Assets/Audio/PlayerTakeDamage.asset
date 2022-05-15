@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: PlayerTakeDamage
   m_EditorClassIdentifier: 
-  soundName: 4
+  soundName: 5
   clip: {fileID: 8300000, guid: 1dc7f5d0523cf9b4a90c70f2c238de4e, type: 3}
   volume: 0.25
   pitch: 1

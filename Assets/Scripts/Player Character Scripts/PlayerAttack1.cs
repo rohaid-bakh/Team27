@@ -64,12 +64,18 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
             CharacterMonoBehaviour character = col.gameObject.GetComponent<CharacterMonoBehaviour>();
             if (character != null)
             {
+                // sound effect
+                AudioManager.instance?.PlaySoundEffect(EnumSoundName.PlayerAttackHit);
+
                 //Debug.Log($"Character state: {character.GetState()}");
                 character.TakeDamage(damageAmount);
                 return true;
             }
             else
             {
+                // sound effect
+                AudioManager.instance?.PlaySoundEffect(EnumSoundName.PlayerAttackHit);
+
                 Health health = col.gameObject.GetComponent<Health>();
                 if (health != null)
                 {

@@ -149,7 +149,8 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             FinishAttackAnimation();
 
             // stop corouting
-            StopCoroutine(enemyLoopCoroutine);
+            if(enemyLoopCoroutine != null)
+                StopCoroutine(enemyLoopCoroutine);
 
             // stop moving
             Move(Vector2.left);
@@ -268,14 +269,12 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         // don't take damage when entering rage
         if (enteringRageMode == false)
         {
-            // sound effect
-            PlaySoundEffect(EnumSoundName.MagogTakeDamage);
-
             // take damage
             bool isCharacterDead = ApplyDamageToHealth(damageAmount);
             if (isCharacterDead)
             {
-                StopCoroutine(enemyLoopCoroutine);
+                if (enemyLoopCoroutine != null)
+                    StopCoroutine(enemyLoopCoroutine);
 
                 // stop any current animations
                 FinishAttackAnimation();
