@@ -36,11 +36,15 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
 
     private bool isAttack = false;
 
+    private Rigidbody self;
+
     void Start()
     {
         BorealBody = GetComponent<Transform>();
         Physics.IgnoreLayerCollision(3, 3);
         rand = new System.Random();
+        self = GetComponent<Rigidbody>();
+        
     }
 
     void Update(){
@@ -50,6 +54,7 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
 
     public void FlyEgg() // move that has the boreal fly between 2 points and spawn eggs in mid air
     {
+        
         // Move the Boreal between 2 points on the screen
         if (EggPoint == 0)
         {
@@ -78,6 +83,7 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
 
     private IEnumerator DropEgg()
     {
+        Debug.Log("Egg?");
         GameObject eggSpawn = Instantiate(Egg, BorealBody.position, Quaternion.identity);
         yield return new WaitForSeconds(1.5f);
         Destroy(eggSpawn); // TODO : could just make a seperate script for eggs to explode when touching the ground
@@ -110,7 +116,7 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
         else
         {
             currTime = 0;
-            transform.position = Vector3.SmoothDamp(transform.position, playerTransform.position, ref vect, .6f);
+            transform.position = Vector3.SmoothDamp(transform.position, playerTransform.position, ref vect, .3f);
             FacePlayer();
             if(!isDiving){ // made so there's not millions of coroutines
             StartCoroutine(Diving());
@@ -186,4 +192,23 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
         ShockPoint = shockValue;
         isAttack = false;
     }
+
+    public void returnToOrigin(){
+        ShockPoint = 0;
+        EggPoint = 0;
+
+        transform.position = Vector3.SmoothDamp(transform.position, FlyPoints[0].position, ref vect, .3f);;
+    }
+
+    public bool atOrigin(){
+        if(((transform.position.x >= FlyPoints[0].position.x - .2f) && 
+        (transform.position.y >= FlyPoints[0].position.y - .2f)) || 
+        ((transform.position.x <= FlyPoints[0].position.x + .2f)&& 
+        (transform.position.y >= FlyPoints[0].position.y - .2f))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
