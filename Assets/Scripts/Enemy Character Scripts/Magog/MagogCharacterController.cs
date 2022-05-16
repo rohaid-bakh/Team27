@@ -96,7 +96,6 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0f); // to avoid complaints about not all code paths return value
     }
 
     #region Enemy Fight Actions - Loop 
@@ -287,6 +286,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
 
                 // dead state
                 SetState(new DeadCharacterState());
+
+                // destroy game object
+                StartCoroutine(WaitAndDestroy());
             }
             else
             {
@@ -312,7 +314,14 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
 
     #endregion
 
-    #region If
+    #region 
+
+    IEnumerator WaitAndDestroy()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(gameObject);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

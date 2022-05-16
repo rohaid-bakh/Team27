@@ -91,33 +91,13 @@ public class PlayerAttack1 : MonoBehaviour, IAttack
         return false;
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    Debug.Log("TriggerStay: " + enemyHit);
+    // this function will draw a red sphere in the "Scene" view to show the attack position & radius
+    private void OnDrawGizmos()
+    {
+        // for testing to see size of sphere (attack radius)
+        Gizmos.color = Color.red;
+        //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
+        Gizmos.DrawWireSphere(attackPoint.transform.position, attackRadius);
+    }
 
-    //    // check if enemy hasn't been hit yet (only 1 hit per attack) & if collision with enemy
-    //    if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") && !enemyHit)
-    //    {
-    //        Debug.Log("Trigger collision with enemy");
-    //        enemyHit = true;
-
-    //        CharacterMonoBehaviour enemyCharacter = other.gameObject.GetComponent<CharacterMonoBehaviour>();
-    //        if (enemyCharacter != null)
-    //        {
-    //            // apply damage
-    //            enemyCharacter.TakeDamage(damageAmount);
-    //        }
-    //        else // if enemy doesn't inherit from CharacterMonoBehaviour
-    //        {
-    //            Health health = other.gameObject.GetComponent<Health>();
-    //            if (health != null)
-    //            {
-    //                Debug.Log("Character monobehaviour not found for attack damage. Using Health.TakeDamage directly");
-
-    //                // ie. if no charactermonobehavior, search for health component & apply the damage directly
-    //                other.gameObject.GetComponent<Health>()?.TakeDamage(damageAmount);
-    //            }
-    //        }
-    //    }
-    //}
 }
