@@ -109,7 +109,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     public bool IsDead()
     {
-        if (currentState.GetState() == EnumCharacterState.Dead)
+        if (characterHealth.GetCurrentHealth() <= 0)
             return true;
         return false;
     }
