@@ -24,7 +24,19 @@ public enum EnumSoundName
     PowerUpDebuff,
     PowerUpReady,
     MagogFightTheme,
-    BorealFightTheme
+    BorealFightTheme,
+    IntroDialog1,
+    IntroDialog2,
+    IntroDialog3,
+    IntroDialog4,
+    IntroDialog5,
+    IntroDialog6,
+    OutroDialog1,
+    OutroDialog2,
+    OutroDialog3,
+    OutroDialog4,
+    OutroDialog5,
+    OutroDialog6
 }
 
 // tag names for the power ups

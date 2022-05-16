@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: PoweUpAppear
   m_EditorClassIdentifier: 
-  soundName: 11
+  soundName: 12
   clip: {fileID: 8300000, guid: ceaa40d8df50e614b92d758cece7e1e8, type: 3}
   volume: 0.65
   pitch: 1

@@ -120,18 +120,18 @@ MonoBehaviour:
   tvScreen: {fileID: 3843377038669790532}
   tvContinueButtonImage: {fileID: 3895214802938773945}
   tvTextLog:
-  - "Okay, well, it looks like our challenger has made it through our toughest competitors.
-    This\u2026 has never happened before. "
-  - "Uh\u2026 well, thanks for coming everybody! No REFUNDS! And don\u2019t forget
-    to leave a review on the way out of what you saw! "
+  - "Okay, well, it looks like our challenger has made it through the two tasks.
+    \n\nThis\u2026 has never happened before. "
+  - "Uh\u2026 well, thanks for coming everybody! \n\nAnd remember, NO REFUNDS! And
+    don\u2019t forget to leave a review on the way out of what you saw! "
   - 'Really, this was a massive effort to put together. There was a whole group of
     people working tirelessly for two weeks to make this happen, none of them really
     too experienced with creating this kind of event before! '
   - "We understand that some issues might have slipped through the cracks, but honestly,
-    what did you expect! I mean, we didn\u2019t even account for the play-er, uh,
-    challenger to win! "
-  - Good night everybody and goodnight Krokon!
-  - "What? Are you serious? You thought that was real? No, we\u2019re just gonna
+    what did you expect! \n\nI mean, we didn\u2019t even account for the play-er,
+    uh, challenger to win! "
+  - Well anyway, Good night everybody and goodnight Krokon!
+  - "What? Are you serious? You thought that was real? \n\nNo, we\u2019re just gonna
     eat you. See you at dinner!"
   playerContinueButtonImage: {fileID: 0}
   dialogTextBox: {fileID: 0}

@@ -20,8 +20,11 @@ public class IntroDialoug : MonoBehaviour
     [SerializeField]
     [TextArea]
     private string[] textLog;
-    [SerializeField] bool showTutorialImage = false;
+    [SerializeField] bool isFirstScene = false;
     [SerializeField] GameObject tutorialImages;
+    List<EnumSoundName> introSounds = new List<EnumSoundName> { EnumSoundName.IntroDialog1, EnumSoundName.IntroDialog2, EnumSoundName.IntroDialog3,
+                                        EnumSoundName.IntroDialog4, EnumSoundName.IntroDialog5, EnumSoundName.IntroDialog6 };
+    EnumSoundName? currentIntroSound = null;
 
     private int textIndex = 0;
 
@@ -62,7 +65,7 @@ public class IntroDialoug : MonoBehaviour
             textIndex = 1;
         }
         // shows tutorial for the last text on the first scene
-        else if(textIndex == textLog.Length - 1 && showTutorialImage && tutorialImages != null && TypeWriter.instance?.isCurrentlyTyping == false)
+        else if(textIndex == textLog.Length - 1 && isFirstScene && tutorialImages != null && TypeWriter.instance?.isCurrentlyTyping == false)
         {
             tutorialImages.SetActive(true);
             TypeText();
@@ -85,7 +88,30 @@ public class IntroDialoug : MonoBehaviour
 
             // if the type writer started typing the new line, increase textIndex (otherwise, type writer was finishing a line currently being typed)
             if (startedTypeingLine)
+            {
+                // stop sound effect if it's currently being played
+                if (currentIntroSound != null && isFirstScene)
+                {
+                    AudioManager.instance?.StopSoundEffect((EnumSoundName)currentIntroSound);
+                }
+
+                // play sound effect
+                if (isFirstScene)
+                {
+                    currentIntroSound = introSounds[textIndex];
+                    AudioManager.instance?.PlaySoundEffect((EnumSoundName)currentIntroSound);
+                }
+
                 textIndex++;
+            }
+            else
+            {
+                //// stop sound effect if it's currently being played
+                //if(currentIntroSound != null)
+                //{
+                //    AudioManager.instance?.StopSoundEffect((EnumSoundName)currentIntroSound);
+                //}
+            }
         }
         else
         {

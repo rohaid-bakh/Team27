@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: BorrealFightTheme
   m_EditorClassIdentifier: 
-  soundName: 16
+  soundName: 17
   clip: {fileID: 8300000, guid: 2f4256c9e4bfb8e4384700ac7a5cb818, type: 3}
-  volume: 0.5
+  volume: 0.4
   pitch: 1
   loop: 1
   source: {fileID: 0}

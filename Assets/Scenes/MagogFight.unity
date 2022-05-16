@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 4ec7211283948c34ca5b19397603057b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -339,14 +339,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173399886}
-  m_LocalRotation: {x: 0.40821788, y: 0.23456976, z: -0.10938167, w: 0.8754261}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: -2.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: 30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &173399889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2120,6 +2120,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TVScreen (Intro) - Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881008, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2352887828945881012, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2240,6 +2245,44 @@ PrefabInstance:
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 6033188394450193693}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: isFirstScene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: textLog.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: textLog.Array.data[2]
+      value: 'Our challenger today has faced great odds, surviving even our most
+        intense forms of torture.
+
+
+        And yes, even Bingus Squimbelling!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: textLog.Array.data[3]
+      value: Our challenger today will attempt to slay two of our most gruesome wildlife,
+        each with their own difficult quirks that our challenger will have to learn
+        to defeat them!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: textLog.Array.data[4]
+      value: " Now, give a warm Korkish welcome to our newest challenger! \n\n\u2026
+        uh, well their name is not important, but let\u2019s see what they\u2019ve
+        got!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352887828945881013, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd,
+        type: 3}
+      propertyPath: textLog.Array.data[5]
+      value: Some tips for our challenger . . .
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5b0ed0b6b0e2af4f98428b35b6a86dd, type: 3}
 --- !u!114 &5906745521837652258
@@ -2378,6 +2421,75 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5757225976043376857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8090170931043521976
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.05125
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.450001
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800752437196791951, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107141576708187354, guid: eadf09e7bc2c12d4a9c644c0f7e71b16,
+        type: 3}
+      propertyPath: m_Name
+      value: CrowdCheer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: eadf09e7bc2c12d4a9c644c0f7e71b16, type: 3}
 --- !u!1001 &8980869220292048659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2389,6 +2501,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TVScreen (Outro)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273102656340063467, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
@@ -2420,31 +2537,6 @@ PrefabInstance:
       propertyPath: sceneTransition
       value: 
       objectReference: {fileID: 345601977}
-    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
-        type: 3}
-      propertyPath: tvTextLog.Array.data[0]
-      value: "Okay, well, it looks like our challenger has made it through our toughest
-        competitors. \n\nThis\u2026 has never happened before. "
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
-        type: 3}
-      propertyPath: tvTextLog.Array.data[1]
-      value: "Uh\u2026 well, thanks for coming everybody! \n\nNo REFUNDS! And don\u2019t
-        forget to leave a review on the way out of what you saw! "
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
-        type: 3}
-      propertyPath: tvTextLog.Array.data[3]
-      value: "We understand that some issues might have slipped through the cracks,
-        but honestly, what did you expect! \n\nI mean, we didn\u2019t even account
-        for the play-er, uh, challenger to win! "
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
-        type: 3}
-      propertyPath: tvTextLog.Array.data[5]
-      value: "What? Are you serious? You thought that was real? \n\nNo, we\u2019re
-        just gonna eat you. See you at dinner!"
-      objectReference: {fileID: 0}
     - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
       propertyPath: playerContinueButtonImage
