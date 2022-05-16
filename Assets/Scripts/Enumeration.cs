@@ -16,6 +16,7 @@ public enum EnumSoundName
     MagogAttack,
     MagogProjectile,
     MagogCharge,
+    BorealProjectile,
     DojaBite,
     DojaClaw,
     PowerUpAppear,

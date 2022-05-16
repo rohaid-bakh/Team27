@@ -7,6 +7,9 @@ public class BorealAttackPattern : MonoBehaviour
     private BorealCharacterController cont;
     private int attackCount = 0;
     private bool isAttack = false;
+    private bool returnOrigin = false;
+    public bool notDead = true;
+
     void Awake()
     {
         cont = GetComponent<BorealCharacterController>();
@@ -15,50 +18,72 @@ public class BorealAttackPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attackCount == 0 && !isAttack){
+        if (notDead){
+        if(returnOrigin){
+            cont.returnToOrigin();
+            if(cont.atOrigin()){
+                returnOrigin = false;
+            }
+        }
+
+        if ((attackCount == 0 && !isAttack) && !returnOrigin){
             isAttack = true;
-            StartCoroutine(startTimer(attackCount));
-        } else if (attackCount == 0 && isAttack){
+            StartCoroutine(startTimer(attackCount, "wave"));
+        } else if ((attackCount == 0 && isAttack) && !returnOrigin){
             cont.FlyWave();
-        }
+        } 
 
-        if(attackCount == 1 && !isAttack){
+        if((attackCount == 1 && !isAttack) && !returnOrigin){
             isAttack  = true;
-            StartCoroutine(startTimer(attackCount));
-        }  else if (attackCount == 1 && isAttack){
-            cont.FlyDive();
-        }
-
-        if(attackCount == 2 && !isAttack){
-            isAttack = true;
-            StartCoroutine(startTimer(attackCount));
-        } else if (attackCount == 2 && isAttack){
+            StartCoroutine(startTimer(attackCount, "egg"));
+        }  else if ((attackCount == 1 && isAttack) && !returnOrigin){
             cont.FlyEgg();
         }
 
-        if(attackCount == 3 && !isAttack){
+        if((attackCount == 2 && !isAttack) && !returnOrigin){
             isAttack = true;
-            StartCoroutine(startTimer(attackCount));
-        } else if (attackCount == 3 && isAttack){
-            cont.FlyDive();
+            StartCoroutine(startTimer(attackCount, "egg"));
+        } else if ((attackCount == 2 && isAttack) && !returnOrigin){
+            cont.FlyEgg();
         }
 
-        if(attackCount == 4 && !isAttack){
+        if((attackCount == 3 && !isAttack) && !returnOrigin){
             isAttack = true;
-            StartCoroutine(startTimer(attackCount));
-        } else if (attackCount == 4 && isAttack){
+            StartCoroutine(startTimer(attackCount, "wave"));
+        } else if ((attackCount == 3 && isAttack) && !returnOrigin){
             cont.FlyWave();
+        }
+
+        if((attackCount == 4 && !isAttack) && !returnOrigin){
+            isAttack = true;
+            StartCoroutine(startTimer(attackCount, "egg"));
+        } else if ((attackCount == 4 && isAttack) && !returnOrigin){
+            cont.FlyEgg();
+        }
         }
         
     }
 
-    private IEnumerator startTimer(int currentAttack){
-        yield return new WaitForSeconds(2f);
+    private IEnumerator startTimer(int currentAttack, string attack){
+        float attackLength = 0f;
+        if(attack == "dive"){
+            attackLength = 5f;
+        }  else if (attack == "egg"){
+            attackLength = 4f;
+        } else if (attack == "wave"){
+            attackLength = 4f;
+        }
+        yield return new WaitForSeconds(attackLength);
         if(currentAttack < 4){
             attackCount++;
         } else {
             attackCount = 0;
         }
         isAttack = false;
+        returnOrigin = true;
+
     }
+
+
+    
 }
