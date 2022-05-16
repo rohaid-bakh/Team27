@@ -824,7 +824,6 @@ GameObject:
   - component: {fileID: 5906745521837652258}
   - component: {fileID: 4374285656981249159}
   - component: {fileID: 5906745521837652259}
-  - component: {fileID: 5906745521837652260}
   m_Layer: 3
   m_Name: Magog Enemy
   m_TagString: Untagged
@@ -1982,7 +1981,8 @@ PrefabInstance:
       propertyPath: healthbar
       value: 
       objectReference: {fileID: 2124982871}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1873826683144600791, guid: 91c195affd1c74c4787e4be488d416c3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 91c195affd1c74c4787e4be488d416c3, type: 3}
 --- !u!1 &1873826683144600778 stripped
 GameObject:
@@ -2029,7 +2029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897330001701830500}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.964, y: -0.17, z: 0}
+  m_LocalPosition: {x: 1.01, y: 0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   numberOfSwipes: 3
   numberOfCharges: 2
   numberOfProjectileAttacks: 2
-  healthPercentageToEnterRage: 0.2
+  healthPercentageToEnterRage: 0.35
   speedModifierOnRage: 1.25
   idleTimeModifierOnRage: 0.85
   rageColor: {r: 1, g: 0.10588236, b: 0, a: 1}
@@ -2486,25 +2486,6 @@ MonoBehaviour:
   numberOfExtraSwipes: 2
   numberOfExtraCharges: 2
   numberOfExtraProjectileAttacks: 2
---- !u!114 &5906745521837652260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905086811}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d159d7228f607b2459e08536aceb9ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowPrefab: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943,
-    type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  shadowSize: 0.552
-  shadow: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943, type: 3}
 --- !u!1 &6033188394450193693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6721430893870066279, guid: b815926481a26524faed079ff955f131,
