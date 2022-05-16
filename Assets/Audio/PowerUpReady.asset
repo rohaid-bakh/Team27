@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: PowerUpReady
   m_EditorClassIdentifier: 
-  soundName: 14
+  soundName: 15
   clip: {fileID: 8300000, guid: a786519081be7a74b92d59a2051e23f8, type: 3}
   volume: 1
   pitch: 1

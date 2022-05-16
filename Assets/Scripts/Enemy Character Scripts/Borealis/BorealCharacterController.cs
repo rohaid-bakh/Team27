@@ -37,7 +37,6 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
     private bool isAttack = false;
 
     private Rigidbody self;
-    [SerializeField]
     private AudioManager audio;
 
     void Start()
@@ -46,7 +45,7 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
         Physics.IgnoreLayerCollision(3, 3);
         rand = new System.Random();
         self = GetComponent<Rigidbody>();
-        
+        audio = AudioManager.instance;
     }
 
     void Update(){
@@ -86,9 +85,9 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
     private IEnumerator DropEgg()
     {
         GameObject eggSpawn = Instantiate(Egg, BorealBody.position, Quaternion.identity);
-        audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
-        yield return new WaitForSeconds(1.5f);
-        Destroy(eggSpawn); // TODO : could just make a seperate script for eggs to explode when touching the ground
+        audio?.PlaySoundEffect(EnumSoundName.BorealProjectile);
+        yield return new WaitForSeconds(0.75f);
+        Destroy(eggSpawn, 1f); // TODO : could just make a seperate script for eggs to explode when touching the ground
         notSpawn = true;
     }
 
@@ -186,13 +185,13 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
             //make this a for loop
             Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
             audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.75f);
             Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
             audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.75f);
             Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
             audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.75f);
 
         ShockPoint = shockValue;
         isAttack = false;

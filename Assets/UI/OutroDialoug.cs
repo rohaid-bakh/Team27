@@ -47,6 +47,10 @@ public class OutroDialoug : MonoBehaviour
     TextMeshProUGUI tvText;
     Button tvButton;
 
+    List<EnumSoundName> outroSounds = new List<EnumSoundName> { EnumSoundName.OutroDialog1, EnumSoundName.OutroDialog2, EnumSoundName.OutroDialog3,
+                                        EnumSoundName.OutroDialog4, EnumSoundName.OutroDialog5, EnumSoundName.OutroDialog6 };
+    EnumSoundName? currentOutroSound = null;
+
     private void Awake()
     {
         tvScreen.SetActive(false);
@@ -86,7 +90,13 @@ public class OutroDialoug : MonoBehaviour
     public void textScroll(){
         // if it's the second last outro dialogue, and if the dialog is finished typing, show player dialogue
         if (tvTextIndex == tvTextLog.Length - 2 && TypeWriter.instance?.isCurrentlyTyping == false) {
-            
+
+            // stop sound effect if it's currently being played
+            if (currentOutroSound != null)
+            {
+                AudioManager.instance?.StopSoundEffect((EnumSoundName)currentOutroSound);
+            }
+
             ShowPlayerDialogue();
         }
         // if it's the last outro dialogue, if the dialog is finished typing, hide player dialog
@@ -107,6 +117,12 @@ public class OutroDialoug : MonoBehaviour
         // no more dialog, transition to the end scene
         else if (tvTextIndex >= tvTextLog.Length && TypeWriter.instance?.isCurrentlyTyping == false)
         {
+            // stop sound effect if it's currently being played
+            if (currentOutroSound != null)
+            {
+                AudioManager.instance?.StopSoundEffect((EnumSoundName)currentOutroSound);
+            }
+
             tvButton.enabled = false;
             StartCoroutine(EndGame()); // transition to outro scene
         }
@@ -129,7 +145,19 @@ public class OutroDialoug : MonoBehaviour
 
             // if the type writer started typing the new line, increase textIndex (otherwise, type writer was finishing a line currently being typed)
             if (startedTypeingLine)
+            {
+                // stop sound effect if it's currently being played
+                if (currentOutroSound != null)
+                {
+                    AudioManager.instance?.StopSoundEffect((EnumSoundName)currentOutroSound);
+                }
+
+                // play sound effect
+                currentOutroSound = outroSounds[tvTextIndex];
+                AudioManager.instance?.PlaySoundEffect((EnumSoundName)currentOutroSound);
+
                 tvTextIndex++;
+            }
         }
         else
         {

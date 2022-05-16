@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CrowdCheer : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CrowdCheer : MonoBehaviour
     System.Random random;
 
     [SerializeField] List<Color> colors;
+    [SerializeField] List<Sprite> crowdSprites;
 
     // Use this for initialization
     void Start()
@@ -21,8 +23,13 @@ public class CrowdCheer : MonoBehaviour
 
         if(spectatorAnimators?.Count > 0)
         {
-            //AssignRandomColorsToSprites();
+            AssignRandomColorsAndSprites();
             Shuffle();
+
+            // start the fight music
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.name.Trim() == "WinScreen")
+                StartCoroutine(ContinuousCrowdCheer());
         }
     }
 
@@ -44,10 +51,16 @@ public class CrowdCheer : MonoBehaviour
         }
     }
 
-    void AssignRandomColorsToSprites()
+    void AssignRandomColorsAndSprites()
     {
         foreach(SpriteRenderer spriteRend in spectatorSpriteRenderers)
         {
+            // pick a randome sprite
+            Sprite sprite = crowdSprites[random.Next(crowdSprites.Count())];
+            spriteRend.sprite = sprite;
+
+            Debug.Log("Updating sprite");
+
             // pick a random color
             // HSV is hue, saturation, and value. randomly generating the number for the color in the hue value. saturation can be between 0,40 and value is 100
             //float hue = Random.value;
@@ -84,5 +97,15 @@ public class CrowdCheer : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
-    
+
+    IEnumerator ContinuousCrowdCheer()
+    {
+        foreach (Animator animator in spectatorAnimators)
+        {
+            animator.Play("Cheer");
+
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf2291d33e08164db107f7ab0b076e1, type: 3}
   m_Name: MagogFightTheme
   m_EditorClassIdentifier: 
-  soundName: 15
+  soundName: 16
   clip: {fileID: 8300000, guid: fe6b52331fabc1b40bc657babd503d12, type: 3}
   volume: 0.5
   pitch: 1
