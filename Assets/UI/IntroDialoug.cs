@@ -116,6 +116,9 @@ public class IntroDialoug : MonoBehaviour
         if(tutorialImages != null)
             tutorialImages.SetActive(false);
 
+        // start crowd cheer
+        FindObjectOfType<CrowdCheer>()?.CrowdCheering();
+
         yield return new WaitForSeconds(1.5f);
 
         tvScreen.gameObject.SetActive(false);

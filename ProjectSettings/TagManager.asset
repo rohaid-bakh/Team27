@@ -9,6 +9,7 @@ TagManager:
   - Health
   - Speed
   - Strength
+  - Spectator
   layers:
   - Default
   - TransparentFX

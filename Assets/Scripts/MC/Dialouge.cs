@@ -45,6 +45,10 @@ public class Dialouge : MonoBehaviour
     public void Victory()
     {
      if(enemy.value == 0){
+            
+         // start crowd cheer
+         FindObjectOfType<CrowdCheer>()?.CrowdCheering();
+
          // first disable player controls (we still want to see the player)
          Player.CanControlPlayer = false;
                     
@@ -74,6 +78,10 @@ public class Dialouge : MonoBehaviour
 
     public void Loss(){ 
         if(player.value == 0){
+
+            // start crowd cheer
+            FindObjectOfType<CrowdCheer>()?.CrowdCheering();
+
             // first disable player controls (we still want to see the player)
             Player.CanControlPlayer = false;
 
