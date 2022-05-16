@@ -44,4 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617aa147f687d364b8347a5a89ef871f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors: []
+  colors:
+  - {r: 0.9568628, g: 0.8235295, b: 0.41960788, a: 1}
+  - {r: 0.77432543, g: 0.8584906, b: 0.4251958, a: 1}
+  - {r: 0.8207547, g: 0.595568, b: 0.41424885, a: 1}
+  - {r: 0.8962264, g: 0.58762014, b: 0.7350654, a: 1}
+  crowdSprites:
+  - {fileID: -12332125, guid: 70927f1ab60e4d543856c389c8255bf7, type: 3}
+  - {fileID: 1089639234, guid: 70927f1ab60e4d543856c389c8255bf7, type: 3}
+  - {fileID: -1409456140, guid: 70927f1ab60e4d543856c389c8255bf7, type: 3}
+  - {fileID: -1529039284, guid: 70927f1ab60e4d543856c389c8255bf7, type: 3}
+  - {fileID: 2141185390, guid: bcae64dbedd355e409bb36d365e851a6, type: 3}
+  - {fileID: 1455344135, guid: bcae64dbedd355e409bb36d365e851a6, type: 3}

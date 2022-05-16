@@ -18,6 +18,8 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     // keep track of current state in the fight
     EnumMagogFightLoopState nextState = EnumMagogFightLoopState.SwipeAttack;
 
+    [SerializeField] PlayerCharacterController playerCharacter;
+
     // serialize field
     [SerializeField] float chargeSpeedModifier = 2f;
 
@@ -48,7 +50,6 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
     Coroutine enemyRageCoroutine = null;
 
     // keep track of max health
-
     int maxHealth;
 
     private void Start()
@@ -56,9 +57,9 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
         swipeAttacl = GetComponentInChildren<MagogAttack1>();
         projectileAttack = GetComponentInChildren<MagogAttack2>();
         chargeAttack = GetComponentInChildren<MagogAttack3>();
-        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
-
         maxHealth = GetMaxHealthStat();
+
+        enemyLoopCoroutine = StartCoroutine(EnemyAIBehaviourLoop1());
     }
     
     // standard enemy behaviour loop
@@ -87,6 +88,11 @@ public class MagogCharacterController : EnemyCharacterMonoBehaviour
                 case EnumMagogFightLoopState.ProjectileAttack:
                     yield return ProjecttileAttackStage();
                     break;
+            }
+
+            if (playerCharacter?.IsDead() == true)
+            {
+                StopCoroutine(enemyLoopCoroutine);
             }
         }
 

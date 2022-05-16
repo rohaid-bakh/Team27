@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 982bbf1d135829a49a68ecd603fd6724,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -493,6 +494,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2960523240077243809, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523240077243809, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2960523240636736664, guid: 3ed474a00734ae84e9a80d505fbc0b40,
         type: 3}
       propertyPath: m_Name
@@ -661,6 +672,41 @@ PrefabInstance:
         type: 3}
       propertyPath: textLog.Array.data[5]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523241003091270, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523241003091270, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523241003091270, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960523241003091270, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048121142328674653, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048121142328674653, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3048121142328674653, guid: 3ed474a00734ae84e9a80d505fbc0b40,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed474a00734ae84e9a80d505fbc0b40, type: 3}
@@ -962,20 +1008,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 633588871}
     m_Modifications:
-    - target: {fileID: 669579924733701435, guid: 4585832dbc11e83448665506e8bfce1b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7062662009434835090, guid: 4585832dbc11e83448665506e8bfce1b,
         type: 3}
       propertyPath: m_Name
       value: DialougBoxV2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7062662009434835090, guid: 4585832dbc11e83448665506e8bfce1b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7062662009434835094, guid: 4585832dbc11e83448665506e8bfce1b,
         type: 3}
@@ -1081,11 +1117,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7062662010253156412, guid: 4585832dbc11e83448665506e8bfce1b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4585832dbc11e83448665506e8bfce1b, type: 3}
@@ -2329,6 +2360,13 @@ PrefabInstance:
       objectReference: {fileID: 345601977}
     - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
         type: 3}
+      propertyPath: tvTextLog.Array.data[3]
+      value: "We understand that some issues might have slipped through the cracks,
+        but honestly, what did you expect! \nI mean, we didn\u2019t even account
+        for the play-er, uh, challenger to win! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273102656340063470, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
       propertyPath: playerContinueButtonImage
       value: 
       objectReference: {fileID: 877751767}
@@ -2436,6 +2474,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843377038669790533, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843377038669790533, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843377039824293282, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843377039824293282, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843377039824293282, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895214802938773945, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895214802938773945, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3895214802938773945, guid: b105835955102c14982adbabe30a95b2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b105835955102c14982adbabe30a95b2, type: 3}
