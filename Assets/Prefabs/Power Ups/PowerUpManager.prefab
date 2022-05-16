@@ -144,9 +144,9 @@ MonoBehaviour:
   - {fileID: 2607388651129113316, guid: 7c28d82059463354ab7c999cf0456262, type: 3}
   - {fileID: 2607388651129113316, guid: a6f1f34ad09012f43bc4c0861ace3a37, type: 3}
   - {fileID: 2607388651129113316, guid: 68fbd21e08f9cf549a6ae94a5ee3a132, type: 3}
-  maxTimeBetweenPowerUps: 18
+  maxTimeBetweenPowerUps: 15
   spawnTimeSecondsVariance: 5
-  powerUpDuration: 10
+  powerUpDuration: 12
   speedBoost: 4
   healthBoost: 5
   damageBoost: 2

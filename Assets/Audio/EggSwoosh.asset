@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: 9
   clip: {fileID: 8300000, guid: 5fefaef2e7866084bb9c1b6314491887, type: 3}
-  volume: 0.381
+  volume: 0.071
   pitch: 1
   loop: 0
   source: {fileID: 0}
