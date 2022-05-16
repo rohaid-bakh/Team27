@@ -16,7 +16,7 @@ public class BorealAnimator : MonoBehaviour
     }
 
     void Update(){
-        if(health.GetCurrentHealth() == 0){
+        if(health.GetCurrentHealth() <= 0){
             
             anim.enabled = true;
             attack.notDead = false;
