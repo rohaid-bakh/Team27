@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class IntroDialoug : MonoBehaviour
 {
@@ -99,6 +100,12 @@ public class IntroDialoug : MonoBehaviour
     }
 
     private IEnumerator setUpUI(){
+        // start the fight music
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name.Trim() == "BorealFight")
+            AudioManager.instance?.PlayMusicTrack(EnumSoundName.BorealFightTheme);
+        else if (scene.name.Trim() == "MagogFight")
+            AudioManager.instance?.PlayMusicTrack(EnumSoundName.MagogFightTheme);
 
         // hide text & disable button
         text.text = "";

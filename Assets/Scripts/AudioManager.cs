@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -71,10 +72,24 @@ public class AudioManager : MonoBehaviour
     /// <param name="soundName"></param>
     public void PlayMusicTrack(EnumSoundName soundName)
     {
+        // find any tracks currently playing
+        Sound playingMusicTrack = musicTracks.FirstOrDefault(s => s.source.isPlaying == true);
+
+        // find the new track and play it
         Sound musicTrack = musicTracks.FirstOrDefault(s => s.soundName == soundName);
-        if (musicTrack != null)
+        if (musicTrack != null && musicTrack?.name != playingMusicTrack?.name)
         {
-            musicTrack.source.Play();
+            // if no track is currently playing, simply start the new track
+            if (playingMusicTrack == null)
+            {
+                musicTrack.source.Play();
+                Debug.Log("Playing sound track (where no previous sounds exist");
+            }
+            // otherwise, track currently is playing. Fade out of the first track
+            else
+            {
+                StartCoroutine(FadeOut(playingMusicTrack.source, musicTrack.source));
+            }
         }
         else
         {
@@ -217,6 +232,23 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private IEnumerator FadeOut(AudioSource audioSrc, AudioSource newSound)
+    {
+        float speed = 0.01f;
+        while (audioSrc.volume > 0)
+        {
+            audioSrc.volume -= speed;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        audioSrc.Stop();
+
+        // reset the music volumes
+        UpdateVolume(musicVolume, musicTracks);
+
+        newSound.Play();
     }
     #endregion
 }

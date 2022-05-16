@@ -21,7 +21,9 @@ public enum EnumSoundName
     PowerUpAppear,
     PowerUpPickUp,
     PowerUpDebuff,
-    PowerUpReady
+    PowerUpReady,
+    MagogFightTheme,
+    BorealFightTheme
 }
 
 // tag names for the power ups
