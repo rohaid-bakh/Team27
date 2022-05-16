@@ -1907,6 +1907,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 842970427, guid: 91c195affd1c74c4787e4be488d416c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873826683144600791, guid: 91c195affd1c74c4787e4be488d416c3,
+        type: 3}
+      propertyPath: shadow
+      value: 
+      objectReference: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943,
+        type: 3}
     - target: {fileID: 1873826683949692241, guid: 91c195affd1c74c4787e4be488d416c3,
         type: 3}
       propertyPath: m_RootOrder
@@ -2461,7 +2471,7 @@ MonoBehaviour:
   baseSpeedModifier: 1
   idleTimeModifier: 1
   playerTransform: {fileID: 604413905}
-  playerCharacter: {fileID: 0}
+  playerCharacter: {fileID: 1873826683144600785}
   chargeSpeedModifier: 2.5
   leftEndPoint: {fileID: 1461824388}
   rightEndPoint: {fileID: 593703838}
@@ -2494,7 +2504,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   shadowSize: 0.552
-  shadow: {fileID: 1873826683144600778}
+  shadow: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943, type: 3}
 --- !u!1 &6033188394450193693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6721430893870066279, guid: b815926481a26524faed079ff955f131,
