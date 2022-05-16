@@ -37,6 +37,8 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
     private bool isAttack = false;
 
     private Rigidbody self;
+    [SerializeField]
+    private AudioManager audio;
 
     void Start()
     {
@@ -83,8 +85,8 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
 
     private IEnumerator DropEgg()
     {
-        Debug.Log("Egg?");
         GameObject eggSpawn = Instantiate(Egg, BorealBody.position, Quaternion.identity);
+        audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
         yield return new WaitForSeconds(1.5f);
         Destroy(eggSpawn); // TODO : could just make a seperate script for eggs to explode when touching the ground
         notSpawn = true;
@@ -183,28 +185,31 @@ public class BorealCharacterController : EnemyCharacterMonoBehaviour
         }
             //make this a for loop
             Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
-            yield return new WaitForSeconds(1f);
-            Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct); 
+            audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
             yield return new WaitForSeconds(1f);
             Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
+            audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
+            yield return new WaitForSeconds(1f);
+            Instantiate(Wave, transform.position, Quaternion.identity).GetComponent<ShockWave>().ProjectileDirection(direct);
+            audio.PlaySoundEffect(EnumSoundName.BorealProjectile);
             yield return new WaitForSeconds(1f);
 
         ShockPoint = shockValue;
         isAttack = false;
     }
 
-    public void returnToOrigin(){
+    public void returnToOrigin(){ // returning everything to the middle of the screen.
         ShockPoint = 0;
         EggPoint = 0;
 
-        transform.position = Vector3.SmoothDamp(transform.position, FlyPoints[0].position, ref vect, .3f);;
+        transform.position = Vector3.SmoothDamp(transform.position, ShockWavePoints[2].position, ref vect, .3f);;
     }
 
     public bool atOrigin(){
-        if(((transform.position.x >= FlyPoints[0].position.x - .2f) && 
-        (transform.position.y >= FlyPoints[0].position.y - .2f)) || 
-        ((transform.position.x <= FlyPoints[0].position.x + .2f)&& 
-        (transform.position.y >= FlyPoints[0].position.y - .2f))){
+        if(((transform.position.x >= ShockWavePoints[2].position.x - .2f) && 
+        (transform.position.y >= ShockWavePoints[2].position.y - .2f)) || 
+        ((transform.position.x <= ShockWavePoints[2].position.x + .2f)&& 
+        (transform.position.y >= ShockWavePoints[2].position.y - .2f))){
             return true;
         } else {
             return false;

@@ -350,6 +350,47 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
         type: 3}
+      propertyPath: soundEffects.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: a76006220b84b5b4da899b8b06b00dfb,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: a6c7507f29cf7394e9e2a2ffae7cee58,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 10a5c390d8eb71340ba4e33414386782,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[8]
+      value: 
+      objectReference: {fileID: 11400000, guid: e0efca15113ec4e41b1c023d34e68081,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[9]
+      value: 
+      objectReference: {fileID: 11400000, guid: 690ae41003edecc4da73e47a7fccdc3e,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
+      propertyPath: soundEffects.Array.data[10]
+      value: 
+      objectReference: {fileID: 11400000, guid: 690ae41003edecc4da73e47a7fccdc3e,
+        type: 2}
+    - target: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+        type: 3}
       propertyPath: musicTracks.Array.data[0].volume
       value: 0.688
       objectReference: {fileID: 0}
@@ -856,7 +897,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561416921}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: dfd78c7bc866b1b4abff2179900a4fc5, type: 2}
   m_CullingMode: 0
@@ -1035,6 +1076,18 @@ Transform:
   m_Father: {fileID: 243754704}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &877326867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 529137086541382441, guid: 3ac8a0b71bb27bb4f9be36c282fcb5d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 301157343}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5a19b16a9265c04ebd8902fd8753900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &877751763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1232,6 +1285,7 @@ GameObject:
   - component: {fileID: 4374285656981249159}
   - component: {fileID: 5906745521837652259}
   - component: {fileID: 5906745521837652260}
+  - component: {fileID: 5906745521837652261}
   m_Layer: 3
   m_Name: Borealis Enemy
   m_TagString: Damage
@@ -2509,7 +2563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9882b943ec3f07444ae53f6baa0ee72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 11400000, guid: 6f16c49d31c18e6448c84942be080f39, type: 2}
+  stat: {fileID: 11400000, guid: 01083481e4f8d6e45b55dcc086ff919c, type: 2}
   healthbar: {fileID: 1217842042}
 --- !u!114 &5906745521837652259
 MonoBehaviour:
@@ -2544,6 +2598,7 @@ MonoBehaviour:
   - {fileID: 847706379}
   - {fileID: 636085129}
   PlayerPoint: {fileID: 1873826683144600779}
+  audio: {fileID: 877326867}
 --- !u!114 &5906745521837652260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2556,3 +2611,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3bf4f5f03f27af49acfcdbd46504f4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notDead: 1
+--- !u!114 &5906745521837652261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905086811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa615d7a405eff4ebe1c66a0a4ad9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 561416927}

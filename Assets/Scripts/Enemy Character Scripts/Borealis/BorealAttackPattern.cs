@@ -8,7 +8,7 @@ public class BorealAttackPattern : MonoBehaviour
     private int attackCount = 0;
     private bool isAttack = false;
     private bool returnOrigin = false;
-    
+    public bool notDead = true;
 
     void Awake()
     {
@@ -18,6 +18,7 @@ public class BorealAttackPattern : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (notDead){
         if(returnOrigin){
             cont.returnToOrigin();
             if(cont.atOrigin()){
@@ -58,6 +59,7 @@ public class BorealAttackPattern : MonoBehaviour
             StartCoroutine(startTimer(attackCount, "egg"));
         } else if ((attackCount == 4 && isAttack) && !returnOrigin){
             cont.FlyEgg();
+        }
         }
         
     }
