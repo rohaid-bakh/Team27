@@ -276,7 +276,6 @@ GameObject:
   - component: {fileID: 1873826683949692265}
   - component: {fileID: 1964360969489657525}
   - component: {fileID: 4001138840001509829}
-  - component: {fileID: 1873826683144600791}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -379,7 +378,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpPower: 8
-  fallModifier: 2
+  fallMultiplier: 3
+  lowJumpMultiplier: 2
   groundPoint: {fileID: 1873826683334567515}
   distanceToGround: 0.1
   whatIsGround:
@@ -415,25 +415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 1873826683949692246}
---- !u!114 &1873826683144600791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873826683949692255}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d159d7228f607b2459e08536aceb9ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadowPrefab: {fileID: 5864360081827775220, guid: 814629e3c0e298e47aba1fca5f45a943,
-    type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  shadowSize: 0.5
-  shadow: {fileID: 0}
 --- !u!1 &1873826684168096223
 GameObject:
   m_ObjectHideFlags: 0

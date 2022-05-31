@@ -13,7 +13,8 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     // movement
     [SerializeField] public float moveSpeed = 2f;
     [SerializeField] public float jumpPower = 5;
-    [SerializeField] float fallModifier = 2f; //how fast to fall after jumping
+    [SerializeField] float fallMultiplier = 3f; //how fast to fall after jumping
+    [SerializeField] float lowJumpMultiplier = 2f; // when we release jump button early for low jump
     Vector2 moveInput = new Vector2();
 
     // ground check
@@ -292,10 +293,15 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public virtual void HandleFallVelocity()
     {
         // if falling
-        if(rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0.5)
+        if (rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0.5)
         {
             // falls faster
-            rigidBody.velocity += (Vector3.up * Physics.gravity.y * fallModifier * Time.deltaTime);
+            rigidBody.velocity += (Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime));
+        }
+        // if player is jumping and they release the jump button before reaching the max height, start falling
+        else if (rigidBody.velocity.y > 0 && !Keyboard.current[Key.Space].isPressed && !Keyboard.current[Key.W].isPressed && !Keyboard.current[Key.UpArrow].isPressed)
+        {
+            rigidBody.velocity += (Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime));
         }
     }
 
