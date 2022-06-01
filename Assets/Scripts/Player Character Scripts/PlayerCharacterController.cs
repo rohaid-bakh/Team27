@@ -82,11 +82,8 @@ public class PlayerCharacterController : CharacterMonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (value.isPressed)
-        {
-            if (PauseMenu.GamePaused != true && canControlPlayer)
-                Jump();
-        }
+        if (PauseMenu.GamePaused != true && canControlPlayer)
+            Jump();
     }
 
     void OnAttack1(InputValue value)
@@ -100,6 +97,12 @@ public class PlayerCharacterController : CharacterMonoBehaviour
                 attackCoolDownTimer = attackCoolDownTime;
             }
         }
+    }
+    
+    void OnDash()
+    {
+        if (PauseMenu.GamePaused != true && canControlPlayer)
+            StartDash();
     }
     #endregion
 

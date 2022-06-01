@@ -10,14 +10,24 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 {
-    // movement
+    [Header("Movement")]
     [SerializeField] public float moveSpeed = 2f;
     [SerializeField] public float jumpPower = 5;
     [SerializeField] float fallMultiplier = 3f; //how fast to fall after jumping
     [SerializeField] float lowJumpMultiplier = 2f; // when we release jump button early for low jump
     Vector2 moveInput = new Vector2();
 
+    [Header("Dash")]
+    [SerializeField] float dashSpeed = 1f;
+    [SerializeField] float startDashTime = 1f;
+    [SerializeField] float dashCoolDown = 1f;
+    [SerializeField] TrailRenderer dashTrailRenderer;
+    float dashTime;
+    bool isDashing = false;
+    bool canDash = true;
+
     // ground check
+    [Header("Ground Checks")]
     [SerializeField] Transform groundPoint; // set a transform point on the character where the ground is
     [SerializeField] float distanceToGround = 0.1f; // how close should the groundPoint be to the ground, to be considered "grounded"
     [SerializeField] LayerMask whatIsGround; // set the ground layer mask
@@ -52,6 +62,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     void FixedUpdate()
     {
         Move();
+        Dash();
         HandleFallVelocity();
         currentState.OnUpdate(this);
         SetAnimation();
@@ -88,6 +99,29 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     /// To make the character jump
     /// </summary>
     public virtual void Jump() => currentState.Jump(this);
+
+    /// <summary>
+    /// To make the character dash
+    /// </summary>
+    public virtual void StartDash()
+    {
+        if (!isDashing && canDash)
+        {
+            canDash = false;
+
+            isDashing = true;
+
+            dashTime = startDashTime;
+
+            // dash effect
+            dashTrailRenderer.emitting = true;
+
+            //dash cooldown
+            Invoke("SetCanDashTrue", dashCoolDown);
+
+            //play audio ?
+        }
+    }
 
     /// <summary>
     /// When the character takes damage
@@ -147,6 +181,31 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
 
     // these are helper functions that are just used for this class. If you inherit the class you can ignore these
     #region Helper functions
+    void Dash()
+    {
+        if (!isDashing) return;
+        if (dashTime <= 0)
+        {
+            isDashing = false;
+            dashTime = startDashTime;
+
+            // stop dash trail effect
+            dashTrailRenderer.emitting = false;
+        }
+        else
+        {
+            dashTime -= Time.deltaTime;
+
+            float direction = Mathf.Sign(transform.localScale.x);
+            rigidBody.velocity = new Vector3(direction * dashSpeed, rigidBody.velocity.y, rigidBody.velocity.x);
+
+        }
+    }
+
+    void SetCanDashTrue()
+    {
+        canDash = true;
+    }
 
     // this function will draw a sphere in the scene view to see if player is grounded (if touches the ground layer, then it is considered grounded)
     private void OnDrawGizmos()
@@ -293,7 +352,7 @@ public class CharacterMonoBehaviour : MonoBehaviour, ICharacterContext
     public virtual void HandleFallVelocity()
     {
         // if falling
-        if (rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0.5)
+        if (rigidBody.velocity.y != 0 && rigidBody.velocity.y < 0)
         {
             // falls faster
             rigidBody.velocity += (Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime));
