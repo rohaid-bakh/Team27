@@ -522,7 +522,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   dashSpeed: 30
-  startDashTime: 0.15
+  startDashTime: 0.1
   dashCoolDown: 1
   dashTrailRenderer: {fileID: 1764407402}
   groundPoint: {fileID: 1873826683334567515}
